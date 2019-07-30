@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import Toolbar from '../components/Toolbar'
-import Drawer from '../components/Drawer'
-import Footer from '../components/Footer'
+import Toolbar from '../components/core/Toolbar'
+import Drawer from '../components/core/Drawer'
+import Footer from '../components/core/Footer'
 export default {
   data () {
     return {
@@ -18,8 +18,8 @@ export default {
   },
   components: {
     Drawer,
-    Toolbar
+    Toolbar,
+    Footer
   }
 }
 </script> 
- 

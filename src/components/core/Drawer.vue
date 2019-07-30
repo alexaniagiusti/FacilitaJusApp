@@ -58,12 +58,17 @@
 <script>
   export default {
     data: () => ({
-      drawer: null,
       items: [
+        { icon: 'account_circle', text: 'Editar Perfil', to: '/home/editarperfil' },
         { icon: 'account_circle', text: 'Editar Perfil', to: '/home/editarperfil' },
         //caso queira um divider -> { divider: true },
       ]
     }),
+    computed: {
+      drawer() {
+        return this.$store.getters.drawer
+      }
+    },
     props: {
       source: String
     }

@@ -3,7 +3,9 @@ import Router from 'vue-router';
 import Login from './pages/Login.vue';
 import Home from './pages/Home.vue'
 import Cadastro from './pages/Cadastro.vue'
-import EditarPerfil from './pages/Perfil.vue'
+
+import Usuario from './pages/usuario/Index.vue'
+import Diligencias from './pages/diligencias/Index.vue'
 
 Vue.use(Router);
 
@@ -21,9 +23,14 @@ export default new Router({
       component: Home,
       children: [
         {
-          path: '/home/editarperfil',
-          name: 'Editar Perfil',
-          component: EditarPerfil
+          path: '/home/usuario',
+          name: 'Usuario',
+          component: Usuario
+        },
+        {
+          path: '/home/diligencias',
+          name: 'Diligencias',
+          component: Diligencias
         }
       ]
     },
