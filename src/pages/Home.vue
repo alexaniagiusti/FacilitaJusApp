@@ -1,9 +1,9 @@
 <template>
-  <div style="display:flex; width:100%; height:100vh">
+  <v-app style="display:flex; width:100%; height:100vh">
     <Toolbar />
     <Drawer />
     <Footer />
-  </div>
+  </v-app>
 </template>
 
 <script>

@@ -8,46 +8,78 @@
       class="grey lighten-4"
       app
     >
-      <v-list
-        dense
-        class="grey lighten-4"
-      >
-        <template v-for="(item, i) in items">
-          <v-layout
-            v-if="item.heading"
-            :key="i"
-            row
-            align-center
-          >
-            <v-flex xs12>
-              <v-subheader v-if="item.heading">
-                {{ item.heading }}
-              </v-subheader>
-            </v-flex>
-          </v-layout>
-          <v-divider
-            v-else-if="item.divider"
-            :key="i"
-            dark
-            class="my-3"
-          ></v-divider>
-          <v-list-tile
-            v-else
-            class="ml-2"
-            :key="i"
-            :to="item.to"
-          >
-            <v-list-tile-action>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title class="grey--text">
-                {{ item.text }}
+    <!-- Grupo com informações do perfil do usuário -->
+    <v-list-group>
+          <template v-slot:activator>
+            <v-list-tile>
+              <v-avatar>
+                <v-icon>account_circle</v-icon>
+              </v-avatar>
+              <v-list-tile-title>
+                Perfil
               </v-list-tile-title>
-            </v-list-tile-content>
+            </v-list-tile>
+          </template>
+          <v-list-tile to="/home/usuario">
+            <v-list-tile-title class="pl-3 ml-4">
+              Atualizar Perfil
+            </v-list-tile-title>
           </v-list-tile>
-        </template>
-      </v-list>
+          <v-list-tile to="/">
+            <v-list-tile-title class="pl-3 ml-4">
+              Serviços Atendidos
+            </v-list-tile-title>
+          </v-list-tile>
+          <v-list-tile to="/">
+            <v-list-tile-title class="pl-3 ml-4">
+              Cidades Atendidas
+            </v-list-tile-title>
+          </v-list-tile>
+          <v-list-tile to="/">
+            <v-list-tile-title class="pl-3 ml-4">
+              Áreas de atuação
+            </v-list-tile-title>
+          </v-list-tile>
+          <v-list-tile to="/">
+            <v-list-tile-title class="pl-3 ml-4">
+              Senha
+            </v-list-tile-title>
+          </v-list-tile>
+        </v-list-group>
+
+        <v-list-group>
+          <template v-slot:activator>
+            <v-list-tile>
+              <v-avatar>
+                <v-icon>work</v-icon>
+              </v-avatar>
+              <v-list-tile-title>
+                Diligências
+              </v-list-tile-title>
+            </v-list-tile>
+          </template>
+          <v-list-tile to="/">
+            <v-list-tile-title class="pl-3 ml-4">
+              Cadastrar Diligência
+            </v-list-tile-title>
+          </v-list-tile>
+          <v-list-tile to="/">
+            <v-list-tile-title class="pl-3 ml-4">
+              Visualizar Diligências
+            </v-list-tile-title>
+          </v-list-tile>
+          <v-list-tile to="/">
+            <v-list-tile-title class="pl-3 ml-4">
+              Chat de Diligência
+            </v-list-tile-title>
+          </v-list-tile>
+          <v-list-tile to="/">
+            <v-list-tile-title class="pl-3 ml-4">
+              Pagar Diligência
+            </v-list-tile-title>
+          </v-list-tile>
+        </v-list-group>
+
     </v-navigation-drawer>
     <v-content>
       <router-view></router-view>
@@ -58,11 +90,7 @@
 <script>
   export default {
     data: () => ({
-      items: [
-        { icon: 'account_circle', text: 'Editar Perfil', to: '/home/editarperfil' },
-        { icon: 'account_circle', text: 'Editar Perfil', to: '/home/editarperfil' },
-        //caso queira um divider -> { divider: true },
-      ]
+
     }),
     computed: {
       drawer() {
