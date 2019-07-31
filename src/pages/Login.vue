@@ -9,7 +9,7 @@
         account_balance
       </v-icon>
     </div>
-    <span class="font-weight-thin headline white--text"> Central de Oportunidades</span>
+    <span class="font-weight-thin headline white--text"> FacilitaJus</span>
       <v-card light class=" pa-1 ma-1" style="width: 330px;border-radius: 8px; opacity: 0.9">
         <v-flex xs12 class="pa-2">
           <v-flex xs12>
