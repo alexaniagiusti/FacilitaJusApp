@@ -15,6 +15,7 @@ import CidadesAtendidas from '../../components/usuario/CidadesAtendidas'
 import Senha from '../../components/usuario/Senha'
 import ServicosAtendidos from '../../components/usuario/ServicosAtendidos'
 
+
 export default {
   components: {
     Atualizar,
