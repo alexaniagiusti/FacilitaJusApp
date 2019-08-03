@@ -1,8 +1,8 @@
 <template>
-  <v-app>
-    <router-view></router-view>
+  <v-app app>
     <SnackbarSuccess/>
     <SnackbarError/>
+    <router-view></router-view>
   </v-app>
 </template>
 
@@ -28,4 +28,17 @@ export default {
   .snack {
     animation-duration: 600ms;
   }
+  .expandeDiv {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .linhaSemQuebra {
+    display: flex;
+    width: 100%;
+    flex-wrap: nowrap;
+    align-items: center;
+    height: 50px;
+  }
+
 </style>

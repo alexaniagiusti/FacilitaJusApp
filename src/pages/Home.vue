@@ -1,7 +1,10 @@
 <template>
-  <v-app style="display:flex; width:100%; height:100vh">
+  <v-app>
     <Toolbar />
     <Drawer />
+    <v-content>
+      <router-view></router-view>
+    </v-content>
     <Footer />
   </v-app>
 </template>
@@ -23,3 +26,4 @@ export default {
   }
 }
 </script> 
+ 

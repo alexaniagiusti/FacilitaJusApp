@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     drawer: true,
+    nomeDoApp: 'FacilitaJus',
     snackbar_error: {
       mostrar: false,
       mensagem: ''
@@ -59,6 +60,9 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    nomeDoApp(state) {
+      return state.nomeDoApp
+    },
     drawer(state) {
       return state.drawer
     },

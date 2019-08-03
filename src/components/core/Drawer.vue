@@ -1,5 +1,4 @@
 <template>
-  <div id="keep">
     <v-navigation-drawer
       v-model="drawer"
       fixed
@@ -9,6 +8,8 @@
       app
     >
     <!-- Grupo com informações do perfil do usuário -->
+      <v-list class="pa-0 ma-0">
+
     <v-list-group>
           <template v-slot:activator>
             <v-list-tile>
@@ -20,29 +21,24 @@
               </v-list-tile-title>
             </v-list-tile>
           </template>
-          <v-list-tile to="/home/usuario">
+          <v-list-tile to="/home/usuario/atualizar">
             <v-list-tile-title class="pl-3 ml-4">
               Atualizar Perfil
             </v-list-tile-title>
           </v-list-tile>
-          <v-list-tile to="/">
+          <v-list-tile to="/home/usuario/servicos-atendidos">
             <v-list-tile-title class="pl-3 ml-4">
               Serviços Atendidos
             </v-list-tile-title>
           </v-list-tile>
-          <v-list-tile to="/">
+          <v-list-tile to="/home/usuario/cidades-atendidas">
             <v-list-tile-title class="pl-3 ml-4">
               Cidades Atendidas
             </v-list-tile-title>
           </v-list-tile>
-          <v-list-tile to="/">
+          <v-list-tile to="/home/usuario/areas-de-atuacao">
             <v-list-tile-title class="pl-3 ml-4">
               Áreas de atuação
-            </v-list-tile-title>
-          </v-list-tile>
-          <v-list-tile to="/">
-            <v-list-tile-title class="pl-3 ml-4">
-              Senha
             </v-list-tile-title>
           </v-list-tile>
         </v-list-group>
@@ -79,26 +75,16 @@
             </v-list-tile-title>
           </v-list-tile>
         </v-list-group>
-
+      </v-list>
     </v-navigation-drawer>
-    <v-content>
-      <router-view></router-view>
-    </v-content>
-  </div>
 </template>
 
 <script>
   export default {
-    data: () => ({
-
-    }),
     computed: {
       drawer() {
         return this.$store.getters.drawer
       }
-    },
-    props: {
-      source: String
     }
   }
 </script>

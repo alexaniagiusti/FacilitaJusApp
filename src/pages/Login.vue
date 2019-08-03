@@ -9,7 +9,7 @@
         account_balance
       </v-icon>
     </div>
-    <span class="font-weight-thin headline white--text"> FacilitaJus</span>
+    <span class="font-weight-thin headline white--text"> {{ nomeDoApp }} </span>
       <v-card light class=" pa-1 ma-1" style="width: 330px;border-radius: 8px; opacity: 0.9">
         <v-flex xs12 class="pa-2">
           <v-flex xs12>
@@ -116,7 +116,6 @@
 </template>
 
 <script>
-import { auth, db } from '../services/Firebase'
 import Moment from 'moment'
 import 'moment/locale/pt-br'
 import axios from 'axios'
@@ -136,22 +135,42 @@ export default {
       carregandoLogin: false
     }
   },
+  computed: {
+    nomeDoApp() {
+      return this.$store.getters.nomeDoApp
+    }
+  },
   methods: {
-   async login () {
-     const email = this.email
-     const senha = this.senha
-     const data = {
-       email:email,
-       senha:senha
-     }
-     await axios.post('https://central-oportunidades.herokuapp.com/api/v1/login',data)
-      .then( () => {
-        alert ('Sucesso')
+    enviaLinkRecuperacaoDeSenha() {
+
+    },
+    login () {
+      this.carregandoLogin = true
+      const email = this.email
+      const senha = this.senha
+      
+      const data = {
+        email:email,
+        password:senha
+      }
+      
+      const headers= {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json'
+      }
+
+      axios.post('https://central-oportunidades.herokuapp.com/api/v1/login', data, headers)
+      .then((res) => {
+        this.carregandoLogin = false
+        const usuario = JSON.stringify(res.data.user)
+        sessionStorage.usuario = usuario
+        sessionStorage.token = res.data.user.token
         this.$router.push('/home')
       })
       .catch ( (err) => {
-        alert ('Algo errado, verifique suas informações e tente novamente'+err.message)
+        this.$store.dispatch('snackbar_error', err)
       })
+      this.carregandoLogin = true
    }
   },
   created() {
