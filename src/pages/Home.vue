@@ -1,6 +1,5 @@
 <template>
   <v-app>
-    <Toolbar />
     <Drawer />
     <v-content>
       <router-view></router-view>
@@ -10,7 +9,6 @@
 </template>
 
 <script>
-import Toolbar from '../components/core/Toolbar'
 import Drawer from '../components/core/Drawer'
 import Footer from '../components/core/Footer'
 export default {
@@ -21,7 +19,6 @@ export default {
   },
   components: {
     Drawer,
-    Toolbar,
     Footer
   }
 }

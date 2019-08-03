@@ -165,7 +165,7 @@ export default {
         const usuario = JSON.stringify(res.data.user)
         sessionStorage.usuario = usuario
         sessionStorage.token = res.data.user.token
-        this.$router.push('/home')
+        this.$router.push('/home/usuario/atualizar')
       })
       .catch ( (err) => {
         this.$store.dispatch('snackbar_error', err)

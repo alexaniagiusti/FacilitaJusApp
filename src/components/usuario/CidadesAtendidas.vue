@@ -5,6 +5,7 @@
         <h3 class="text-xs-center">Cidades Atendidas</h3>
       </v-toolbar>
     </v-flex>
+    {{ itemsSelecionados }}
     <v-layout justify-center>
       <v-flex class="pa-2" xs12>
         <v-card class="arredondaBorda">
@@ -52,6 +53,35 @@ export default {
     }
   },
   methods: {
+    pegaItemsSeecionados() {
+      const token = sessionStorage.token
+
+      const recuperaLogin = JSON.parse(sessionStorage.usuario)
+      const id = recuperaLogin.id
+
+      const headers= {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+      axios.get('https://central-oportunidades.herokuapp.com/api/v1/users/cities/' + id, headers)
+        .then(res => {
+          const ids_marcados = res.data.cities
+          const todos = this.items
+          let itemsMarcados = []
+
+          todos.map(item => {
+            ids_marcados.map(i => {
+              if(i.id === item.id) {
+                itemsMarcados.push(item)
+              }
+            })
+          })
+
+          this.itemsSelecionados = itemsMarcados
+
+        })
+    },
     pegaDados() {
       const token = sessionStorage.token
 
@@ -63,6 +93,7 @@ export default {
       axios.get('https://central-oportunidades.herokuapp.com/api/v1/cities', headers)
         .then(res => {
           this.items = res.data
+          this.pegaItemsSeecionados()
         })
     },
     salvar() {
@@ -75,7 +106,7 @@ export default {
       const itemsSelecionados = this.itemsSelecionados
       itemsSelecionados.map(item => service_id.push(item.id))
 
-      const atualizacao = {
+      const data = {
         city_id: service_id
       }
 
@@ -85,7 +116,7 @@ export default {
         'Authorization': `Bearer ${token}`
       }
 
-      axios.put('https://central-oportunidades.herokuapp.com/api/v1/cities/' + id, atualizacao, headers)
+      axios.put('https://central-oportunidades.herokuapp.com/api/v1/users/cities/' + id, data, headers)
       .then((res) => {
         this.carregandoSalvar = false
         this.$store.dispatch('snackbar_success', 'Atualizado Com Sucesso!.')

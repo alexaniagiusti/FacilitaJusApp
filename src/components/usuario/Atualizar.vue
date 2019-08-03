@@ -6,8 +6,8 @@
       </v-toolbar>
     </v-flex>
     <v-layout justify-center>
-      <v-flex class="pa-2" xs12>
-        <v-card class="arredondaBorda">
+      <v-flex xs12>
+        <v-card class="pa-2">
           <div class="expandeDiv">
             <v-flex xs12>
               <v-flex xs12>
