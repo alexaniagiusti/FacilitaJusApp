@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.4797b84850b276dbad269d440cf2da1c.js"
+  "/precache-manifest.d27ef368e80be187b34c3aaed1f06735.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "new-cru"});

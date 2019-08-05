@@ -1,11 +1,49 @@
 <template>
-  <div class="expandeDiv">
+  <div class="expandeDiv" style="flex-direction: column">
     <v-flex xs12 >
       <v-toolbar dense class="elevation-3">
-        <h3 class="text-xs-center">Serviços Atendidos</h3>
+        <div class="linhaSemQuebra">
+          <h3 class="text-xs-center">Serviços Atendidos</h3>
+          <v-spacer></v-spacer>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+              <v-btn v-on="on" flat to="/home/usuario/cidades-atendidas" icon>
+                <v-icon class="animated delay-2s infinite pulse" color="green">
+                  arrow_forward
+                </v-icon>
+              </v-btn>
+            </template>
+            <span>Cidades Atendidas</span>
+          </v-tooltip>
+        </div>
       </v-toolbar>
     </v-flex>
-    {{ itemsSelecionados }}
+    <v-layout>
+      <v-flex xs12>  
+        <v-list pa-0 ma-0>
+          <template v-for="(servicoAtendido, index) in itemsSelecionados">
+            <v-list-tile @click="" :key="servicoAtendido.service">
+              <v-avatar class="ml-1">
+                <v-icon color="green">done</v-icon>
+              </v-avatar>
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  {{ servicoAtendido.service }}
+                </v-list-tile-title>
+              </v-list-tile-content>
+              <v-list-tile-action>
+                <v-btn color="red" icon @click="removeItem(servicoAtendido.id)">
+                  <v-icon size="18" color="white">
+                    delete
+                  </v-icon>
+                </v-btn>
+              </v-list-tile-action>
+            </v-list-tile>
+            <v-divider :key="index"></v-divider>
+          </template>
+        </v-list>
+      </v-flex>
+    </v-layout>
     <v-layout justify-center>
       <v-flex class="pa-2" xs12>
         <v-card class="arredondaBorda">
@@ -20,7 +58,6 @@
               label="Serviços Atendidos"
               :multiple="true"
               :small-chips="true"
-              :clearable="true"
             />
 
           </div>
@@ -30,9 +67,6 @@
             <v-btn @click="salvar" block color="green" class="white--text mr-2">Salvar
               <v-icon color="white" size="18" class="ml-1">save</v-icon>
               <v-progress-circular class="ml-1" indeterminate size="18" color="white" v-if="carregandoSalvar"></v-progress-circular>
-            </v-btn>
-            <v-btn to="/home/usuario/cidades-atendidas" block color="green" class="white--text">Ir Para Cidades Atendidas
-              <v-icon color="white" class="ml-1">arrow_forward</v-icon>
             </v-btn>
           </div>
         </v-flex>
@@ -53,6 +87,19 @@ export default {
     }
   },
   methods: {
+    removeItem(id) {
+      const selecionados = this.itemsSelecionados
+      let novos = []
+
+      selecionados.map(item => {
+        if(item.id === id) {
+        } else {
+          novos.push(item)
+        }
+      })
+
+      this.itemsSelecionados = novos
+    },
     pegaItemsSeecionados() {
       const token = sessionStorage.token
 
