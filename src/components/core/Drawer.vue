@@ -21,9 +21,9 @@
           </div>
           <h3 class="text-uppercase white--text">{{ nome }}</h3>
           
-          <v-avatar color="white" v-if="masculino" size="70"> 
+          <v-avatar style="bottom: -28px" color="white" v-if="masculino" size="70"> 
             <v-img
-              style="border: 5px solid #444; bottom: -28px"
+              style="border: 6px solid #fff;"
               src="https://firebasestorage.googleapis.com/v0/b/centraldeoportunidades-de3a9.appspot.com/o/avatar.png?alt=media&token=51d40592-131a-4f3c-939c-b08fc1613842"
             ></v-img>
           </v-avatar>
@@ -35,9 +35,9 @@
             ></v-img>
           </v-avatar>
 
-          <v-avatar v-if="semSexo" size="70"> 
+          <v-avatar style="bottom: -28px" v-if="semSexo" size="70"> 
             <v-img
-              style="border: 5px solid #444; bottom: -28px"
+              style="border: 6px solid #fff;"
               src="https://firebasestorage.googleapis.com/v0/b/moneycareinvestment-01.appspot.com/o/cartoon-avatar.jpeg?alt=media&token=77a0ead3-2eff-41f0-a450-746368eac5e3"
             ></v-img>
           </v-avatar>
