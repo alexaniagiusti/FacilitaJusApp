@@ -4,7 +4,7 @@
   >
     <div class="footer">
       <v-spacer>  </v-spacer>
-      {{ new Date().getFullYear() }} — Central de Oportunidades
+      {{ new Date().getFullYear() }} — FacilitaJus
     </div>
   </v-footer>
 </template>

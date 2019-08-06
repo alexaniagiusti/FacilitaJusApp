@@ -128,7 +128,7 @@ export default {
         'Authorization': `Bearer ${token}`
       }
       console.log('id: ' + id)
-      axios.put('https://central-oportunidades.herokuapp.com/api/v1/users/' + id, atualizacao, headers)
+      axios.put('https://facilita-jus-api.herokuapp.com/api/v1/users/' + id, atualizacao, headers)
       .then((res) => {
         this.$store.dispatch('snackbar_success', 'Dados Atualizados.')
         sessionStorage.usuario = JSON.stringify(this.perfil)

@@ -6,6 +6,7 @@ import Cadastro from './pages/Cadastro.vue'
 
 import Usuario from './pages/Usuario'
 import Diligencias from './pages/Diligencias'
+import DiligenciasGerais from './components/diligencias/Diligencias.vue'
 
 //usuarios
 import Atualizar from './components/usuario/Atualizar'
@@ -13,16 +14,7 @@ import AreasDeAtuacao from './components/usuario/AreasDeAtuacao'
 import CidadesAtendidas from './components/usuario/CidadesAtendidas'
 import ServicosAtendidos from './components/usuario/ServicosAtendidos'
 
-//Visualização de diligencias
-import DiligenciasEnviadas from './components/diligencias/visualizarDiligencias/DiligenciasEnviadas'
-import DiligenciasRespondidas from './components/diligencias/visualizarDiligencias/DiligenciasRespondidasPeloUsuario'
-import DiligenciasPorUsuario from './components/diligencias/visualizarDiligencias/DiligenciasPorUsuario'
-import ListarDiligencias from './components/diligencias/visualizarDiligencias/ListarDiligencias'
 
-//Diligencias
-import CadastrarDiligencia from './components/diligencias/CadastrarDiligencias'
-import ChatDeDiligencias from './components/diligencias/ChatDeDiligencias'
-import PegarDiligencia from './components/diligencias/PagarDiligencias'
 
 Vue.use(Router);
 
@@ -69,7 +61,14 @@ export default new Router({
         {
           path: '/home/diligencias',
           name: 'Diligencias',
-          component: Diligencias
+          component: Diligencias,
+          children: [
+            {
+              path: '/home/diligencias/geral',
+              name: 'Todas as Diligências',
+              component: DiligenciasGerais
+            }
+          ]
         }
       ]
     },

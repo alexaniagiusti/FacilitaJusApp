@@ -42,16 +42,16 @@
             ></v-img>
           </v-avatar>
         </div>
-        
+
       </v-card>
     <!-- Grupo com informações do perfil do usuário -->
       <v-list class="pa-0 mt-0">
         <v-subheader class="ml-3">
           INÍCIO
         </v-subheader>
-    <v-list-group>
+          <v-list-group>
           <template v-slot:activator>
-            <v-list-tile>
+            <v-list-tile to="/home/usuario/atualizar">
               <v-avatar>
                 <v-icon>account_circle</v-icon>
               </v-avatar>
@@ -60,11 +60,6 @@
               </v-list-tile-title>
             </v-list-tile>
           </template>
-          <v-list-tile to="/home/usuario/atualizar">
-            <v-list-tile-title class="pl-3 ml-4">
-              Atualizar Perfil
-            </v-list-tile-title>
-          </v-list-tile>
           <v-list-tile to="/home/usuario/servicos-atendidos">
             <v-list-tile-title class="pl-3 ml-4">
               Serviços Atendidos
@@ -84,36 +79,35 @@
 
         <v-list-group>
           <template v-slot:activator>
-            <v-list-tile>
+            <v-list-tile to="/home/diligencias/geral">
               <v-avatar>
                 <v-icon>work</v-icon>
               </v-avatar>
-              <v-list-tile-title>
+              <v-list-tile-title to="">
                 Diligências
               </v-list-tile-title>
             </v-list-tile>
           </template>
           <v-list-tile to="/">
             <v-list-tile-title class="pl-3 ml-4">
-              Cadastrar Diligência
+              Diligências Enviadas
             </v-list-tile-title>
           </v-list-tile>
           <v-list-tile to="/">
             <v-list-tile-title class="pl-3 ml-4">
-              Visualizar Diligências
-            </v-list-tile-title>
-          </v-list-tile>
-          <v-list-tile to="/">
-            <v-list-tile-title class="pl-3 ml-4">
-              Chat de Diligência
-            </v-list-tile-title>
-          </v-list-tile>
-          <v-list-tile to="/">
-            <v-list-tile-title class="pl-3 ml-4">
-              Pagar Diligência
+              Diligências Recebidas
             </v-list-tile-title>
           </v-list-tile>
         </v-list-group>
+
+        <v-list-tile to="/">
+            <v-avatar>
+              <v-icon>power_settings_new</v-icon>
+            </v-avatar>
+            <v-list-tile-title>
+              SAIR
+            </v-list-tile-title>
+          </v-list-tile>
       </v-list>
     </v-navigation-drawer>
   </div>

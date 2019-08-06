@@ -13,10 +13,10 @@
         v-flex(xs12)
           v-form(ref="cadastroForm")
             v-text-field(color="#000"  label="Data de entrada" v-model="dataDoCadastro" disabled)
-            v-text-field(color="#000"  clearable :rules="[v => !!v || 'Este campo deve ser preenchido']" label="Nome" v-model="nome")
-            v-text-field(color="#000"  clearable :rules="[v => !!v || 'Este campo deve ser preenchido']" label="CPF" mask="###.###.###-##" v-model="cpf")
+            v-text-field(color="#000"  clearable :rules="[v => !!v || 'Este campo deve ser preenchido']" label="Nome" v-model="name")
+            v-text-field(color="#000" mask="###.###.###-##" clearable :rules="[v => !!v || 'Este campo deve ser preenchido']" label="CPF" v-model="cpf")
             v-text-field(color="#000"  clearable :rules="[v => !!v || 'Este campo deve ser preenchido']" label="E-mail" v-model="email")
-            v-text-field(color="#000"  clearable :rules="[v => !!v || 'Este campo deve ser preenchido']" type="password" label="Senha" v-model="senha")
+            v-text-field(color="#000"  clearable :rules="[v => !!v || 'Este campo deve ser preenchido']" type="password" label="Senha" v-model="password")
 
             v-btn(block flat class="indigo darken-4 mt-5" @click.prevent="cadastraUsuario" class="white--text font-weight-medium" ) Cadastrar
               v-progress-circular(v-if="carregandoCadastrar" indeterminate)
@@ -24,6 +24,7 @@
 
 
 <script>
+import axios from 'axios'
 import Moment from 'moment'
 import 'moment/locale/pt-br'
 
@@ -33,11 +34,10 @@ export default {
   ],
   data () {
     return {
-      nome: '',
-      dataDoCadastro: '',
+      name: '',
       cpf: '',
       email: '',
-      senha: '',
+      password: '',
       carregandoCadastrar: false
     }
   },
@@ -45,11 +45,31 @@ export default {
     cadastraUsuario() {
       if(this.$refs.cadastroForm.validate()) {
         this.carregandoCadastrar = true
-        auth.createUserWithEmailAndPassword(this.email, this.senha).then(
-          res => {
-            this.cadastraFicha(res.user.uid)
-          }
-        )
+
+        const name = this.name
+        const email = this.email
+        const password = this.password
+        const cpf = this.cpf
+
+        const data = {
+          name: name,
+          email: email,
+          password: password,
+          cpf: cpf
+        }
+
+        const headers= {
+        'Content-Type': 'application/json'
+        }
+
+        axios.post('https://facilita-jus-api.herokuapp.com/api/v1/users', data, headers)
+        .then(res => {
+          this.$store.dispatch('snackbar_success', 'Cadastrado com sucesso!')
+          this.$router.push('/')
+        })
+        .catch((erro) => {
+          this.$store.dispatch('snackbar_error', 'Erro ao cadastrar: ' + erro)
+        })
       } else {
         this.$store.dispatch("SNACKBAR_ERROR", "Preencha corretamente os campos")
       }
