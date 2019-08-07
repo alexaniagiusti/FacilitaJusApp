@@ -112,9 +112,9 @@
                   <v-icon class="mr-2">description</v-icon>
                 </div>
               </v-flex>
-              
+
               <v-divider></v-divider>
-              
+
               <v-flex xs12 class="pa-2">
                 <v-card class="pa-2" style="border: 1px solid #E0E0E0">
                   <v-flex xs12>
@@ -130,7 +130,7 @@
               <v-flex xs12 class="pa-2">
                 <v-card class="pa-2" style="border: 1px solid #E0E0E0">
                   <v-flex xs12>
-                    
+
                     <div class="linhaSemQuebra">
                       <v-icon size="40">
                         account_circle

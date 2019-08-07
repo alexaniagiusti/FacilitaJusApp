@@ -1,28 +1,21 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Login from './pages/Login.vue';
-import Home from './pages/Home.vue'
-import Cadastro from './pages/Cadastro.vue'
+import Home from './pages/Home.vue';
+import Cadastro from './pages/Cadastro.vue';
 
-import Usuario from './pages/Usuario'
-import Diligencias from './pages/Diligencias'
+import Usuario from './pages/Usuario.vue';
+import Diligencias from './pages/Diligencias.vue';
+import DiligenciasGerais from './components/diligencias/Diligencias.vue';
+import DiligenciasEnviadas from './components/diligencias/DiligenciasEnviadas.vue'
+import DiligenciasRecebidas from './components/diligencias/DiligenciasRecebidas.vue'
 
-//usuarios
-import Atualizar from './components/usuario/Atualizar'
-import AreasDeAtuacao from './components/usuario/AreasDeAtuacao'
-import CidadesAtendidas from './components/usuario/CidadesAtendidas'
-import ServicosAtendidos from './components/usuario/ServicosAtendidos'
+// usuarios
+import Atualizar from './components/usuario/Atualizar.vue';
+import AreasDeAtuacao from './components/usuario/AreasDeAtuacao.vue';
+import CidadesAtendidas from './components/usuario/CidadesAtendidas.vue';
+import ServicosAtendidos from './components/usuario/ServicosAtendidos.vue';
 
-//Visualização de diligencias
-import DiligenciasEnviadas from './components/diligencias/visualizarDiligencias/DiligenciasEnviadas'
-import DiligenciasRespondidas from './components/diligencias/visualizarDiligencias/DiligenciasRespondidasPeloUsuario'
-import DiligenciasPorUsuario from './components/diligencias/visualizarDiligencias/DiligenciasPorUsuario'
-import ListarDiligencias from './components/diligencias/visualizarDiligencias/ListarDiligencias'
-
-//Diligencias
-import CadastrarDiligencia from './components/diligencias/CadastrarDiligencias'
-import ChatDeDiligencias from './components/diligencias/ChatDeDiligencias'
-import PegarDiligencia from './components/diligencias/PagarDiligencias'
 
 Vue.use(Router);
 
@@ -32,7 +25,7 @@ export default new Router({
     {
       path: '/',
       name: 'Login',
-      component: Login
+      component: Login,
     },
     {
       path: '/home',
@@ -47,37 +40,53 @@ export default new Router({
             {
               path: '/home/usuario/atualizar',
               name: 'Atualizar Usuário',
-              component: Atualizar
+              component: Atualizar,
             },
             {
               path: '/home/usuario/areas-de-atuacao',
               name: 'Áreas de Atuação',
-              component: AreasDeAtuacao
+              component: AreasDeAtuacao,
             },
             {
               path: '/home/usuario/cidades-atendidas',
               name: 'Cidades Atendidas',
-              component: CidadesAtendidas
+              component: CidadesAtendidas,
             },
             {
               path: '/home/usuario/servicos-atendidos',
               name: 'Servicos Atendidos',
-              component: ServicosAtendidos
-            }
-          ]
+              component: ServicosAtendidos,
+            },
+          ],
         },
         {
           path: '/home/diligencias',
           name: 'Diligencias',
-          component: Diligencias
-        }
-      ]
+          component: Diligencias,
+          children: [
+            {
+              path: '/home/diligencias/geral',
+              name: 'Todas as Diligências',
+              component: DiligenciasGerais,
+            },
+            {
+              path: '/home/diligencias/diligencias-enviadas',
+              name: 'Diligências Enviadas',
+              component: DiligenciasEnviadas,
+            },
+            {
+              path: '/home/diligencias/diligencias-recebidas',
+              name: 'Diligências Recebidas',
+              component: DiligenciasRecebidas,
+            }
+          ],
+        },
+      ],
     },
     {
       path: '/cadastro',
       name: 'cadastro',
       component: Cadastro,
-    }
-  ]
-})
-  
+    },
+  ],
+});
