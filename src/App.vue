@@ -7,16 +7,16 @@
 </template>
 
 <script>
-import SnackbarSuccess from './components/core/SnackbarSucess'
-import SnackbarError from './components/core/SnackbarError'
+import SnackbarSuccess from './components/core/SnackbarSucess.vue';
+import SnackbarError from './components/core/SnackbarError.vue';
 
 export default {
   name: 'App',
   components: {
     SnackbarSuccess,
-    SnackbarError
-  }
-}
+    SnackbarError,
+  },
+};
 </script>
 
 <style>

@@ -9,18 +9,18 @@
 </template>
 
 <script>
-import Drawer from '../components/core/Drawer'
-import Footer from '../components/core/Footer'
+import Drawer from '../components/core/Drawer.vue';
+import Footer from '../components/core/Footer.vue';
+
 export default {
-  data () {
+  data() {
     return {
 
-    }
+    };
   },
   components: {
     Drawer,
-    Footer
-  }
-}
-</script> 
- 
+    Footer,
+  },
+};
+</script>

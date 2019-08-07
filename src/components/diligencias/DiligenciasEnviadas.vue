@@ -1,3 +1,3 @@
 <template>
-  <h1>chat de diligencia</h1>
+  <h1>Diligencias Enviadas</h1>
 </template>

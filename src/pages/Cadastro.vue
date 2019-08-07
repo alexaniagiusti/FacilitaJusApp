@@ -24,61 +24,61 @@
 
 
 <script>
-import axios from 'axios'
-import Moment from 'moment'
-import 'moment/locale/pt-br'
+import axios from 'axios';
+import Moment from 'moment';
+import 'moment/locale/pt-br';
 
 export default {
   props: [
-    'id'
+    'id',
   ],
-  data () {
+  data() {
     return {
       name: '',
       cpf: '',
       email: '',
       password: '',
-      carregandoCadastrar: false
-    }
+      carregandoCadastrar: false,
+    };
   },
   methods: {
     cadastraUsuario() {
-      if(this.$refs.cadastroForm.validate()) {
-        this.carregandoCadastrar = true
+      if (this.$refs.cadastroForm.validate()) {
+        this.carregandoCadastrar = true;
 
-        const name = this.name
-        const email = this.email
-        const password = this.password
-        const cpf = this.cpf
+        const { name } = this;
+        const { email } = this;
+        const { password } = this;
+        const { cpf } = this;
 
         const data = {
-          name: name,
-          email: email,
-          password: password,
-          cpf: cpf
-        }
+          name,
+          email,
+          password,
+          cpf,
+        };
 
-        const headers= {
-        'Content-Type': 'application/json'
-        }
+        const headers = {
+          'Content-Type': 'application/json',
+        };
 
         axios.post('https://facilita-jus-api.herokuapp.com/api/v1/users', data, headers)
-        .then(res => {
-          this.$store.dispatch('snackbar_success', 'Cadastrado com sucesso!')
-          this.$router.push('/')
-        })
-        .catch((erro) => {
-          this.$store.dispatch('snackbar_error', 'Erro ao cadastrar: ' + erro)
-        })
+          .then((res) => {
+            this.$store.dispatch('snackbar_success', 'Cadastrado com sucesso!');
+            this.$router.push('/');
+          })
+          .catch((erro) => {
+            this.$store.dispatch('snackbar_error', `Erro ao cadastrar: ${erro}`);
+          });
       } else {
-        this.$store.dispatch("SNACKBAR_ERROR", "Preencha corretamente os campos")
+        this.$store.dispatch('SNACKBAR_ERROR', 'Preencha corretamente os campos');
       }
     },
   },
-  created () {
-    this.dataDoCadastro = Moment().locale('pt-br').format('L')
-  }
-}
+  created() {
+    this.dataDoCadastro = Moment().locale('pt-br').format('L');
+  },
+};
 </script>
 
 <style>

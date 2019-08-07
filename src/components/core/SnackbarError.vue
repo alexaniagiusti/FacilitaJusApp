@@ -30,20 +30,20 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
 
-    }
+    };
   },
   computed: {
     snackbar_error() {
-      return this.$store.getters.snackbar_error
+      return this.$store.getters.snackbar_error;
     },
   },
   methods: {
     fecha_snackbar() {
-      this.$store.dispatch('desativa_snackbar')
-    }
-  }
-}
+      this.$store.dispatch('desativa_snackbar');
+    },
+  },
+};
 </script>

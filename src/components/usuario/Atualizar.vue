@@ -4,12 +4,12 @@
       <v-flex xs12>
         <v-toolbar dense class="elevation-3">
           <div class="linhaSemQuebra">
-            <h3 class="text-xs-center">Dados do perfil</h3>
+            <h3 class="text-xs-center font-weight-light">Dados do perfil</h3>
             <v-spacer></v-spacer>
             <v-tooltip bottom>
             <template v-slot:activator="{ on }">
               <v-btn v-on="on" flat to="/home/usuario/servicos-atendidos" icon>
-                <v-icon class="animated delay-2s infinite pulse" color="green">
+                <v-icon class="animated delay-2s infinite heartBeat" color="green">
                   arrow_forward
                 </v-icon>
               </v-btn>
@@ -87,64 +87,64 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
 
 export default {
   data() {
     return {
       sexOptions: [
         'Masculino',
-        'Feminino'
+        'Feminino',
       ],
       perfil: {
-          name: '',
-          email: '',
-          cpf: '',
-          sex: '',
-          birthdate: '',
-          phone_1: '',
-          postal_code: '',
-          street: '',
-          number: '',
-          neighborhood: '',
-          city: '',
-          state: ''
+        name: '',
+        email: '',
+        cpf: '',
+        sex: '',
+        birthdate: '',
+        phone_1: '',
+        postal_code: '',
+        street: '',
+        number: '',
+        neighborhood: '',
+        city: '',
+        state: '',
       },
-      carregandoSalvarPerfil: false
-    }
+      carregandoSalvarPerfil: false,
+    };
   },
   methods: {
     pegaDadosDoPerfil() {
-      this.perfil = JSON.parse(sessionStorage.usuario)
+      this.perfil = JSON.parse(sessionStorage.usuario);
     },
     salvarPerfil() {
-      this.carregandoSalvarPerfil = true
-      const atualizacao = this.perfil
-      const token = sessionStorage.token
-      const id = this.perfil.id
-      const headers= {
+      this.carregandoSalvarPerfil = true;
+      const atualizacao = this.perfil;
+      const { token } = sessionStorage;
+      const { id } = this.perfil;
+      const headers = {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-      console.log('id: ' + id)
-      axios.put('https://facilita-jus-api.herokuapp.com/api/v1/users/' + id, atualizacao, headers)
-      .then((res) => {
-        this.$store.dispatch('snackbar_success', 'Dados Atualizados.')
-        sessionStorage.usuario = JSON.stringify(this.perfil)
-        this.carregandoSalvarPerfil = false
-      })
-      .catch ( (err) => {
-        this.$store.dispatch('snackbar_error', err)
-      })
-    }
+        Authorization: `Bearer ${token}`,
+      };
+      console.log(`id: ${id}`);
+      axios.put(`https://facilita-jus-api.herokuapp.com/api/v1/users/${id}`, atualizacao, headers)
+        .then((res) => {
+          this.$store.dispatch('snackbar_success', 'Dados Atualizados.');
+          sessionStorage.usuario = JSON.stringify(this.perfil);
+          this.carregandoSalvarPerfil = false;
+        })
+        .catch((err) => {
+          this.$store.dispatch('snackbar_error', err);
+        });
+    },
   },
   created() {
-    this.pegaDadosDoPerfil()
-  }
-}
+    this.pegaDadosDoPerfil();
+  },
+};
 </script>
- 
+
 <style>
   .arredondaBorda {
     border-radius: 6px;

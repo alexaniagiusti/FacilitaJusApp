@@ -2,14 +2,8 @@
 <v-app>
   <div class="principal pa-1" style="overflow: auto; background: linear-gradient(to right, #780206, #061161);">
     <div style="display: flex; width: 100%; justify-content: center; align-items: center" class="mb-2">
-      <v-icon
-        color="white"
-        size="40"
-      >
-        account_balance
-      </v-icon>
+      <img class="mt-2" src="https://firebasestorage.googleapis.com/v0/b/centraldeoportunidades-de3a9.appspot.com/o/Untitled-W.png?alt=media&token=ded0cc4f-cbe8-4a18-bec9-192263d3dd2b" height="40">
     </div>
-    <span class="font-weight-thin headline white--text"> {{ nomeDoApp }} </span>
       <v-card light class=" pa-1 ma-1" style="width: 330px;border-radius: 8px; opacity: 0.9">
         <v-flex xs12 class="pa-2">
           <v-flex xs12>
@@ -116,12 +110,12 @@
 </template>
 
 <script>
-import Moment from 'moment'
-import 'moment/locale/pt-br'
-import axios from 'axios'
+import Moment from 'moment';
+import 'moment/locale/pt-br';
+import axios from 'axios';
 
 export default {
-  data () {
+  data() {
     return {
       dataDeHoje: '',
       email: '',
@@ -132,51 +126,51 @@ export default {
       errorMessage: '',
       alteraSenhaDialog: false,
       enviaLinkRecuperacao: false,
-      carregandoLogin: false
-    }
+      carregandoLogin: false,
+    };
   },
   computed: {
     nomeDoApp() {
-      return this.$store.getters.nomeDoApp
-    }
+      return this.$store.getters.nomeDoApp;
+    },
   },
   methods: {
     enviaLinkRecuperacaoDeSenha() {
 
     },
-    login () {
-      this.carregandoLogin = true
-      const email = this.email
-      const senha = this.senha
-      
+    login() {
+      this.carregandoLogin = true;
+      const { email } = this;
+      const { senha } = this;
+
       const data = {
-        email:email,
-        password:senha
-      }
-      
-      const headers= {
+        email,
+        password: senha,
+      };
+
+      const headers = {
         'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      };
 
       axios.post('https://facilita-jus-api.herokuapp.com/api/v1/login', data, headers)
-      .then((res) => {
-        this.carregandoLogin = false
-        const usuario = JSON.stringify(res.data.user)
-        sessionStorage.usuario = usuario
-        sessionStorage.token = res.data.user.token
-        this.$router.push('/home/usuario/atualizar')
-      })
-      .catch ( (err) => {
-        this.$store.dispatch('snackbar_error', err)
-      })
-      this.carregandoLogin = true
-   }
+        .then((res) => {
+          this.carregandoLogin = false;
+          const usuario = JSON.stringify(res.data.user);
+          sessionStorage.usuario = usuario;
+          sessionStorage.token = res.data.user.token;
+          this.$router.push('/home/usuario/atualizar');
+        })
+        .catch((err) => {
+          this.$store.dispatch('snackbar_error', err);
+        });
+      this.carregandoLogin = true;
+    },
   },
   created() {
-    this.dataDeHoje = Moment().locale('pt-br').format('llll')
-  }
-}
+    this.dataDeHoje = Moment().locale('pt-br').format('llll');
+  },
+};
 </script>
 
 <style>

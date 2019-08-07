@@ -1,3 +1,3 @@
 <template>
-  <h1>pagar diligencia</h1>
+  <h1>Diligencias Recebidas</h1>
 </template>
