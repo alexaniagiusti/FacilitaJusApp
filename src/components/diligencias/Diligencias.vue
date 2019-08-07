@@ -40,49 +40,9 @@
         <v-divider></v-divider>
        <v-tabs-items v-model="tab">
          <v-tab-item>
-           <v-layout>
-             <v-flex xs12>
-              <v-simple-table>
-                <thead>
-                  <tr>
-                    <th class="text-left blue--text">#</th>
-                    <th class="text-left blue--text">Cidade</th>
-                    <th class="text-left blue--text">Tipo</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr style="cursor: pointer" @click="abreDiligencia()">
-                    <td>12123 ok</td>
-                    <td>Macapá</td>
-                    <td>Cópias</td>
-                  </tr>
-                  <tr>
-                    <td>12123</td>
-                    <td>Macapá</td>
-                    <td>Cópias</td>
-                  </tr>
-                  <tr>
-                    <td>12123</td>
-                    <td>Macapá</td>
-                    <td>Cópias</td>
-                  </tr>
-                  <tr>
-                    <td>Macapá</td>
-                    <td>Macapá</td>
-                    <td>Macapá</td>
-                  </tr>
-                  <tr>
-                    <td>Cópias</td>
-                    <td>Cópias</td>
-                    <td>Cópias</td>
-                  </tr>
-                </tbody>
-              </v-simple-table>
-             </v-flex>
-           </v-layout>
+           <DiligenciasEmAberto/>
          </v-tab-item>
          <v-tab-item>
-           2
          </v-tab-item>
          <v-tab-item>
            3
@@ -90,13 +50,12 @@
          <v-tab-item>
            4
          </v-tab-item>
-
        </v-tabs-items>
 
       </v-flex>
     </v-layout>
-    <v-dialog v-model="abreChatDialogo">
-      <v-layout>
+    <v-dialog fullscreen v-model="abreChatDialogo">
+      <div class="chat">
         <v-flex xs12>
           <v-card>
             <v-layout column>
@@ -112,17 +71,11 @@
                   <v-icon class="mr-2">description</v-icon>
                 </div>
               </v-flex>
-<<<<<<< HEAD
 
               <v-divider></v-divider>
 
-=======
-              
-              <v-divider></v-divider>
-              
->>>>>>> diligencias
               <v-flex xs12 class="pa-2">
-                <v-card class="pa-2" style="border: 1px solid #E0E0E0">
+                <v-card class="pa-2 elevation-0" style="border: 1px solid #E0E0E0">
                   <v-flex xs12>
                     <h4>Diligencia: #3333</h4>
                     <h4>Cidade: Macapá</h4>
@@ -134,13 +87,8 @@
               </v-flex>
 
               <v-flex xs12 class="pa-2">
-                <v-card class="pa-2" style="border: 1px solid #E0E0E0">
+                <v-card class="pa-2 elevation-0" style="border: 1px solid #E0E0E0">
                   <v-flex xs12>
-<<<<<<< HEAD
-
-=======
-                    
->>>>>>> diligencias
                     <div class="linhaSemQuebra">
                       <v-icon size="40">
                         account_circle
@@ -177,23 +125,19 @@
                 </v-card>
               </v-flex>
             </v-layout>
-            <v-flex xs12 class="pa-2">
-              <div class="linhaSemQuebra">
-                <v-textarea></v-textarea>
-                <v-btn @click="enviarMensagem" icon>
-                  <v-icon>send</v-icon>
-                </v-btn>
-              </div>
-            </v-flex>
           </v-card>
         </v-flex>
-      </v-layout>
+      </div>
     </v-dialog>
   </div>
 </template>
 
 <script>
+import DiligenciasEmAberto from './DiligenciasEmAberto.vue'
 export default {
+  components: {
+    DiligenciasEmAberto
+  },
   data() {
     return {
       tab: 0,
@@ -202,6 +146,34 @@ export default {
     };
   },
   methods: {
+    pegaItemsSelecionados() {
+      const token = sessionStorage.token
+
+      const recuperaLogin = JSON.parse(sessionStorage.usuario)
+      const { id } = recuperaLogin
+
+      const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      };
+      axios.get(`https://facilita-jus-api.herokuapp.com/api/v1/users/actuations/${id}`, headers)
+        .then((res) => {
+          const ids_marcados = res.data.actuations;
+          const todos = this.items;
+          const itemsMarcados = [];
+
+          todos.map((item) => {
+            ids_marcados.map((i) => {
+              if (i.id === item.id) {
+                itemsMarcados.push(item);
+              }
+            });
+          });
+
+          this.itemsSelecionados = itemsMarcados;
+        });
+    },
     abreDiligencia() {
       this.abreChatDialogo = true
       this.abreChatConteudo = 'aberto'
@@ -214,5 +186,11 @@ export default {
   .coluna {
     display: flex;
     flex-direction: column;
+  }
+  .chat {
+    display: flex;
+    width:100%;
+    height: 100vh;
+    background: #fff;
   }
 </style>

@@ -9,7 +9,7 @@
       <v-flex xs12>
         <v-list pa-0 ma-0>
           <template v-for="(areaDeAtuacao, index) in itemsSelecionados">
-            <v-list-item @click="$" :key="areaDeAtuacao.actuation">
+            <v-list-item @click="" :key="areaDeAtuacao.actuation">
               <v-avatar class="ml-1">
                 <v-icon color="green">done</v-icon>
               </v-avatar>
@@ -98,7 +98,7 @@ export default {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       };
-      axios.get(`https://facilita-jus-api.herokuapp.com/api/v1/users/actuations/${id}`, headers)
+      axios.get(`${this.$store.getters.api}/api/v1/users/actuations/${id}`, headers)
         .then((res) => {
           const ids_marcados = res.data.actuations;
           const todos = this.items;
@@ -115,12 +115,7 @@ export default {
           this.itemsSelecionados = itemsMarcados;
         });
     },
-    pegaDados(acjjxzhcjhc, segunda, terceita) {
-      const nomequalquer = acjjxzhcjhc
-      console.log('o nome é: ' + nomequalquer)
-      console.log('o segundo nome é: ' + segunda)
-      console.log('o terceiro nome é: ' + terceita)
-
+    pegaDados() {
       const token = sessionStorage.token
 
       const headers = {
@@ -128,10 +123,13 @@ export default {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       };
-      axios.get('https://facilita-jus-api.herokuapp.com/api/v1/actuations', headers)
+      axios.get(this.$store.getters.api + '/api/v1/actuations', headers)
         .then((res) => {
           this.items = res.data;
-        });
+        })
+        .catch((erro) => {
+          this.$store.dispatch('snackbar_error', 'Erro: ' + erro)
+        })
       this.pegaItemsSeecionados();
     },
     salvar() {
@@ -154,10 +152,10 @@ export default {
         Authorization: `Bearer ${token}`,
       };
 
-      axios.put(`https://facilita-jus-api.herokuapp.com/api/v1/users/actuations/${id}`, data, headers)
+      axios.put(`${this.$store.getters.api}/api/v1/users/actuations/${id}`, data, headers)
         .then((res) => {
           this.carregandoSalvar = false;
-          this.$store.dispatch('snackbar_success', 'Atualizado Com Sucesso!.');
+          this.$store.dispatch('snackbar_success', 'Atualizado Com Sucesso!');
         })
         .catch((err) => {
           this.carregandoSalvar = false;
@@ -166,10 +164,7 @@ export default {
     },
   },
   created() {
-    const nome = 'Patrick'
-    const nome1 = 'Alexania'
-    const nome4asdjsad = 'John'
-    this.pegaDados(nome, nome1, nome4asdjsad);
+    this.pegaDados();
   },
 };
 </script>

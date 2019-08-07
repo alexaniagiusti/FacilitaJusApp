@@ -22,7 +22,7 @@
       <v-flex xs12>
         <v-list pa-0 ma-0>
           <template v-for="(servicoAtendido, index) in itemsSelecionados">
-            <v-list-tile @click="nada" :key="servicoAtendido.service">
+            <v-list-tile @click="" :key="servicoAtendido.service">
               <v-avatar class="ml-1">
                 <v-icon color="green">done</v-icon>
               </v-avatar>
@@ -111,7 +111,7 @@ export default {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       };
-      axios.get(`https://facilita-jus-api.herokuapp.com/api/v1/users/services/${id}`, headers)
+      axios.get(`http://facilitajus.com/api/v1/users/services/${id}`, headers)
         .then((res) => {
           const ids_marcados = res.data.services;
           const todos = this.items;
@@ -136,7 +136,7 @@ export default {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       };
-      axios.get('https://facilita-jus-api.herokuapp.com/api/v1/services', headers)
+      axios.get('http://facilitajus.com/api/v1/services', headers)
         .then((res) => {
           this.items = res.data;
         });
@@ -162,7 +162,7 @@ export default {
         Authorization: `Bearer ${token}`,
       };
 
-      axios.put(`https://facilita-jus-api.herokuapp.com/api/v1/users/services/${id}`, atualizacao, headers)
+      axios.put(`http://facilitajus.com/api/v1/users/services/${id}`, atualizacao, headers)
         .then((res) => {
           this.carregandoSalvar = false;
           this.$store.dispatch('snackbar_success', 'Atualizado Com Sucesso!.');

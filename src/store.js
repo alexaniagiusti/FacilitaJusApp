@@ -72,5 +72,8 @@ export default new Vuex.Store({
     snackbar_success(state) {
       return state.snackbar_success;
     },
+    api() {
+      return 'http://facilitajus.com'
+    }
   },
 });

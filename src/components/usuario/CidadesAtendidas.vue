@@ -22,7 +22,7 @@
       <v-flex xs12>
         <v-list pa-0 ma-0>
           <template v-for="(cidadesAtendidas, index) in itemsSelecionados">
-            <v-list-tile @click="nada" :key="cidadesAtendidas.city">
+            <v-list-tile @click="" :key="cidadesAtendidas.city">
               <v-avatar class="ml-1">
                 <v-icon color="green">done</v-icon>
               </v-avatar>
@@ -33,7 +33,7 @@
               </v-list-tile-content>
               <v-list-tile-action>
                 <v-btn color="red" icon @click="removeItem(cidadesAtendidas.id)">
-                  <v-icon size="18" color="white">
+                  <v-icon size="18" color="red">
                     delete
                   </v-icon>
                 </v-btn>
@@ -111,7 +111,7 @@ export default {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       };
-      axios.get(`https://facilita-jus-api.herokuapp.com/api/v1/users/cities/${id}`, headers)
+      axios.get(`${this.$store.getters.api}/api/v1/users/cities/${id}`, headers)
         .then((res) => {
           const ids_marcados = res.data.cities;
           const todos = this.items;
@@ -136,7 +136,7 @@ export default {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       };
-      axios.get('https://facilita-jus-api.herokuapp.com/api/v1/cities', headers)
+      axios.get(this.$store.getters.api + '/api/v1/cities', headers)
         .then((res) => {
           this.items = res.data;
           this.pegaItemsSeecionados();
@@ -162,7 +162,7 @@ export default {
         Authorization: `Bearer ${token}`,
       };
 
-      axios.put(`https://facilita-jus-api.herokuapp.com/api/v1/users/cities/${id}`, data, headers)
+      axios.put(`${this.$store.getters.api}/api/v1/users/cities/${id}`, data, headers)
         .then((res) => {
           this.carregandoSalvar = false;
           this.$store.dispatch('snackbar_success', 'Atualizado Com Sucesso!.');
