@@ -155,11 +155,18 @@ export default {
 
       axios.post(this.$store.getters.api + '/api/v1/login', data, headers)
         .then((res) => {
-          this.carregandoLogin = false;
-          const usuario = JSON.stringify(res.data.user);
-          sessionStorage.usuario = usuario;
-          sessionStorage.token = usuario.token;
-          this.$router.push('/home/usuario/atualizar');
+          // this.carregandoLogin = false;
+          // const usuario = JSON.stringify(res.data.user);
+          if(res.data.status){
+            this.$store.commit('setUser', res.data.user);
+            sessionStorage.setItem('usuario', JSON.stringify(res.data.user))
+            this.$router.push('/home/usuario/atualizar');
+          }else{
+            alert('Erro ao efetuar login, verigique seus dados!')
+          }
+          
+          // sessionStorage.usuario = usuario;
+          // sessionStorage.token = usuario.token;
         })
         .catch((err) => {
           this.$store.dispatch('snackbar_error', err);
