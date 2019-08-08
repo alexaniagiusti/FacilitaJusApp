@@ -158,7 +158,7 @@ export default {
           this.carregandoLogin = false;
           const usuario = JSON.stringify(res.data.user);
           sessionStorage.usuario = usuario;
-          sessionStorage.token = res.data.user.token;
+          sessionStorage.token = usuario.token;
           this.$router.push('/home/usuario/atualizar');
         })
         .catch((err) => {
