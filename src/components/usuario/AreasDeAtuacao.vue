@@ -6,7 +6,12 @@
       </v-toolbar>
     </v-flex>
     <v-layout>
-      <v-flex xs12>
+      <v-flex v-if="carregandoDados" xs12>
+        <div class="mt-5 mb-5" style="display: flex; width: 100%; justify-content: center">
+          <v-progress-circular indeterminate color="red"></v-progress-circular>
+        </div>
+      </v-flex>
+      <v-flex v-else xs12>
         <v-list pa-0 ma-0>
           <template v-for="(areaDeAtuacao, index) in itemsSelecionados">
             <v-list-item @click="" :key="areaDeAtuacao.actuation">
@@ -20,7 +25,7 @@
               </v-list-item-content>
               <v-list-item-action>
                 <v-btn color="red" icon @click="removeItem(areaDeAtuacao.id)">
-                  <v-icon size="18" color="white">
+                  <v-icon size="18" color="grey darken-2">
                     delete
                   </v-icon>
                 </v-btn>
@@ -68,6 +73,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      carregandoDados: true,
       items: [],
       itemsSelecionados: [],
       carregandoSalvar: false,
@@ -111,8 +117,8 @@ export default {
               }
             });
           });
-
-          this.itemsSelecionados = itemsMarcados;
+          this.itemsSelecionados = itemsMarcados
+          this.carregandoDados = false
         });
     },
     pegaDados() {

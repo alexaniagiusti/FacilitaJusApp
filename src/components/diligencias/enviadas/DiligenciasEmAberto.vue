@@ -10,7 +10,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="aberta in emAberto" :key="aberta.id" style="cursor: pointer" @click="abreDiligencia(aberta)">
+        <tr v-for="aberta in emAberto" :key="aberta.id" style="cursor: pointer" @click="$store.dispatch('selecionar_diligencia', aberta)">
           <td>{{ aberta.id }}</td>
           <td>{{ aberta.city.city }}</td>
           <td>{{ aberta.service.service }}</td>
@@ -18,22 +18,30 @@
       </tbody>
     </v-simple-table>
     </v-flex>
+    <ModalDiligencia/>
   </v-layout>
 </template>
 
 <script>
+import ModalDiligencia from '../VisualizarDiligencia.vue'
 import axios from 'axios'
+import { mapState } from 'vuex'
 
 export default {
+  components: {
+    ModalDiligencia
+  },
   data() {
     return {
       emAberto: []
     }
   },
+  computed: {
+    ...mapState({
+      diligenciaSelecionada: state => state.diligencias.diligenciaSelecionada
+    })
+  },
   methods: {
-    abreDiligencia(diligencia) {
-      this.$store.dispatch('snackbar_success', diligencia.name)
-    },
     pegaDiligenciasEmAberto() {
       const token = sessionStorage.token
 

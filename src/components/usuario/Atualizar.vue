@@ -37,7 +37,9 @@
               </v-flex>
 
               <v-flex xs12>
-                <v-text-field mask="##/##/####" class="mt-4" label="Nascimento" v-model="perfil.birthdate" />
+                <v-date-picker v-model="picker">
+                  <v-text-field mask="##/##/####" class="mt-4" label="Nascimento" v-model="perfil.birthdate" />
+                </v-date-picker>
               </v-flex>
 
               <v-flex xs12>
@@ -113,6 +115,7 @@ export default {
       carregandoSalvarPerfil: false,
     };
   },
+  picker: new Date().toISOString().substr(0, 10),
   methods: {
     pegaDadosDoPerfil() {
       this.perfil = JSON.parse(sessionStorage.usuario);

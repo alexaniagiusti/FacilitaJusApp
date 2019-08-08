@@ -4,7 +4,9 @@
       <v-btn @click="drawer=!drawer" mt-1 icon>
         <v-icon color="white" size="20" >menu</v-icon>
       </v-btn>
-      <span class="white--text title ml-3 mr-5"><span class="font-weight-light white--text"></span></span>
+      <v-spacer></v-spacer>
+      <v-icon color="white" >account_circle</v-icon>
+      <span class="white--text ml-3 mr-5"> {{ nome }} </span>
     </v-app-bar>
     <v-navigation-drawer
       v-model="drawer"
@@ -82,7 +84,7 @@
         no-action
       >
         <template v-slot:activator>
-          <v-list-item-content @click="$router.push('/home/diligencias/geral')">
+          <v-list-item-content>
             <v-list-item-title>Diligências</v-list-item-title>
           </v-list-item-content>
         </template>

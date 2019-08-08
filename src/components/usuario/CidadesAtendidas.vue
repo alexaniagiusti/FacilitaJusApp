@@ -19,26 +19,33 @@
       </v-toolbar>
     </v-flex>
     <v-layout>
-      <v-flex xs12>
+      
+      <v-flex v-if="carregandoDados" xs12>
+        <div class="mt-5 mb-5" style="display: flex; width: 100%; justify-content: center">
+          <v-progress-circular indeterminate color="red"></v-progress-circular>
+        </div>
+      </v-flex>
+      
+      <v-flex v-else xs12>
         <v-list pa-0 ma-0>
           <template v-for="(cidadesAtendidas, index) in itemsSelecionados">
-            <v-list-tile @click="" :key="cidadesAtendidas.city">
+            <v-list-item @click="" :key="cidadesAtendidas.city">
               <v-avatar class="ml-1">
                 <v-icon color="green">done</v-icon>
               </v-avatar>
-              <v-list-tile-content>
-                <v-list-tile-title>
+              <v-list-item-content>
+                <v-list-item-title>
                   {{ cidadesAtendidas.city }}
-                </v-list-tile-title>
-              </v-list-tile-content>
-              <v-list-tile-action>
+                </v-list-item-title>
+              </v-list-item-content>
+              <v-list-item-action>
                 <v-btn color="red" icon @click="removeItem(cidadesAtendidas.id)">
-                  <v-icon size="18" color="red">
+                  <v-icon size="18" color="grey darken-2">
                     delete
                   </v-icon>
                 </v-btn>
-              </v-list-tile-action>
-            </v-list-tile>
+              </v-list-item-action>
+            </v-list-item>
             <v-divider :key="index"></v-divider>
           </template>
         </v-list>
@@ -81,6 +88,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      carregandoDados: true,
       items: [],
       itemsSelecionados: [],
       carregandoSalvar: false,
@@ -126,6 +134,7 @@ export default {
           });
 
           this.itemsSelecionados = itemsMarcados;
+          this.carregandoDados = false
         });
     },
     pegaDados() {

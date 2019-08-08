@@ -1,12 +1,27 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+import { stateDiligencias } from './modulos/diligencias/state'
+import { actionsDiligencias } from './modulos/diligencias/actions'
+import { mutationsDiligencias } from './modulos/diligencias/mutations'
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+  modules: {
+    diligencias: {
+      state: {
+        ...stateDiligencias
+      },
+      actions: {
+        ...actionsDiligencias
+      },
+      mutations: {
+        ...mutationsDiligencias
+      }
+    }
+  },
   state: {
-    drawer: true,
-    nomeDoApp: 'FacilitaJus',
     snackbar_error: {
       mostrar: false,
       mensagem: '',
@@ -17,9 +32,6 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    drawer(state) {
-      state.drawer = !state.drawer;
-    },
     desativa_snackbar(state) {
       state.snackbar_success = {
         mostrar: false,
@@ -41,13 +53,10 @@ export default new Vuex.Store({
         mostrar: true,
         mensagem,
       };
-    },
+    }
   },
   actions: {
-    drawer(state) {
-      state.commit('drawer');
-    },
-    desativa_snackbar(state, mensagem) {
+    desativa_snackbar(state) {
       state.commit('desativa_snackbar');
     },
     // chama a mutation snackbar_error
@@ -60,17 +69,11 @@ export default new Vuex.Store({
     },
   },
   getters: {
-    nomeDoApp(state) {
-      return state.nomeDoApp;
-    },
-    drawer(state) {
-      return state.drawer;
+    snackbar_success(state) {
+      return state.snackbar_success
     },
     snackbar_error(state) {
-      return state.snackbar_error;
-    },
-    snackbar_success(state) {
-      return state.snackbar_success;
+      return state.snackbar_error
     },
     api() {
       return 'http://facilitajus.com'

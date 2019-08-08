@@ -6,7 +6,6 @@ import Cadastro from './pages/Cadastro.vue';
 
 import Usuario from './pages/Usuario.vue';
 import Diligencias from './pages/Diligencias.vue';
-import DiligenciasGerais from './components/diligencias/Diligencias.vue';
 import DiligenciasEnviadas from './components/diligencias/DiligenciasEnviadas.vue'
 import DiligenciasRecebidas from './components/diligencias/DiligenciasRecebidas.vue'
 
@@ -64,11 +63,6 @@ export default new Router({
           name: 'Diligencias',
           component: Diligencias,
           children: [
-            {
-              path: '/home/diligencias/geral',
-              name: 'Todas as Diligências',
-              component: DiligenciasGerais,
-            },
             {
               path: '/home/diligencias/diligencias-enviadas',
               name: 'Diligências Enviadas',
