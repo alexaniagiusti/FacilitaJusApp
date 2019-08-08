@@ -153,7 +153,7 @@ export default {
         'Content-Type': 'application/json',
       };
 
-      axios.post('https://facilita-jus-api.herokuapp.com/api/v1/login', data, headers)
+      axios.post(this.$store.getters.api + '/api/v1/login', data, headers)
         .then((res) => {
           this.carregandoLogin = false;
           const usuario = JSON.stringify(res.data.user);
