@@ -22,6 +22,7 @@ export default new Vuex.Store({
     }
   },
   state: {
+    usuario: sessionStorage.getItem('usuario') ? JSON.parse(sessionStorage.getItem('usuario')) : null,
     snackbar_error: {
       mostrar: false,
       mensagem: '',
@@ -53,7 +54,7 @@ export default new Vuex.Store({
         mostrar: true,
         mensagem,
       };
-    }
+    },
   },
   actions: {
     desativa_snackbar(state) {
@@ -69,6 +70,12 @@ export default new Vuex.Store({
     },
   },
   getters: {
+    getUsuario: state =>{
+      return state.usuario;
+    },
+    getToken: state =>{
+      return state.usuario.token;
+    },
     snackbar_success(state) {
       return state.snackbar_success
     },
@@ -76,7 +83,7 @@ export default new Vuex.Store({
       return state.snackbar_error
     },
     api() {
-      return 'http://facilitajus.com'
+      return 'http://facilitajus.api'
     }
   },
 });

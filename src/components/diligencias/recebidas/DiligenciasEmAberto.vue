@@ -53,6 +53,7 @@ export default {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
       };
+
       axios.get(`${this.$store.getters.api}/api/v1/diligences/received/open/${id}`, header)
         .then((res) => {
           this.emAberto = res.data

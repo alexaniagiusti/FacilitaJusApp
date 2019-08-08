@@ -12,6 +12,12 @@ import '@mdi/font/css/materialdesignicons.css';
 
 Vue.use(rtdbPlugin);
 
+// Vue.prototype.$header = {
+//   'Access-Control-Allow-Origin': '*',
+//   'Content-Type': 'application/json',
+//   'Authorization': `Bearer ${token}`,
+// };
+
 Vue.config.productionTip = false;
 
 new Vue({
