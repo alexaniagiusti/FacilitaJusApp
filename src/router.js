@@ -77,7 +77,7 @@ export default new Router({
 
             {
               path: '/home/diligencia/:id',
-              name: 'Visualizar Diligência',
+              name: 'visualizar',
               component: VisualizarDiligencia,
             },
 

@@ -1,81 +1,37 @@
 <template>
-<span>
-  <v-dialog v-if="exbirModal">
-    <div class="chat">
-      <v-flex xs12>
-        <v-card>
-          <v-layout column>
-            <v-flex xs12>
-              <div class="linhaSemQuebra">
-                <!-- <v-btn @click="$store.dispatch('fecha_diligencia')" icon> -->
-                  <v-icon>
-                    arrow_back
-                  </v-icon>
-                <!-- </v-btn> -->
-                <span>Diligência Recebida</span>
-                <v-spacer></v-spacer>
-                <v-icon class="mr-2">description</v-icon>
-              </div>
-            </v-flex>
+ <v-layout v-if="mostrarDiligencia">
+     <v-flex>
+         <v-card>
+             <v-card-title>Diligência #{{dadosDiligencia.id}}</v-card-title>
 
-            <v-divider></v-divider>
+             <template>
+                <v-simple-table>
+                    <tbody>
+                        <tr>
+                            <td><strong>Tipo:</strong></td>
+                            <td>{{ dadosDiligencia.service.service }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cidade:</strong></td>
+                            <td>{{ dadosDiligencia.city.city }} - {{ dadosDiligencia.city.state }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nome:</strong></td>
+                            <td>{{ dadosDiligencia.name}}</td>
+                        </tr>
 
-            <v-flex xs12 class="pa-2">
-              <v-card class="pa-2 elevation-0" style="border: 1px solid #E0E0E0">
-                <v-flex xs12>
-                  <h4>Diligencia: {{ dadosDiligencia.id }}</h4>
-                  <h4>Cidade: {{ dadosDiligencia.city.city }}</h4>
-                  <h4>Tipo: {{ dadosDiligencia.service.service }}</h4>
-                  <h4>Remetente: {{ dadosDiligencia.name }}</h4>
-                  <h4>Telefone: {{ dadosDiligencia.phone }}</h4>
-                </v-flex>
-              </v-card>
-            </v-flex>
+                        <tr>
+                            <td><strong>Nome:</strong></td>
+                            <td>{{ dadosDiligencia.created_at}}</td>
+                        </tr>
+                    </tbody>
+                </v-simple-table>
+            </template>
+         </v-card>
+        <Chat :chatId="this.dadosDiligencia.chat.id" :url="this.urlChat"/>
+     </v-flex>
 
-            <v-flex xs12 class="pa-2">
-              <v-card class="pa-2 elevation-0" style="border: 1px solid #E0E0E0">
-                <v-flex xs12>
-                  <div class="linhaSemQuebra">
-                    <v-icon size="40">
-                      account_circle
-                    </v-icon>
-                    <div class="coluna pr-5">
-                      <v-card color="blue" style="border-radius: 20px;" class="pa-2 mr-5">
-                        <span class="white--text">
-                          {{ dadosDiligencia.message }}
-                          <span style="font-size: 8pt; margin-bottom: 5px"
-                            class="font-weight-bold ml-2 ">{{ dadosDiligencia.created_at | horaDaMensagem}}</span>
-                        </span>
-                      </v-card>
-                    </div>
-                  </div>
-
-                  <div class="linhaSemQuebra">
-                    <v-spacer></v-spacer>
-                    <div class="coluna pl-5">
-                      <v-card color="red" style="border-radius: 20px;" class="pa-2 ml-5">
-                        <span class="white--text">
-
-                          <span style="font-size: 8pt; margin-bottom: 5px" class="font-weight-bold ml-2 ">18:34</span>
-                        </span>
-                      </v-card>
-                    </div>
-                    <v-icon size="40">
-                      account_circle
-                    </v-icon>
-                  </div>
-                </v-flex>
-              </v-card>
-              <v-flex xs12>
-                <v-text-field @click="responderDiligencia" solo append-icon="send"></v-text-field>
-              </v-flex>
-            </v-flex>
-          </v-layout>
-        </v-card>
-      </v-flex>
-    </div>
-  </v-dialog>
-  </span>
+ </v-layout>
 </template>
 
 <script>
@@ -83,12 +39,17 @@
   import moment from 'moment'
   import 'moment/locale/pt-br'
   import axios from 'axios'
+  import Chat from '../../components/chat/Chat'
 
   export default {
+    components:{
+        Chat
+    },
     data() {
       return {
         dadosDiligencia: '',
-        exbirModal: false
+        mostrarDiligencia: false,
+        urlChat: ''
       }
     },
     filters: {
@@ -122,9 +83,8 @@
       .then(res => {
         this.$store.commit('selecionar_diligencia', res.data)
         this.dadosDiligencia = res.data;
-        this.exbirModal = true;
-        console.log(this.dadosDiligencia)
-       
+        this.urlChat = `${this.$store.getters.api}/api/v1/diligence/received/${this.dadosDiligencia.chat.id}/reply`
+        this.mostrarDiligencia = true;
       })
       .catch(e => console.log(e))
 
