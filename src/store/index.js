@@ -55,6 +55,9 @@ export default new Vuex.Store({
         mensagem,
       };
     },
+    setUser(state, n) {
+			state.user = n;
+		},
   },
   actions: {
     desativa_snackbar(state) {
@@ -83,7 +86,7 @@ export default new Vuex.Store({
       return state.snackbar_error
     },
     api() {
-      return 'http://facilitajus.api'
+      return 'http://co.site'
     }
   },
 });
