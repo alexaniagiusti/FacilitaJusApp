@@ -46,7 +46,7 @@
   import moment from 'moment'
   import 'moment/locale/pt-br'
   import axios from 'axios'
-  import Chat from '../../components/chat/Chat'
+  import Chat from '../../chat/Chat'
 
   export default {
     components:{

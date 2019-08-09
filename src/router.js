@@ -14,7 +14,9 @@ import Atualizar from './components/usuario/Atualizar.vue';
 import AreasDeAtuacao from './components/usuario/AreasDeAtuacao.vue';
 import CidadesAtendidas from './components/usuario/CidadesAtendidas.vue';
 import ServicosAtendidos from './components/usuario/ServicosAtendidos.vue';
-import VisualizarDiligencia from './components/diligencias/VisualizarDiligencia.vue'
+
+//Diligências
+import VisualizarDiligenciaRecebida from './components/diligencias/recebidas/Visualizar.vue'
 import VisualizarDiligenciaEnviada from './components/diligencias/enviadas/Visualizar.vue'
 
 
@@ -67,17 +69,17 @@ export default new Router({
           children: [
             {
               path: '/home/diligencias/diligencias-enviadas',
-              name: 'Diligências Enviadas',
+              name: 'diligenciasEnviadas',
               component: DiligenciasEnviadas,
             },
             {
               path: '/home/diligencia/recebida/:id',
               name: 'visualizarDiligenciaRecebida',
-              component: VisualizarDiligencia,
+              component: VisualizarDiligenciaRecebida,
             },
             {
               path: '/home/diligencias/diligencias-recebidas',
-              name: 'Diligências Recebidas',
+              name: 'diligenciasRecebidas',
               component: DiligenciasRecebidas,
             },
             {
