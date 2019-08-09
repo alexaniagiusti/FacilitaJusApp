@@ -45,18 +45,8 @@ export default {
   },
   methods: {
     pegaDiligenciasEmAberto() {
-      const token = sessionStorage.token
-
-      const recuperaLogin = JSON.parse(sessionStorage.usuario)
-      const { id } = recuperaLogin
-
-      const header = {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      };
-
-      axios.get(`${this.$store.getters.api}/api/v1/diligences/received/open/${id}`, header)
+      axios.get(`${this.$store.getters.api}/api/v1/diligences/received/open/${this.$store.state.usuario.id}`, 
+      {headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
         .then((res) => {
           this.emAberto = res.data
           console.log (res.data) 
