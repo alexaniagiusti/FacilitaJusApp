@@ -15,7 +15,7 @@
           <td>{{ aberta.id }}</td>
           <td>{{ aberta.city.city }}</td>
           <td>{{ aberta.service.service }}</td>
-          <router-link :to="{name: 'visualizar', params:{id : aberta.id}}"><td><v-btn class="ma-3" small color="primary">Visualizar</v-btn></td></router-link>
+          <router-link :to="{name: 'visualizarDiligenciaRecebida', params:{id : aberta.id}}"><td><v-btn class="ma-3" small color="primary">Visualizar</v-btn></td></router-link>
         </tr>
       </tbody>
     </v-simple-table>
@@ -38,11 +38,7 @@ export default {
       emAberto: []
     }
   },
-  computed: {
-    ...mapState({
-      diligenciaSelecionada: state => state.diligencias.diligenciaSelecionada
-    })
-  },
+  
   methods: {
     pegaDiligenciasEmAberto() {
       axios.get(`${this.$store.getters.api}/api/v1/diligences/received/open/${this.$store.state.usuario.id}`, 
@@ -53,7 +49,8 @@ export default {
         });
     }
   },
-  created() {
+  mounted() {
+    console.log(this.$store.state.usuario.id)
     this.pegaDiligenciasEmAberto()
   }
 }

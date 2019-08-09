@@ -21,8 +21,13 @@
                         </tr>
 
                         <tr>
-                            <td><strong>Nome:</strong></td>
-                            <td>{{ dadosDiligencia.diligence.created_at}}</td>
+                            <td><strong>Telefone:</strong></td>
+                            <td>{{ dadosDiligencia.diligence.phone}}</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Mensagem:</strong></td>
+                            <td>{{ dadosDiligencia.diligence.message}}</td>
                         </tr>
                     </tbody>
                 </v-simple-table>

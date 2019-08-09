@@ -156,7 +156,7 @@ export default {
       axios.post(this.$store.getters.api + '/api/v1/login', data, headers)
         .then((res) => {
           if(res.data.status){
-          this.carregandoLogin = false;
+            this.carregandoLogin = false;
             this.$store.commit('setUser', res.data.user);
             sessionStorage.setItem('usuario', JSON.stringify(res.data.user))
             this.$router.push('/home/usuario/atualizar');
