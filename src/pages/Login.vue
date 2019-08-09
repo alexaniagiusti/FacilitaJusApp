@@ -161,7 +161,7 @@ export default {
             sessionStorage.setItem('usuario', JSON.stringify(res.data.user))
             this.$router.push('/home/usuario/atualizar');
           }else{
-            alert('Erro ao efetuar login, verigique seus dados!')
+            alert('Erro ao efetuar login, verifique seus dados!')
           }
           
         })
