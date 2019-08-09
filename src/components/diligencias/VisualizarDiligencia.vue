@@ -2,33 +2,35 @@
  <v-layout v-if="mostrarDiligencia">
      <v-flex>
          <v-card>
-             <v-card-title>Diligência #{{dadosDiligencia.id}}</v-card-title>
+             <v-card-title>Diligência #{{dadosDiligencia.diligence.id}}</v-card-title>
 
              <template>
                 <v-simple-table>
                     <tbody>
                         <tr>
                             <td><strong>Tipo:</strong></td>
-                            <td>{{ dadosDiligencia.service.service }}</td>
+                            <td>{{ dadosDiligencia.diligence.service.service }}</td>
                         </tr>
                         <tr>
                             <td><strong>Cidade:</strong></td>
-                            <td>{{ dadosDiligencia.city.city }} - {{ dadosDiligencia.city.state }}</td>
+                            <td>{{ dadosDiligencia.diligence.city.city }} - {{ dadosDiligencia.diligence.city.state }}</td>
                         </tr>
                         <tr>
                             <td><strong>Nome:</strong></td>
-                            <td>{{ dadosDiligencia.name}}</td>
+                            <td>{{ dadosDiligencia.diligence.name}}</td>
                         </tr>
 
                         <tr>
                             <td><strong>Nome:</strong></td>
-                            <td>{{ dadosDiligencia.created_at}}</td>
+                            <td>{{ dadosDiligencia.diligence.created_at}}</td>
                         </tr>
                     </tbody>
                 </v-simple-table>
             </template>
          </v-card>
-        <Chat :chatId="this.dadosDiligencia.chat.id" :url="this.urlChat"/>
+        <Chat v-if="this.dadosDiligencia.chat != null" :chatId="this.dadosDiligencia.chat.id" :url="this.urlChat"/>
+        <Chat v-if="this.dadosDiligencia.chat == null" :chatId="null" :url="this.urlChat"/>
+
      </v-flex>
 
  </v-layout>
@@ -57,33 +59,15 @@
         return moment(val).locale('pt-br').fromNow()
       }
     },
-    // computed: {
-    //   ...mapState({
-    //     modal: state => state.diligencias.modal,
-    //     dadosDiligencia: state => state.diligencias.diligenciaSelecionada
-    //   })
-    // },
-    methods: {
-      responderDiligencia() {
-
-      }
-    },
+ 
     mounted() {
-      const header = {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.$store.getters.getUsuario.token}`,
-      };
-
-      // console.log('teste');
-      // console.log(this.$route.params.id);
-      // console.log(this.$store.getters.getUsuario.token)
-
-      axios.get(`${this.$store.getters.api}/api/v1/diligence/received/${this.$route.params.id}`, header)
+      console.log(this.$store.getters.getToken)
+    
+      axios.get(`${this.$store.getters.api}/api/v1/diligence/received/${this.$route.params.id}`, {headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
       .then(res => {
-        this.$store.commit('selecionar_diligencia', res.data)
+        console.log(res.data)
         this.dadosDiligencia = res.data;
-        this.urlChat = `${this.$store.getters.api}/api/v1/diligence/received/${this.dadosDiligencia.chat.id}/reply`
+        this.urlChat = `${this.$store.getters.api}/api/v1/diligence/received/${this.dadosDiligencia.diligence.id}/reply`
         this.mostrarDiligencia = true;
       })
       .catch(e => console.log(e))

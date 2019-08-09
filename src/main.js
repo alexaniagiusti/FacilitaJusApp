@@ -9,16 +9,11 @@ import './registerServiceWorker';
 import '@babel/polyfill';
 import 'roboto-fontface/css/roboto/roboto-fontface.css';
 import '@mdi/font/css/materialdesignicons.css';
+// import Echo from 'laravel-echo'
 
 Vue.use(rtdbPlugin);
-
-// Vue.prototype.$header = {
-//   'Access-Control-Allow-Origin': '*',
-//   'Content-Type': 'application/json',
-//   'Authorization': `Bearer ${token}`,
-// };
-
 Vue.config.productionTip = false;
+
 
 new Vue({
   router,
