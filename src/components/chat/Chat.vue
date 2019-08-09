@@ -56,7 +56,8 @@
         },
         methods: {
             reply(){
-                axios.post(`${this.url}`, this.message)
+                axios.post(`${this.url}`, this.message,
+                {headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
                 .then(res => {
                     console.log(res.data)
                     this.chatData = res.data;
@@ -65,8 +66,10 @@
                 })
                 .catch(e => console.log(e))
             },
+            
             getChat(id){
-                axios.get(`${this.$store.getters.api}/api/v1/chats/${id}`, {headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
+                axios.get(`${this.$store.getters.api}/api/v1/chats/${id}`, 
+                {headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
                 .then(res => {
                     this.chatData = res.data;
                     console.log(this.chatData);
