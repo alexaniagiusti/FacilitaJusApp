@@ -87,7 +87,6 @@
 				showChat: false,
 				chatId: '',
 				chatUrl:''
-
 			}
 		},
 
@@ -112,10 +111,7 @@
 		mounted() {
 			axios.get(`${this.$store.getters.api}/api/v1/diligence/sent/${this.$route.params.id}`, { headers: { 'Authorization': `Bearer ${this.$store.getters.getToken}` } })
 				.then(res => {
-					console.log(res.data)
 					this.dadosDiligencia = res.data;
-					console.log(this.dadosDiligencia.chats)
-					// this.urlChat = `${this.$store.getters.api}/api/v1/diligence/received/${this.dadosDiligencia.id}/reply`
 					this.mostrarDiligencia = true;
 				})
 				.catch(e => console.log(e))
