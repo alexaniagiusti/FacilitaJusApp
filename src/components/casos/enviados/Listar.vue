@@ -32,8 +32,7 @@
 
   		methods: {
 			showDiligence(idLegalCase) {
-				console.log(idLegalCase)
-				this.$router.push({name: 'visualizarCasoRecebido', params:{id : idLegalCase}})
+				this.$router.push({name: 'visualizarCasoEnviado', params:{id : idLegalCase}})
 			}
 		},
 
