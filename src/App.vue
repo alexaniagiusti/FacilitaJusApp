@@ -16,6 +16,12 @@ export default {
     SnackbarSuccess,
     SnackbarError,
   },
+
+  mounted(){
+    if(!this.$store.getters.getUser){
+      return this.$router.push({'name': 'login'});
+    }
+  }
 };
 </script>
 
