@@ -29,7 +29,7 @@
               </v-flex>
 
               <v-flex xs12>
-                <v-text-field mask="###.###.###-20" label="CPF" v-model="perfil.cpf" />
+                <v-text-field v-mask="masks.cpf" label="CPF" v-model="perfil.cpf" />
               </v-flex>
 
               <v-flex xs12>
@@ -37,17 +37,15 @@
               </v-flex>
 
               <v-flex xs12>
-                <v-date-picker v-model="picker">
-                  <v-text-field mask="##/##/####" class="mt-4" label="Nascimento" v-model="perfil.birthdate" />
-                </v-date-picker>
+                  <v-text-field v-mask="masks.nascimento" class="mt-4" label="Nascimento" v-model="perfil.birthdate" />
               </v-flex>
 
               <v-flex xs12>
-                <v-text-field mask="##-####-####" label="Telefone" v-model="perfil.phone_1" />
+                <v-text-field v-mask="masks.telefone" label="Telefone" v-model="perfil.phone_1" />
               </v-flex>
 
               <v-flex xs12>
-                <v-text-field label="CEP" v-model="perfil.postal_code" />
+                <v-text-field v-mask="masks.cep" label="CEP" v-model="perfil.postal_code" />
               </v-flex>
 
               <v-flex xs12>
@@ -90,10 +88,20 @@
 
 <script>
 import axios from 'axios';
+import { mask } from 'vue-the-mask';
 
 export default {
+  directives: {
+    mask
+  },
   data() {
     return {
+      masks: {
+        cpf: '###.###.###-##',
+        nascimento: '##/##/####',
+        telefone: '(##) # ####-####',
+        cep: '##.###-###'
+      },
       sexOptions: [
         'Masculino',
         'Feminino',
@@ -112,26 +120,40 @@ export default {
         city: '',
         state: '',
       },
+      teste: '',
       carregandoSalvarPerfil: false,
     };
   },
   picker: new Date().toISOString().substr(0, 10),
   methods: {
     pegaDadosDoPerfil() {
-      this.perfil = JSON.parse(sessionStorage.usuario);
+      let perfil = JSON.parse(sessionStorage.usuario);
+      if(perfil.birthdate !== null) {
+        const formatBirthDate = perfil.birthdate.split('-')
+        const formatedBirtdate = `${formatBirthDate[2]}/${formatBirthDate[1]}/${formatBirthDate[0]}`
+        console.log("teste: " + formatedBirtdate)
+        perfil.birthdate = formatedBirtdate
+        this.perfil = perfil
+      } else {
+        this.perfil = perfil
+      }
+
     },
     salvarPerfil() {
       this.carregandoSalvarPerfil = true;
-      const atualizacao = this.perfil;
-      const { token } = sessionStorage;
+      const birthDate =  this.perfil.birthdate
+      const formatBirthDate = birthDate.split('/')
+      const formatedBirtdate = `${formatBirthDate[2]}-${formatBirthDate[1]}-${formatBirthDate[0]}`
+      let perfilAtualizado = this.perfil;
+      perfilAtualizado.birthdate = formatedBirtdate
+      const { token } = this.perfil;
       const { id } = this.perfil;
       const headers = {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       };
-      console.log(`id: ${id}`);
-      axios.put(`${this.$store.getters.api}/api/v1/users/${id}`, atualizacao, headers)
+      axios.put(`${this.$store.getters.api}/api/v1/users/${id}`, perfilAtualizado, headers)
         .then((res) => {
           this.$store.dispatch('snackbar_success', 'Dados Atualizados.');
           sessionStorage.usuario = JSON.stringify(this.perfil);
