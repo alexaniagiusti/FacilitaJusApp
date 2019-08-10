@@ -11,13 +11,13 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="diligence in diligences" :key="diligence.id" style="cursor: pointer" @click="showDiligence(diligence.id)">
-						<td>{{ diligence.id }}</td>
-						<td>{{ diligence.city.city }}</td>
-						<td>{{ diligence.service.service }}</td>
-						<td>
-							<v-btn class="ma-3" small color="primary">Visualizar</v-btn>
-						</td>
+					<tr v-for="legalCase in legalCases" :key="legalCase.id" style="cursor: pointer" @click="showDiligence(legalCase.id)">
+						<td>{{ legalCase.id }}</td>
+						<td>{{ legalCase.city.city }}</td>
+						<td>{{ legalCase.service.service }}</td>
+                        <td>
+                            <v-btn class="ma-3" small color="primary">Visualizar</v-btn>
+                        </td>
 					</tr>
 				</tbody>
 			</v-simple-table>
