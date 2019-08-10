@@ -2,9 +2,9 @@
 <v-app>
   <div class="principal pa-1" style="overflow: auto; background: linear-gradient(to right, #780206, #061161);">
     <div style="display: flex; width: 100%; justify-content: center; align-items: center" class="mb-2">
-      <img class="mt-2" src="https://firebasestorage.googleapis.com/v0/b/centraldeoportunidades-de3a9.appspot.com/o/Untitled-W.png?alt=media&token=ded0cc4f-cbe8-4a18-bec9-192263d3dd2b" height="40">
+      <img class="mt-2 animated delay-1s bounceInDown" src="https://firebasestorage.googleapis.com/v0/b/centraldeoportunidades-de3a9.appspot.com/o/Untitled-W.png?alt=media&token=ded0cc4f-cbe8-4a18-bec9-192263d3dd2b" height="40">
     </div>
-      <v-card light class=" pa-1 ma-1" style="width: 330px;border-radius: 8px; opacity: 0.9">
+      <v-card light class="animated delay-1s bounceInUp pa-1 ma-1" style="width: 330px;border-radius: 8px; opacity: 0.9">
         <v-flex xs12 class="pa-2">
           <v-flex xs12>
             <v-text-field
@@ -23,28 +23,30 @@
               block
               flat
               round
-              class="grey darken-4"
+              class="grey darken-4 "
               @click="login"
             >
-              <span v-if="!carregandoLogin" class="text-xs-center white--text">Entrar</span>
+              <span v-if="!carregandoLogin" class="text-xs-center white--text ">Entrar</span>
               <v-progress-circular size="15" color="white" indeterminate v-if="carregandoLogin"></v-progress-circular>
             </v-btn>
           </v-flex>
         </v-flex>
       </v-card>
-    <a flat>
-        <span @click="alteraSenhaDialog = true" class="text-weight-thin caption white--text">Bem Vindo(a). {{ dataDeHoje }} </span>
-    </a>
-      <div style="margin: 6px;height: 10px;align-items: center; display: flex">
-      <v-icon style="padding-top: 2px;" class="ml-2 mr-2" size="5">fiber_manual_record</v-icon>
+      <div class="animated delay-1s bounceInUp">
       <a flat>
-        <span @click="alteraSenhaDialog = true" class="text-weight-thin caption white--text ">Esqueci a senha</span>
+          <span @click="alteraSenhaDialog = true" class="text-weight-thin caption white--text">Bem Vindo(a). {{ dataDeHoje }} </span>
       </a>
-      <v-icon style="padding-top: 2px;" class="ml-2 mr-2" size="5">fiber_manual_record</v-icon>
-      <a style="text-decoration:none" href="/#/cadastro" flat>
-        <span class="text-weight-thin caption white--text ">Não tenho conta</span>
-      </a>
-      <v-icon style="padding-top: 2px;" class="ml-2 mr-2" size="5">fiber_manual_record</v-icon>
+        <div style="margin: 6px;height: 10px;align-items: center; display: flex">
+        <v-icon style="padding-top: 2px;" class="ml-2 mr-2" size="5">fiber_manual_record</v-icon>
+        <a flat>
+          <span @click="alteraSenhaDialog = true" class="text-weight-thin caption white--text ">Esqueci a senha</span>
+        </a>
+        <v-icon style="padding-top: 2px;" class="ml-2 mr-2" size="5">fiber_manual_record</v-icon>
+        <a style="text-decoration:none" href="/#/cadastro" flat>
+          <span class="text-weight-thin caption white--text ">Não tenho conta</span>
+        </a>
+        <v-icon style="padding-top: 2px;" class="ml-2 mr-2" size="5">fiber_manual_record</v-icon>
+      </div>
     </div>
     <v-dialog
       absolute
