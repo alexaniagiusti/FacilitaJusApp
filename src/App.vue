@@ -18,7 +18,7 @@ export default {
   },
 
   mounted(){
-    if(!this.$store.getters.getUser){
+    if(!this.$store.state.usuario){
       return this.$router.push({'name': 'login'});
     }
   }
