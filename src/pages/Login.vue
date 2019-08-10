@@ -21,8 +21,8 @@
           <v-flex xs12>
             <v-btn
               block
-              flat
-              round
+              text
+              rounded
               class="grey darken-4 "
               @click="login"
             >
@@ -33,16 +33,16 @@
         </v-flex>
       </v-card>
       <div class="animated delay-1s bounceInUp">
-      <a flat>
+      <a>
           <span @click="alteraSenhaDialog = true" class="text-weight-thin caption white--text">Bem Vindo(a). {{ dataDeHoje }} </span>
       </a>
         <div style="margin: 6px;height: 10px;align-items: center; display: flex">
         <v-icon style="padding-top: 2px;" class="ml-2 mr-2" size="5">fiber_manual_record</v-icon>
-        <a flat>
+        <a>
           <span @click="alteraSenhaDialog = true" class="text-weight-thin caption white--text ">Esqueci a senha</span>
         </a>
         <v-icon style="padding-top: 2px;" class="ml-2 mr-2" size="5">fiber_manual_record</v-icon>
-        <a style="text-decoration:none" href="/#/cadastro" flat>
+        <a style="text-decoration:none" href="/#/cadastro"  >
           <span class="text-weight-thin caption white--text ">Não tenho conta</span>
         </a>
         <v-icon style="padding-top: 2px;" class="ml-2 mr-2" size="5">fiber_manual_record</v-icon>
@@ -98,7 +98,7 @@
           <h2 class="font-weight-light mt-3 mb-3">{{ errorMessage }}</h2>
           <v-btn
             block
-            round
+            rounded
             color="yellow darken-3"
             @click="error = false, errorMessage = '', carregandoLogin=false"
           >
@@ -187,8 +187,9 @@ export default {
   color: white;
 }
   ::-webkit-scrollbar {
-    width: 1px;
-    background: #333
+    width: 5px;
+    border-radius: 5px;
+    background: #999
   }
   ::-webkit-scrollbar-thumb {
     background: #333;

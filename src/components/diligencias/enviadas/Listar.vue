@@ -11,14 +11,13 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="diligence in diligences" :key="diligence.id" style="cursor: pointer" @click="showDiligence(diligence.id)">
+					<tr v-for="diligence in diligences" :key="diligence.id" style="cursor: pointer" @click="showDiligence(diligence.id, diligence.name)">
 						<td>{{ diligence.id }}</td>
 						<td>{{ diligence.city.city }}</td>
 						<td>{{ diligence.service.service }}</td>
-							<td>
-								<v-btn class="ma-3" small color="primary">Visualizar</v-btn>
-							</td>
-						</router-link>
+						<td>
+							<v-btn class="ma-3" small color="primary">Visualizar</v-btn>
+						</td>
 					</tr>
 				</tbody>
 			</v-simple-table>
@@ -31,11 +30,11 @@
 	export default {
 		props: ['diligences'],
 
-  		methods: {
-			showDiligence(idDiligence) {
-				this.$router.push({name: 'visualizarDiligenciaEnviada', params:{id : idDiligence}})
+  	methods: {
+			showDiligence(idDiligence, nameRemetent) {
+				this.$router.push({name: 'visualizarDiligenciaEnviada', params:{id : idDiligence, remetent: nameRemetent}})
 			}
-		},
+		}
 
 	}
 </script>

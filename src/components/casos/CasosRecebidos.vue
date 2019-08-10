@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<!-- <v-layout>
+		<v-layout>
 			<v-flex>
 				<v-toolbar flat color="white" dark>
 					<v-spacer></v-spacer>
@@ -40,7 +40,7 @@
 					<v-tab-item><Listar v-if="this.showListar" :diligences="this.legalCases" /></v-tab-item>
 				</v-tabs-items>
 			</v-flex>
-		</v-layout> -->
+		</v-layout>
 	</div>
 </template>
 
