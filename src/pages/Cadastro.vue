@@ -1,26 +1,85 @@
-<template lang="pug">
-  div(class="pa-1")
-    div(style="display: flex; width: 100%;")
-      h3.pa-2.black--text.font-weight-regular Faça seu cadastro
-      v-spacer
+<template>
+  <div class="principal">
+    <v-flex xs12 md8 pa-2>
+      <v-flex xs12 pt-5>
+          <div class="linhaSemQuebra pr-5 mb-2 animated delay-1s flipInX">
+            <v-icon
+              size="35"
+              color="white"
+              class="pl-4"
+            >
+              account_balance
+            </v-icon>
+            <span style="font-size:20px" class="white--text font-weight-light">Facilita</span><span style="font-size:20px" class="font-weight-bold white--text">JUS</span>
+            <v-spacer></v-spacer>
+              <v-btn
+              flat
+              color="#43A047"
+              >
+              <h4 class="font-weight-light pr-2 white--text">Login</h4>
+                <v-icon
+                class="animated delay-2s infinite heartBeat"
+                color="white"
+                >
+                  arrow_forward
+                </v-icon>
+              </v-btn>
+          </div>
+        <div class="linhaSemQuebra">
+          <h3 class="text-center white--text mt-5 font-weight-light">Cadastre-se agora mesmo, seja um usuário ou parceiro do FacilitaJUS.</h3>
+        </div>
+      </v-flex>
+      <v-card width="600" class="mt-5">
+        <v-form ref="cadastroForm">
 
-      v-btn(flat icon to="/" class="mr-3")
-        span.black--text.font-weight-medium Login
-        v-icon(color="grey" size="20") arrow_forward
-
-    v-card(color="white" style="border-radius: 6px;")
-      div.home(class="pa-2" style="min-height: 85vh; margin-bottom: 0px; margin-top: 0px; border-radius: 6px;")
-        v-flex(xs12)
-          v-form(ref="cadastroForm")
-            v-text-field(color="#000"  label="Data de entrada" v-model="dataDoCadastro" disabled)
-            v-text-field(color="#000"  clearable :rules="[v => !!v || 'Este campo deve ser preenchido']" label="Nome" v-model="name")
-            v-text-field(color="#000" mask="###.###.###-##" clearable :rules="[v => !!v || 'Este campo deve ser preenchido']" label="CPF" v-model="cpf")
-            v-text-field(color="#000"  clearable :rules="[v => !!v || 'Este campo deve ser preenchido']" label="E-mail" v-model="email")
-            v-text-field(color="#000"  clearable :rules="[v => !!v || 'Este campo deve ser preenchido']" type="password" label="Senha" v-model="password")
-
-            v-btn(block flat class="indigo darken-4 mt-5" @click.prevent="cadastraUsuario" class="white--text font-weight-medium" ) Cadastrar
-              v-progress-circular(v-if="carregandoCadastrar" indeterminate)
-  </template>
+          <v-flex pa-2 xs12>
+            <v-text-field
+              filled
+              v-model="name"
+              label="Nome"
+              required
+              rules=""
+            >
+            </v-text-field>
+            <v-text-field
+              filled
+              v-model="email"
+              label="E-mail"
+              type="email"
+            >
+            </v-text-field>
+            <v-text-field
+              filled
+              v-model="cpf"
+              label="CPF"
+            >
+            </v-text-field>
+            <v-text-field
+              filled
+              v-model="password"
+              label="Senha"
+              type="password"
+            >
+            </v-text-field>
+            <v-text-field
+              filled
+              v-model="confirmPassword"
+              label="Confirme a senha"
+              type="password"
+            >
+            </v-text-field>
+          <v-btn
+            block
+            color="#43A047"
+          >
+            <span class="white--text font-weight-light">Cadastrar</span>
+          </v-btn>
+          </v-flex>
+        </v-form>
+    </v-card>
+  </v-flex>
+  </div>
+</template>
 
 
 <script>
@@ -29,9 +88,6 @@ import Moment from 'moment';
 import 'moment/locale/pt-br';
 
 export default {
-  props: [
-    'id',
-  ],
   data() {
     return {
       name: '',
@@ -82,65 +138,13 @@ export default {
 </script>
 
 <style>
-  .home {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    align-items: center;
-    align-content: center;
-  }
 
-  .cardClientes {
-    min-width: 100%;
-    display: flex;
-    border-radius: 6px;
-    flex-direction: column;
-  }
-
-  .recompraDialog {
-    display: flex;
-    height: 600px;
-  }
-  .principal {
-    padding: 5px;
-    display: flex;
-    width: 100%;
-    min-height: 100vh;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-
-  .form-usuario {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-  }
-
-  .card-indicador {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    border-radius: 5px;
-    width: 600px;
-    padding: 5px;
-    margin-bottom: 8px;
-  }
-
-  .card-form {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: 600px;
-    min-height: 300px;
-    border-radius: 5px;
-  }
-
-  .form {
-    display: flex;
-    width: 100%;
-    flex-wrap: wrap;
-  }
+.principal {
+  background: linear-gradient(to right, #4b6cb7, #182848);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+}
 </style>
