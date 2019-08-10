@@ -53,6 +53,7 @@
             <v-text-field
               :rules="cpfRules"
               filled
+              v-mask="cpfMask"
               v-model="cpf"
               label="CPF"
             >
@@ -99,13 +100,18 @@
 import axios from 'axios';
 import Moment from 'moment';
 import 'moment/locale/pt-br';
+import { mask } from 'vue-the-mask'
 
 export default {
+  directives: {
+    mask
+  },
   data() {
     return {
       cadastroForm: false,
       name: '',
       cpf: '',
+      cpfMask: '###.###.###-##',
       email: '',
       password: '',
       passwordHint: '',
