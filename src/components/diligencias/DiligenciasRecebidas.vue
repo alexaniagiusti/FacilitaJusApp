@@ -12,19 +12,19 @@
 
 				<v-tabs class="hidden-sm-and-down" grow v-model="tab">
 					<v-tab @click="withOpenStatus">
-						<v-icon>drafts</v-icon>Em aberto
+						<v-icon>inbox</v-icon>Em aberto
 					</v-tab>
 
 					<v-tab @click="withAnsweredStatus">
-						<v-icon>drafts</v-icon>Respondidas
+						<v-icon>comment</v-icon>Respondidas
 					</v-tab>
 
 					<v-tab @click="withNegotiationStatus">
-						<v-icon>drafts</v-icon>Em Negociação
+						<v-icon>forum</v-icon>Em Negociação
 					</v-tab>
 
 					<v-tab @click="withFinishedStatus">
-						<v-icon>drafts</v-icon>Finalizadas
+						<v-icon>done_all</v-icon>Finalizadas
 					</v-tab>
 				</v-tabs>
 

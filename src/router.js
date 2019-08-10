@@ -5,9 +5,6 @@ import Home from './pages/Home.vue';
 import Cadastro from './pages/Cadastro.vue';
 
 import Usuario from './pages/Usuario.vue';
-import Diligencias from './pages/Diligencias.vue';
-import DiligenciasEnviadas from './components/diligencias/DiligenciasEnviadas.vue'
-import DiligenciasRecebidas from './components/diligencias/DiligenciasRecebidas.vue'
 
 // usuarios
 import Atualizar from './components/usuario/Atualizar.vue';
@@ -16,14 +13,19 @@ import CidadesAtendidas from './components/usuario/CidadesAtendidas.vue';
 import ServicosAtendidos from './components/usuario/ServicosAtendidos.vue';
 
 //Diligências
+import Diligencias from './pages/Diligencias.vue';
+import DiligenciasEnviadas from './components/diligencias/DiligenciasEnviadas.vue'
+import DiligenciasRecebidas from './components/diligencias/DiligenciasRecebidas.vue'
 import VisualizarDiligenciaRecebida from './components/diligencias/recebidas/Visualizar.vue'
 import VisualizarDiligenciaEnviada from './components/diligencias/enviadas/Visualizar.vue'
 
 //Casos jurídicos
+import CasosJuridicos from './pages/CasosJuridicos.vue';
 import casosJuridicosRecibidos from './components/casos/CasosRecebidos.vue'
-//import VisualizarCasoRecebido from './components/casos/recebidos/Visualizar.vue'
-//import VisualizarCasoEnviado from './components/casos/enviados/Visualizar.vue'
 
+import VisualizarCasoRecebido from './components/casos/recebidos/Visualizar.vue'
+import casosJuridicosEnviados from './components/casos/CasosEnviados.vue'
+import VisualizarCasoEnviado from './components/casos/enviados/Visualizar.vue'
 
 Vue.use(Router);
 
@@ -31,8 +33,8 @@ export default new Router({
 	base: process.env.BASE_URL,
 	routes: [
 		{
-			path: '/',
-			name: 'Login',
+			path: '/login',
+			name: 'login',
 			component: Login,
 		},
 		{
@@ -41,69 +43,87 @@ export default new Router({
 			component: Home,
 			children: [
 				{
-					path: '/home/usuario',
+					path: '/perfil',
 					name: 'Usuario',
 					component: Usuario,
 					children: [
 						{
-							path: '/home/usuario/atualizar',
-							name: 'Atualizar Usuário',
+							path: '/perfil/atualizar',
+							name: 'perfilUsuario',
 							component: Atualizar,
 						},
 						{
-							path: '/home/usuario/areas-de-atuacao',
-							name: 'Áreas de Atuação',
+							path: '/perfil/areas-de-atuacao',
+							name: 'areasDeAtuacao',
 							component: AreasDeAtuacao,
 						},
 						{
-							path: '/home/usuario/cidades-atendidas',
-							name: 'Cidades Atendidas',
+							path: '/perfil/cidades-atendidas',
+							name: 'cidadesAtendidas',
 							component: CidadesAtendidas,
 						},
 						{
-							path: '/home/usuario/servicos-atendidos',
-							name: 'Servicos Atendidos',
+							path: '/perfil/servicos-atendidos',
+							name: 'servicosAtendidos',
 							component: ServicosAtendidos,
 						},
 					],
 				},
 				{
-					path: '/home/diligencias',
+					path: '/diligencias',
 					name: 'Diligencias',
 					component: Diligencias,
 					children: [
 						{
-							path: '/home/diligencias/diligencias-enviadas',
+							path: '/diligencias/diligencias-enviadas',
 							name: 'diligenciasEnviadas',
 							component: DiligenciasEnviadas,
 						},
 						{
-							path: '/home/diligencia/recebida/:id',
+							path: '/diligencia/recebida/:id',
 							name: 'visualizarDiligenciaRecebida',
 							component: VisualizarDiligenciaRecebida,
 						},
 						{
-							path: '/home/diligencias/diligencias-recebidas',
+							path: '/diligencias/diligencias-recebidas',
 							name: 'diligenciasRecebidas',
 							component: DiligenciasRecebidas,
 						},
 						{
-							path: '/home/diligencia/enviada/:id',
+							path: '/diligencia/enviada/:id',
 							name: 'visualizarDiligenciaEnviada',
 							component: VisualizarDiligenciaEnviada,
 						},
 					],
 				},
 				{
-					path: '/home/casos',
+					path: '/casos-juridicos',
+					name: 'casosJuridicos',
+					component: CasosJuridicos,
 					children : [
 						{
-							path: '/home/casos/recebidos',
+							path: '/casos-juridicos/recebidos',
 							name: 'casosJuridicosRecebidos',
 							component: casosJuridicosRecibidos
+						},
+						{
+							path: '/casos-juridicos/recebido/:id',
+							name: 'visualizarCasoRecebido',
+							component: VisualizarCasoRecebido
+						},
+						{
+							path: '/casos-juridicos/enviados',
+							name: 'casosJuridicosEnviados',
+							component: casosJuridicosEnviados
+						},
+						{
+							path: '/casos-juridicos/enviado/:id',
+							name: 'visualizarCasoEnviado',
+							component: VisualizarCasoEnviado
 						}
 					]
-				}
+				},
+				
 			],
 		},
 		{

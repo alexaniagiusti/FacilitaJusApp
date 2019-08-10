@@ -161,7 +161,7 @@ export default {
             this.carregandoLogin = false;
             this.$store.commit('setUser', res.data.user);
             sessionStorage.setItem('usuario', JSON.stringify(res.data.user))
-            this.$router.push('/home/usuario/atualizar');
+            this.$router.push({'name': 'home'});
           }else{
             alert('Erro ao efetuar login, verifique seus dados!')
           }
@@ -173,8 +173,12 @@ export default {
       this.carregandoLogin = true;
     },
   },
-  created() {
+  mounted() {
+    console.log(this.$store.getters.getUsuario)
     this.dataDeHoje = Moment().locale('pt-br').format('llll');
+    if(this.$store.getters.getUsuario){
+      return this.$router.push({'name': 'home'})
+    }
   },
 };
 </script>

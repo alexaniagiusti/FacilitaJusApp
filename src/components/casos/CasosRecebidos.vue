@@ -4,7 +4,7 @@
 			<v-flex>
 				<v-toolbar flat color="white" dark>
 					<v-spacer></v-spacer>
-					<v-toolbar-title class="font-weight-light black--text">Casos Recebidos</v-toolbar-title>
+					<v-toolbar-title class="font-weight-light black--text">Casos Jurídicos Recebidos</v-toolbar-title>
 					<v-spacer></v-spacer>
 				</v-toolbar>
 
@@ -12,32 +12,32 @@
 
 				<v-tabs class="hidden-sm-and-down" grow v-model="tab">
 					<v-tab @click="withOpenStatus">
-						<v-icon>drafts</v-icon>Em aberto
+						<v-icon>inbox</v-icon>Em aberto
 					</v-tab>
 
 					<v-tab @click="withAnsweredStatus">
-						<v-icon>drafts</v-icon>Respondidas
+						<v-icon>comment</v-icon>Respondidas
 					</v-tab>
 
 					<v-tab @click="withNegotiationStatus">
-						<v-icon>drafts</v-icon>Em Negociação
+						<v-icon>forum</v-icon>Em Negociação
 					</v-tab>
 
 					<v-tab @click="withFinishedStatus">
-						<v-icon>drafts</v-icon>Finalizadas
+						<v-icon>done_all</v-icon>Finalizadas
 					</v-tab>
 				</v-tabs>
 
 				<v-divider></v-divider>
 
 				<v-tabs-items v-model="tab">
-					<v-tab-item><Listar v-if="this.showListar" :diligences="this.legalCases" /></v-tab-item>
+					<v-tab-item><Listar v-if="this.showListar" :legalCases="this.legalCases" /></v-tab-item>
 
-					<v-tab-item><Listar v-if="this.showListar" :diligences="this.legalCases" /></v-tab-item>
+					<v-tab-item><Listar v-if="this.showListar" :legalCases="this.legalCases" /></v-tab-item>
 
-					<v-tab-item><Listar v-if="this.showListar" :diligences="this.legalCases" /></v-tab-item>
+					<v-tab-item><Listar v-if="this.showListar" :legalCases="this.legalCases" /></v-tab-item>
 
-					<v-tab-item><Listar v-if="this.showListar" :diligences="this.legalCases" /></v-tab-item>
+					<v-tab-item><Listar v-if="this.showListar" :legalCases="this.legalCases" /></v-tab-item>
 				</v-tabs-items>
 			</v-flex>
 		</v-layout>
@@ -65,7 +65,6 @@
 				axios.get(`${this.$store.getters.api}/api/v1/legal-cases/received/open/${this.$store.getters.getUsuario.id}`, 
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
-                        console.log(res.data)
 						this.legalCases = res.data;
 						this.showListar = true
 					})
@@ -74,7 +73,7 @@
 			
 			withAnsweredStatus(){
 				this.showListar = false
-				axios.get(`${this.$store.getters.api}/api/v1/legal-scase/received/answered/${this.$store.getters.getUsuario.id}`, 
+				axios.get(`${this.$store.getters.api}/api/v1/legal-cases/received/answered/${this.$store.getters.getUsuario.id}`, 
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
 						this.legalCases = res.data;
@@ -85,7 +84,7 @@
 
 			withNegotiationStatus(){
 				this.showListar = false
-				axios.get(`${this.$store.getters.api}/api/v1/diligences/received/negotiation/${this.$store.getters.getUsuario.id}`, 
+				axios.get(`${this.$store.getters.api}/api/v1/legal-cases/received/negotiation/${this.$store.getters.getUsuario.id}`, 
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
 						this.legalCases = res.data;
@@ -96,7 +95,7 @@
 
 			withFinishedStatus(){
 				this.showListar = false
-				axios.get(`${this.$store.getters.api}/api/v1/diligences/received/finished/${this.$store.getters.getUsuario.id}`, 
+				axios.get(`${this.$store.getters.api}/api/v1/legal-cases/received/finished/${this.$store.getters.getUsuario.id}`, 
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
 						this.legalCases = res.data;
@@ -108,7 +107,6 @@
 		},
 
 		mounted() {
-            console.log('component ok!')
 			this.withOpenStatus();
 		},
 	};

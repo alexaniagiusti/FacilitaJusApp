@@ -91,7 +91,6 @@
                 axios.post(`${this.url}`, this.message,
                 {headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
                 .then(res => {
-                    console.log(res.data)
                     this.chatData = res.data;
                     this.getChat(this.chatData.chat_id);
                     this.message.message = '';
@@ -105,7 +104,6 @@
                 {headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
                 .then(res => {
                     this.chatData = res.data;
-                    console.log(this.chatData);
                     this.showChat = true
                 })
                 .catch(e => console.log(e))
