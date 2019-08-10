@@ -65,7 +65,6 @@
 				axios.get(`${this.$store.getters.api}/api/v1/diligences/sent/open/${this.$store.getters.getUsuario.email}`, 
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
-            console.log(res.data)
 						this.diligences = res.data;
 						this.showListar = true
 					})
