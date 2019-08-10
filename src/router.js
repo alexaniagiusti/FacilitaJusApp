@@ -84,7 +84,7 @@ export default new Router({
             },
             {
               path: '/home/diligencia/enviada/:id',
-              name: 'visualizarDiligenceEnviada',
+              name: 'visualizarDiligenciaEnviada',
               component: VisualizarDiligenciaEnviada,
             },
           ],
