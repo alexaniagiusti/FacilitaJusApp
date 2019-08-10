@@ -12,19 +12,19 @@
 
 				<v-tabs class="hidden-sm-and-down" grow v-model="tab">
 					<v-tab @click="withOpenStatus">
-						<v-icon>drafts</v-icon>Em aberto
+						<v-icon>inbox</v-icon>Em aberto
 					</v-tab>
 
 					<v-tab @click="withAnsweredStatus">
-						<v-icon>drafts</v-icon>Respondidas
+						<v-icon>comment</v-icon>Respondidas
 					</v-tab>
 
 					<v-tab @click="withNegotiationStatus">
-						<v-icon>drafts</v-icon>Em Negociação
+						<v-icon>forum</v-icon>Em Negociação
 					</v-tab>
 
 					<v-tab @click="withFinishedStatus">
-						<v-icon>drafts</v-icon>Finalizadas
+						<v-icon>done_all</v-icon>Finalizadas
 					</v-tab>
 				</v-tabs>
 
@@ -65,7 +65,6 @@
 				axios.get(`${this.$store.getters.api}/api/v1/legal-cases/received/open/${this.$store.getters.getUsuario.id}`, 
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
-                        console.log(res.data)
 						this.legalCases = res.data;
 						this.showListar = true
 					})
@@ -77,7 +76,6 @@
 				axios.get(`${this.$store.getters.api}/api/v1/legal-cases/received/answered/${this.$store.getters.getUsuario.id}`, 
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
-						console.log(res.data)
 						this.legalCases = res.data;
 						this.showListar = true
 					})
@@ -89,7 +87,6 @@
 				axios.get(`${this.$store.getters.api}/api/v1/legal-cases/received/negotiation/${this.$store.getters.getUsuario.id}`, 
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
-						console.log(res.data)
 						this.legalCases = res.data;
 						this.showListar = true
 					})
@@ -101,7 +98,6 @@
 				axios.get(`${this.$store.getters.api}/api/v1/legal-cases/received/finished/${this.$store.getters.getUsuario.id}`, 
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
-						console.log(res.data)
 						this.legalCases = res.data;
 						this.showListar = true
 					})
@@ -111,7 +107,6 @@
 		},
 
 		mounted() {
-            console.log('component ok!')
 			this.withOpenStatus();
 		},
 	};

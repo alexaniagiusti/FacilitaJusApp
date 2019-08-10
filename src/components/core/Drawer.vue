@@ -11,8 +11,8 @@
 		<v-navigation-drawer v-model="drawer" width="250" class="grey lighten-4" app>
 			<div class="mb-5"
 				style="border-bottom:1px solid #E0E0E0;background: linear-gradient(to right, #fff, #fff); display: flex; width: 100%; align-items: center; flex-direction: column">
-				<div class="mt-3 mb-2" style="display: flex">
-					<img @click="$router.push({name: 'home'})" class="mt-2 animated delay-1s fadeIn"
+				<div @click="$router.push({name: 'home'})" class="mt-3 mb-2" style="display: flex">
+					<img class="mt-2 animated delay-1s fadeIn"
 						src="https://firebasestorage.googleapis.com/v0/b/centraldeoportunidades-de3a9.appspot.com/o/Untitled-1.png?alt=media&token=1ecc2ffb-2b00-492f-a05e-d5a7382990c7"
 						height="40">
 				</div>
@@ -83,7 +83,7 @@
 						</v-list-item-content>
 					</v-list-item>
 				</v-list-group>
-				<v-list-group prepend-icon="work" no-action>
+				<v-list-group prepend-icon="gavel" no-action>
 					<template v-slot:activator>
 						<v-list-item-content>
 							<v-list-item-title>Casos Jurídicos</v-list-item-title>
