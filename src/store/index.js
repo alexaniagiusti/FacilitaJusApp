@@ -84,8 +84,8 @@ export default new Vuex.Store({
       return state.snackbar_error
     },
     api() {
-      // return 'http://co.site';
-      return 'https://api.facilitajus.com.br'
+      return 'http://co.site';
+      // return 'https://api.facilitajus.com.br'
     },
   },
 });

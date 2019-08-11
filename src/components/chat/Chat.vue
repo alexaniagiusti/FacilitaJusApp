@@ -1,14 +1,14 @@
 <template>
   <span v-if="showChat">
     <!-- CARD QUE ENVOLVE TODO O CHAT -->
-    <v-card class="pa-2 elevation-0" style="border: 1px solid #E0E0E0">
+    <v-card class="pa-2 elevation-0">
         <!-- MENSAGENS DO CHAT -->
         <v-toolbar style="background: linear-gradient(to right, #780206, #061161); border-radius: 10px 10px 0px 0px;" class="elevation-2" fixed app static>
             <div class="linhaSemQuebra">
                 <v-avatar>
-                    <v-icon color="white" size="18">person</v-icon>
+                    <v-icon color="white" size="18">messages</v-icon>
                 </v-avatar>
-                <h3 class="white--text font-weight-light">{{ $route.params.remetent }}</h3>
+                <h3 class="white--text font-weight-light">Chat</h3>
             </div>
         </v-toolbar>
         <div style="border: 1px solid #e0e0e0; background: #f2f2f2; display: flex; width: 100%; flex-direction: column; height: 35vh; overflow: auto">
