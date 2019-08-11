@@ -16,7 +16,7 @@
           </div>
         </v-flex>
         <v-flex class="mt-3 mb-3" xs12>
-          <h3 class="text-xs-center">{{ snackbar_error.mensagem }}</h3>
+          <h3 class="text-center">{{ snackbar_error.mensagem }}</h3>
         </v-flex>
         <v-flex xs12>
           <v-btn color="red" block class="white--text" @click="fecha_snackbar">
