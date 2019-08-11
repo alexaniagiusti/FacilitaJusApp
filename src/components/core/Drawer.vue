@@ -6,7 +6,7 @@
 			</v-btn>
 			<v-spacer></v-spacer>
 			<v-icon color="white">account_circle</v-icon>
-			<!-- <span class="white--text ml-3 mr-5"> {{ nome }} </span> -->
+			<span class="white--text ml-3 mr-5"> {{ nome }} </span> 
 		</v-app-bar>
 		<v-navigation-drawer v-model="drawer" width="250" class="grey lighten-4" app>
 			<div class="mb-5"
@@ -16,7 +16,7 @@
 						src="https://firebasestorage.googleapis.com/v0/b/centraldeoportunidades-de3a9.appspot.com/o/Untitled-1.png?alt=media&token=1ecc2ffb-2b00-492f-a05e-d5a7382990c7"
 						height="40">
 				</div>
-				<!-- <h3 class="animated delay-1s fadeIn font-weight-light black--text">{{ nome }}</h3> -->
+				<h3 class="animated delay-1s fadeIn font-weight-light black--text">{{ nome }}</h3>
 
 				<v-avatar style="bottom: -28px" color="white" v-if="masculino" size="70">
 					<v-img style="border: 6px solid #fff"
@@ -96,7 +96,7 @@
 						</v-list-item-content>
 					</template>
 
-					<v-list-item @click="$router.push({name: 'casosJuridicosEnviados'})">
+					<v-list-item @click="$router.push({'name': 'casosJuridicosEnviados'})">
 						<v-list-item-content>
 							<v-list-item-title>Enviados</v-list-item-title>
 						</v-list-item-content>
@@ -136,9 +136,8 @@
 				console.log('fui chamada')
 			},
 			sair() {
-				sessionStorage.token = ''
-				sessionStorage.usuario = ''
-				this.$router.push("/")
+				sessionStorage.usuario = null
+				this.$router.push('/login')
 			},
 		},
 		created() {

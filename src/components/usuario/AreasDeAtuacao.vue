@@ -11,7 +11,7 @@
 					<v-progress-circular indeterminate color="red"></v-progress-circular>
 				</div>
 			</v-flex>
-			<v-flex v-else xs12>
+			<v-flex v-if="!carregandoDados" xs12>
 				<v-list pa-0 ma-0>
 					<template v-for="(areaDeAtuacao, index) in itemsSelecionados">
 						<v-list-item @click="" :key="areaDeAtuacao.actuation">

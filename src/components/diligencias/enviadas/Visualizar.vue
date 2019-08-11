@@ -1,51 +1,50 @@
 <template>
-	<v-container grid-list-md>
-		<v-layout v-if="mostrarDiligencia">
-			<v-flex>
-				<v-card>
-					<v-card-title>Diligência #{{dadosDiligencia.id}}</v-card-title>
+	<div class="visualizar" v-if="mostrarDiligencia">
+		<v-flex xs12>
+			<v-card>
+				<v-card-title>Diligência #{{dadosDiligencia.id}}</v-card-title>
 
-					<template>
-						<v-simple-table>
-							<tbody>
-								<tr>
-									<td><strong>Tipo:</strong></td>
-									<td>{{ dadosDiligencia.service.service }}</td>
-								</tr>
-								<tr>
-									<td><strong>Status:</strong></td>
-									<td>{{ dadosDiligencia.status.status }}</td>
-								</tr>
-								<tr>
-									<td><strong>Cidade:</strong></td>
-									<td>{{ dadosDiligencia.city.city }} - {{ dadosDiligencia.city.state }}</td>
-								</tr>
-								<tr>
-									<td><strong>Nome:</strong></td>
-									<td>{{ dadosDiligencia.name}}</td>
-								</tr>
+				<template>
+					<v-simple-table>
+						<tbody>
+							<tr>
+								<td><strong>Tipo:</strong></td>
+								<td>{{ dadosDiligencia.service.service }}</td>
+							</tr>
+							<tr>
+								<td><strong>Status:</strong></td>
+								<td>{{ dadosDiligencia.status }}</td>
+							</tr>
+							<tr>
+								<td><strong>Cidade:</strong></td>
+								<td>{{ dadosDiligencia.city.city }} - {{ dadosDiligencia.city.state }}</td>
+							</tr>
+							<tr>
+								<td><strong>Nome:</strong></td>
+								<td>{{ dadosDiligencia.name}}</td>
+							</tr>
 
-								<tr>
-									<td><strong>Telefone:</strong></td>
-									<td>{{ dadosDiligencia.phone}}</td>
-								</tr>
+							<tr>
+								<td><strong>Telefone:</strong></td>
+								<td>{{ dadosDiligencia.phone}}</td>
+							</tr>
 
-								<tr>
-									<td><strong>Mensagem:</strong></td>
-									<td>{{ dadosDiligencia.message}}</td>
-								</tr>
-							</tbody>
-						</v-simple-table>
-					</template>
-				</v-card>
-			</v-flex>
+							<tr>
+								<td><strong>Mensagem:</strong></td>
+								<td>{{ dadosDiligencia.message}}</td>
+							</tr>
+						</tbody>
+					</v-simple-table>
+				</template>
+			</v-card>
+		</v-flex>
 
-			<v-flex>
-				<v-card >
+		<div class="containerChat">
+			<v-flex xs12 md3 class="pa-2">
+				<v-card height="488" class="elevation-0" style="border: 1px solid #E0E0E0">
 					<v-card-title>Respostas</v-card-title>
 					<v-list subheader>
-
-						<v-list-item v-for="item of dadosDiligencia.chats" @click="openChat(item.id)">
+						<v-list-item v-for="item of dadosDiligencia.chats" @click="openChat(item.id)" :key="item.id">
 							<v-list-item-avatar>
 								<v-img src="https://firebasestorage.googleapis.com/v0/b/centraldeoportunidades-de3a9.appspot.com/o/avatar.png?alt=media&token=51d40592-131a-4f3c-939c-b08fc1613842"></v-img>
 							</v-list-item-avatar>
@@ -61,11 +60,12 @@
 					</v-list>
 				</v-card>
 			</v-flex>
-
-			<!-- <Chat v-if="this.dadosDiligencia.chat != null" :chatId="this.dadosDiligencia.chat.id" :url="this.urlChat"/> -->
+			<v-flex xs12 md9 class="pa-2">
+				<!-- <Chat v-if="this.dadosDiligencia.chat != null" :chatId="this.dadosDiligencia.chat.id" :url="this.urlChat"/> -->
 				<Chat v-if="this.showChat" :chatId="this.chatId" :url="this.chatUrl"/>
-		</v-layout>
-	</v-container>
+			</v-flex>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -119,3 +119,15 @@
 		},
 	}
 </script>
+
+<style scoped>
+	.visualizar {
+		display: flex;
+		width: 100%;
+		flex-direction: column;
+	}
+	.containerChat {
+		display: flex;
+		width: 100%;
+	}
+</style>
