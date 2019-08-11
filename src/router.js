@@ -22,6 +22,7 @@ import VisualizarDiligenciaEnviada from './components/diligencias/enviadas/Visua
 //Casos jurídicos
 import CasosJuridicos from './pages/CasosJuridicos.vue';
 import casosJuridicosRecibidos from './components/casos/CasosRecebidos.vue'
+
 import VisualizarCasoRecebido from './components/casos/recebidos/Visualizar.vue'
 import casosJuridicosEnviados from './components/casos/CasosEnviados.vue'
 import VisualizarCasoEnviado from './components/casos/enviados/Visualizar.vue'
