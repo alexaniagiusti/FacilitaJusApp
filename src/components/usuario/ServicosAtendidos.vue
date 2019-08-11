@@ -143,7 +143,7 @@
 					service_id,
 				};
 
-				axios.put(`${this.$store.getters.api}/api/v1/users/services/${id}`, atualizacao, { headers: { Authorization: `Bearer ${this.$store.getters.getToken}` } })
+				axios.put(`${this.$store.getters.api}/api/v1/users/services/${this.$store.getters.getUsuario.id}`, atualizacao, { headers: { Authorization: `Bearer ${this.$store.getters.getToken}` } })
 					.then((res) => {
 						this.carregandoSalvar = false;
 						this.$store.dispatch('snackbar_success', 'Atualizado Com Sucesso!.');
