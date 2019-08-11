@@ -52,70 +52,57 @@
 			</v-flex>
 		</v-layout>
 		<v-layout justify-center>
-			<v-flex class="pa-2" xs12>
+			<v-flex xs12>
 				<v-card class="arredondaBorda">
 					<div class="expandeDiv">
-						<v-combobox :items="items" v-model="itemsSelecionados" return-object item-value="city"
-							item-text="city" :hide-selected="true" label="Cidades Atendidas" :multiple="true"
-							:small-chips="true" />
-
+						<v-autocomplete
+							v-model="pesquisa"
+							:items="items"
+							chips
+							hide-no-data
+							return-object
+							label="Cidades Atendidas"
+							item-text="city"
+							item-value="city"
+						>
+							<template v-slot:selection="data">
+								<v-chip
+									v-bind="data"
+									:input-value="data"
+									close
+									@click="data.item.city"
+									@click:close="removeItem(data.item.id)"
+								>
+									<v-avatar class="elevation-1" left>
+										<v-icon>place</v-icon>
+									</v-avatar>
+									{{ data.item.city }} - {{ data.item.state }}
+								</v-chip>
+							</template>
+							<template v-slot:item="data">
+								<template v-if="typeof data.item !== 'object'">
+									<v-list-item-content v-text="data.item.city"></v-list-item-content>
+								</template>
+								<template v-else>
+									<v-list-item-avatar class="elevation-1">
+										<v-icon>place</v-icon>
+									</v-list-item-avatar>
+									<v-list-item-content>
+										<v-list-item-title v-html="data.item.city"></v-list-item-title>
+										<v-list-item-subtitle v-html="data.item.state"></v-list-item-subtitle>
+									</v-list-item-content>
+								</template>
+							</template>
+						</v-autocomplete>
 					</div>
-				</v-card>
-				<v-flex xs12>
 					<div class="linhaSemQuebra">
-						<v-btn @click="salvar" block color="green" class="white--text mr-2">Salvar
+						<v-btn :disabled="carregandoSalvar" @click="salvar" block color="green" class="white--text mr-2">Salvar
 							<v-icon color="white" size="18" class="ml-1">save</v-icon>
 							<v-progress-circular class="ml-1" indeterminate size="18" color="white"
 								v-if="carregandoSalvar"></v-progress-circular>
 						</v-btn>
 					</div>
-				</v-flex>
-
-				<!-- novo aqui -->
-				<v-flex xs12>
-					<v-card class="arredondaBorda">
-						<div class="expandeDiv">
-							<v-autocomplete
-								v-model="itemsSelecionados"
-								:items="items"
-								chips
-								return-object
-								label="Cidades Atendidas"
-								item-text="city"
-								item-value="city"
-							>
-								<template v-slot:selection="data">
-									<v-chip
-										v-bind="data.item"
-										:input-value="data.city"
-										close
-										@click="data.item.city"
-										@click:close="removeItem(data.item.id)"
-									>
-										<v-avatar left>
-											<v-icon>place</v-icon>
-										</v-avatar>
-										{{ data.item.city }} - {{ data.item.state }}
-									</v-chip>
-								</template>
-								<template v-slot:item="data">
-									<template v-if="typeof data.item !== 'object'">
-										<v-list-item-content v-text="data.item.city"></v-list-item-content>
-									</template>
-									<template v-else>
-										<v-list-item-avatar>
-											<v-icon>place</v-icon>
-										</v-list-item-avatar>
-										<v-list-item-content>
-											<v-list-item-title v-html="data.item.city"></v-list-item-title>
-											<v-list-item-subtitle v-html="data.item.state"></v-list-item-subtitle>
-										</v-list-item-content>
-									</template>
-								</template>
-							</v-autocomplete>
-						</div>
-					</v-card>
-				</v-flex>
+				</v-card>
 			</v-flex>
 		</v-layout>
 	</div>
@@ -127,6 +114,7 @@
 	export default {
 		data() {
 			return {
+				pesquisa: '',
 				carregandoDados: true,
 				items: [],
 				itemsSelecionado: '',
@@ -135,8 +123,8 @@
 			};
 		},
 		watch: {
-			itemsSelecionado(val) {
-
+			pesquisa(val) {
+				this.itemsSelecionados.push(val)
 			}
 		},
 		methods: {
