@@ -35,7 +35,7 @@
 							</v-avatar>
 							<v-list-item-content>
 								<v-list-item-title>
-									{{ cidadesAtendidas.city }}
+									{{ cidadesAtendidas.city }} - {{ cidadesAtendidas.state }}
 								</v-list-item-title>
 							</v-list-item-content>
 							<v-list-item-action>
@@ -70,6 +70,52 @@
 						</v-btn>
 					</div>
 				</v-flex>
+
+				<!-- novo aqui -->
+				<v-flex xs12>
+					<v-card class="arredondaBorda">
+						<div class="expandeDiv">
+							<v-autocomplete
+								v-model="itemsSelecionados"
+								:items="items"
+								chips
+								return-object
+								label="Cidades Atendidas"
+								item-text="city"
+								item-value="city"
+							>
+								<template v-slot:selection="data">
+									<v-chip
+										v-bind="data.item"
+										:input-value="data.city"
+										close
+										@click="data.item.city"
+										@click:close="removeItem(data.item.id)"
+									>
+										<v-avatar left>
+											<v-icon>place</v-icon>
+										</v-avatar>
+										{{ data.item.city }} - {{ data.item.state }}
+									</v-chip>
+								</template>
+								<template v-slot:item="data">
+									<template v-if="typeof data.item !== 'object'">
+										<v-list-item-content v-text="data.item.city"></v-list-item-content>
+									</template>
+									<template v-else>
+										<v-list-item-avatar>
+											<v-icon>place</v-icon>
+										</v-list-item-avatar>
+										<v-list-item-content>
+											<v-list-item-title v-html="data.item.city"></v-list-item-title>
+											<v-list-item-subtitle v-html="data.item.state"></v-list-item-subtitle>
+										</v-list-item-content>
+									</template>
+								</template>
+							</v-autocomplete>
+						</div>
+					</v-card>
+				</v-flex>
 			</v-flex>
 		</v-layout>
 	</div>
@@ -83,9 +129,15 @@
 			return {
 				carregandoDados: true,
 				items: [],
+				itemsSelecionado: '',
 				itemsSelecionados: [],
 				carregandoSalvar: false,
 			};
+		},
+		watch: {
+			itemsSelecionado(val) {
+
+			}
 		},
 		methods: {
 			removeItem(id) {
