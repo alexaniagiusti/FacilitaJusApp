@@ -48,7 +48,7 @@
 						</v-list-item-content>
 					</template>
 
-					<v-list-item @click="$router.push({'name': 'areasDeAtuacao'})">
+					<v-list-item @click="$router.push({'name': 'servicosAtendidos'})">
 						<v-list-item-content>
 							<v-list-item-title>Serviços Atendidos</v-list-item-title>
 						</v-list-item-content>
@@ -59,7 +59,7 @@
 							<v-list-item-title>Cidades Atendidas</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
-					<v-list-item @click="$router.push({'name': 'servicosAtendidos'})">
+					<v-list-item @click="$router.push({'name': 'areasDeAtuacao'})">
 						<v-list-item-content>
 							<v-list-item-title>Áreas de Atuação</v-list-item-title>
 						</v-list-item-content>
@@ -72,6 +72,11 @@
 						</v-list-item-content>
 					</template>
 
+					<v-list-item @click="$router.push({'name':'enviarDiligencia'})">
+						<v-list-item-content>
+							<v-list-item-title>Enviar</v-list-item-title>
+						</v-list-item-content>
+					</v-list-item>
 					<v-list-item @click="$router.push({'name':'diligenciasEnviadas'})">
 						<v-list-item-content>
 							<v-list-item-title>Enviadas</v-list-item-title>
