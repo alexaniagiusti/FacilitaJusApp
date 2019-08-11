@@ -48,7 +48,7 @@
 				</v-card>
 				<v-flex xs12>
 					<div class="linhaSemQuebra">
-						<v-btn @click="salvar" block color="green" class="white--text mr-2">Salvar
+						<v-btn :disabled="carregandoSalvar" @click="salvar" block color="green" class="white--text mr-2">Salvar
 							<v-icon color="white" size="18" class="ml-1">save</v-icon>
 							<v-progress-circular class="ml-1" indeterminate size="18" color="white"
 								v-if="carregandoSalvar">
