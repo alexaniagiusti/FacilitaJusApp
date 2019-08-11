@@ -13,7 +13,7 @@
 							</tr>
 							<tr>
 								<td><strong>Status:</strong></td>
-								<td>{{ dadosDiligencia.status }}</td>
+								<td>{{ dadosDiligencia.status.status }}</td>
 							</tr>
 							<tr>
 								<td><strong>Cidade:</strong></td>
@@ -39,14 +39,16 @@
 			</v-card>
 		</v-flex>
 
-		<div class="containerChat">
+		<v-layout>
 			<v-flex xs12 md3 class="pa-2">
-				<v-card height="488" class="elevation-0" style="border: 1px solid #E0E0E0">
+				<v-card height="488" class="elevation-0">
 					<v-card-title>Respostas</v-card-title>
 					<v-list subheader>
 						<v-list-item v-for="item of dadosDiligencia.chats" @click="openChat(item.id)" :key="item.id">
 							<v-list-item-avatar>
-								<v-img src="https://firebasestorage.googleapis.com/v0/b/centraldeoportunidades-de3a9.appspot.com/o/avatar.png?alt=media&token=51d40592-131a-4f3c-939c-b08fc1613842"></v-img>
+								<v-img
+									src="https://firebasestorage.googleapis.com/v0/b/centraldeoportunidades-de3a9.appspot.com/o/avatar.png?alt=media&token=51d40592-131a-4f3c-939c-b08fc1613842">
+								</v-img>
 							</v-list-item-avatar>
 
 							<v-list-item-content>
@@ -61,10 +63,9 @@
 				</v-card>
 			</v-flex>
 			<v-flex xs12 md9 class="pa-2">
-				<!-- <Chat v-if="this.dadosDiligencia.chat != null" :chatId="this.dadosDiligencia.chat.id" :url="this.urlChat"/> -->
-				<Chat v-if="this.showChat" :chatId="this.chatId" :url="this.chatUrl"/>
+				<Chat v-if="this.showChat" :chatId="this.chatId" :url="this.chatUrl" />
 			</v-flex>
-		</div>
+		</v-layout>
 	</div>
 </template>
 
@@ -86,7 +87,7 @@
 				urlChat: '',
 				showChat: false,
 				chatId: '',
-				chatUrl:''
+				chatUrl: ''
 			}
 		},
 
@@ -97,14 +98,14 @@
 		},
 
 		methods: {
-			openChat(id){
+			openChat(id) {
 				this.showChat = false
 				axios.get(`${this.$store.getters.api}/api/v1/chats/${id}`)
-				.then(res => {
-					this.chatId = id;
-					this.chatUrl = `${this.$store.getters.api}/api/v1/diligence/sent/reply/chat/${id}`
-					this.showChat = true
-				})
+					.then(res => {
+						this.chatId = id;
+						this.chatUrl = `${this.$store.getters.api}/api/v1/diligence/sent/reply/chat/${id}`
+						this.showChat = true
+					})
 			}
 		},
 
@@ -126,6 +127,7 @@
 		width: 100%;
 		flex-direction: column;
 	}
+
 	.containerChat {
 		display: flex;
 		width: 100%;
