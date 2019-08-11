@@ -43,10 +43,16 @@
         </v-subheader> -->
 				<v-list-group prepend-icon="person" no-action>
 					<template v-slot:activator>
-						<v-list-item-content @click="$router.push({'name': 'perfilUsuario'})">
+						<v-list-item-content>
 							<v-list-item-title>Perfil</v-list-item-title>
 						</v-list-item-content>
 					</template>
+
+					<v-list-item @click="$router.push({'name': 'perfilUsuario'})">
+						<v-list-item-content>
+							<v-list-item-title>Dados Pessoais</v-list-item-title>
+						</v-list-item-content>
+					</v-list-item>
 
 					<v-list-item @click="$router.push({'name': 'areasDeAtuacao'})">
 						<v-list-item-content>

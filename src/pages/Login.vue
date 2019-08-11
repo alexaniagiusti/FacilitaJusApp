@@ -174,9 +174,9 @@ export default {
     },
   },
   mounted() {
-    console.log(this.$store.getters.getUsuario)
     this.dataDeHoje = Moment().locale('pt-br').format('llll');
-    if(sessionStorage.usuario){
+    
+    if(this.$store.state.usuario){
       return this.$router.push({'name': 'home'})
     }
   },
