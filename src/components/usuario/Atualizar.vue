@@ -75,7 +75,7 @@
           <div
             class="linhaSemQuebra"
           >
-            <v-btn @click="salvarPerfil" block color="green" class="white--text">Salvar
+            <v-btn :disabled="carregandoSalvar" @click="salvarPerfil" block color="green" class="white--text">Salvar
               <v-icon color="white" size="18" class="ml-1">save</v-icon>
               <v-progress-circular class="ml-1" indeterminate size="18" color="white" v-if="carregandoSalvarPerfil"></v-progress-circular>
             </v-btn>
