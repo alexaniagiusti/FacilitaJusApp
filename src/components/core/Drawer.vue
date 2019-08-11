@@ -130,7 +130,7 @@
 				console.log('fui chamada')
 			},
 			sair() {
-				sessionStorage.usuario = null
+				sessionStorage.removeItem('usuario')
 				this.$router.push('/login')
 			},
 		},
