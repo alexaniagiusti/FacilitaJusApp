@@ -15,7 +15,7 @@
               <v-btn
               flat
               color="#43A047"
-              to="/"
+              to="/login"
               >
               <h4 class="font-weight-light pr-2 white--text">Login</h4>
                 <v-icon
