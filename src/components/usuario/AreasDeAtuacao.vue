@@ -40,8 +40,8 @@
 			<v-flex class="pa-2" xs12>
 				<v-card class="arredondaBorda">
 					<div class="expandeDiv">
-						<v-combobox :items="items" v-model="itemsSelecionados" return-object item-value="actuation"
-							item-text="actuation" :hide-selected="true" label="Áreas De Atuação" :multiple="true"
+						<v-autocomplete :items="items" v-model="pesquisa" return-object item-value="actuation"
+							item-text="actuation" :hide-selected="true" label="Áreas De Atuação" hide-no-data
 							:small-chips="true" />
 
 					</div>
@@ -67,11 +67,17 @@
 	export default {
 		data() {
 			return {
+				pesquisa: '',
 				carregandoDados: true,
 				items: [],
 				itemsSelecionados: [],
 				carregandoSalvar: false,
 			};
+		},
+		watch: {
+			pesquisa(val) {
+				this.itemsSelecionados.push(val)
+			}
 		},
 		methods: {
 			removeItem(id) {
@@ -107,7 +113,7 @@
 			},
 			pegaDados() {
 
-				axios.get(this.$store.getters.api + '/api/v1/actuations', { headers: { Authorization: `${this.$store.getters.getToken}` } })
+				axios.get(this.$store.getters.api + '/api/v1/actuations', { headers: { Authorization: `Bearer ${this.$store.getters.getToken}` } })
 					.then((res) => {
 						this.items = res.data;
 					})

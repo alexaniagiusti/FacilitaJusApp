@@ -57,8 +57,8 @@
 
 				<v-card class="arredondaBorda">
 					<div class="expandeDiv">
-						<v-combobox :items="items" v-model="itemsSelecionados" return-object item-value="service"
-							item-text="service" :hide-selected="true" label="Serviços Atendidos" :multiple="true"
+						<v-autocomplete :items="items" v-model="pesquisa" return-object item-value="service" hide-no-data
+							item-text="service" :hide-selected="true" label="Serviços Atendidos"
 							:small-chips="true" />
 					</div>
 				</v-card>
@@ -84,11 +84,17 @@
 	export default {
 		data() {
 			return {
+				pesquisa: '',
 				carregandoDados: true,
 				items: [],
 				itemsSelecionados: [],
 				carregandoSalvar: false,
 			};
+		},
+		watch: {
+			pesquisa(val) {
+				this.itemsSelecionados.push(val)
+			}
 		},
 		methods: {
 			removeItem(id) {
