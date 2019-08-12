@@ -75,7 +75,7 @@
           <div
             class="linhaSemQuebra"
           >
-            <v-btn :disabled="carregandoSalvar" @click="salvarPerfil" block color="green" class="white--text">Salvar
+            <v-btn :disabled="carregandoSalvarPerfil" @click="salvarPerfil" block color="green" class="white--text">Salvar
               <v-icon color="white" size="18" class="ml-1">save</v-icon>
               <v-progress-circular class="ml-1" indeterminate size="18" color="white" v-if="carregandoSalvarPerfil"></v-progress-circular>
             </v-btn>
@@ -99,7 +99,7 @@ export default {
       masks: {
         cpf: '###.###.###-##',
         nascimento: '##/##/####',
-        telefone: '(##) # ####-####',
+        telefone: '## # ####-####',
         cep: '##.###-###'
       },
       sexOptions: [
@@ -130,6 +130,7 @@ export default {
       let perfil = JSON.parse(sessionStorage.usuario);
       if(perfil.birthdate !== null) {
         const formatBirthDate = perfil.birthdate.split('-')
+        console.log('fb: ' + formatBirthDate)
         const formatedBirtdate = `${formatBirthDate[2]}/${formatBirthDate[1]}/${formatBirthDate[0]}`
         console.log("teste: " + formatedBirtdate)
         perfil.birthdate = formatedBirtdate
