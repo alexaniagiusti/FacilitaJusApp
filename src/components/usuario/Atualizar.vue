@@ -100,7 +100,7 @@
 					cpf: "###.###.###-##",
 					nascimento: "##/##/####",
 					telefone: "(##) # ####-####",
-					cep: "##.###-###"
+					cep: "#####-###"
 				},
 				sexOptions: ["Masculino", "Feminino"],
 				perfil: {
