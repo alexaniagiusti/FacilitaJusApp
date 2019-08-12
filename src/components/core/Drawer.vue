@@ -54,7 +54,7 @@
 						</v-list-item-content>
 					</v-list-item>
 
-					<v-list-item @click="$router.push({'name': 'areasDeAtuacao'})">
+					<v-list-item @click="$router.push({'name': 'servicosAtendidos'})">
 						<v-list-item-content>
 							<v-list-item-title>Serviços Atendidos</v-list-item-title>
 						</v-list-item-content>
