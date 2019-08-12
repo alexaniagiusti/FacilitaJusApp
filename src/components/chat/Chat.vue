@@ -43,10 +43,10 @@
             </template>
         </div>
             <!-- INPUT DO USUÁRIO PARA RESPONDER O CHAT AO REMETENTE-->
-        <v-toolbar style="border: 1px solid #e0e0e0; background: #f2f2f2; border-radius: 0px 0px 10px 10px;" class="elevation-0" fixed app static>
+        <v-toolbar style="z-index:20000; border: 1px solid #e0e0e0; background: #f2f2f2; border-radius: 0px 0px 10px 10px;" class="elevation-0" fixed app static>
             <div class="linhaSemQuebra">
                 <input class="inputResponse" placeholder="Responda aqui..." v-model="message.message" @keypress.enter="reply" @click:append="reply" solo append-icon="send" />
-                <v-btn icon>
+                <v-btn @click="reply" icon>
                     <v-icon>send</v-icon>
                 </v-btn>
             </div>
@@ -88,15 +88,19 @@
         },
         methods: {
             reply(){
-                axios.post(`${this.url}`, this.message,
-                {headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
-                .then(res => {
-                    this.chatData = res.data;
-                    this.getChat(this.chatData.chat_id);
-                    this.message.message = '';
-                    $vuetify.goTo(target, options)
-                })
-                .catch(e => console.log(e))
+                if(this.message.message !== '') {
+                    axios.post(`${this.url}`, this.message,
+                    {headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
+                    .then(res => {
+                        this.chatData = res.data;
+                        this.getChat(this.chatData.chat_id);
+                        this.message.message = '';
+                        $vuetify.goTo(target, options)
+                    })
+                    .catch(e => console.log(e))
+                } else {
+                    this.$store.dispatch('snackbar_error', 'A Mensagem está em branco')
+                }
             },
             
             getChat(id){
