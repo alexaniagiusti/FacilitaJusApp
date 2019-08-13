@@ -34,7 +34,7 @@
       </v-card>
       <div class="animated delay-1s bounceInUp">
       <a>
-          <span @click="alteraSenhaDialog = true" class="text-weight-thin caption white--text">Bem Vindo(a). {{ dataDeHoje }} </span>
+          <!-- <span @click="alteraSenhaDialog = true" class="text-weight-thin caption white--text">Bem Vindo(a). {{ dataDeHoje }} </span> -->
       </a>
         <div style="margin: 6px;height: 10px;align-items: center; display: flex">
         <v-icon style="padding-top: 2px;" class="ml-2 mr-2" size="5">fiber_manual_record</v-icon>
@@ -64,7 +64,7 @@
             label="Qual é o seu email?"
             color="blue"
             class="ma-1"
-            v-model="email"
+            v-model="dataResetPassword.email"
           >
           </v-text-field>
           <v-btn block color="deep-purple white--text" class="elevation-0" @click="enviaLinkRecuperacaoDeSenha">Enviar link de recuperação</v-btn>
@@ -123,6 +123,9 @@ export default {
         email: '',
         password: '',
       },
+      dataResetPassword:{
+        email: ''
+      },
       dataDeHoje: '',
       showPass: false,
       entrando: false,
@@ -140,7 +143,11 @@ export default {
   },
   methods: {
     enviaLinkRecuperacaoDeSenha() {
-
+      axios.post(`${this.$store.getters.api}/api/password/create`, this.dataResetPassword)
+      .then(res => {
+        this.$store.dispatch('snackbar_success', res.data.message)
+      })
+      .catch(e => console.log(e));
     },
     login() {
       axios.post(this.$store.getters.api + '/api/v1/login', this.dataLogin)
@@ -152,6 +159,7 @@ export default {
             this.$router.push({'name': 'home'});
           }else{
             this.$store.dispatch('snackbar_error', 'E-mail ou Senha inválidos!');
+            this.carregandoLogin = false;
           }
           
         })
