@@ -41,6 +41,39 @@
 				</v-tabs-items>
 			</v-flex>
 		</v-layout>
+		<v-bottom-navigation
+			v-model="tab"
+			shift
+			app
+			class="hidden-lg-and-up"
+		>
+			<v-btn @click="withOpenStatus">
+				<span>Em aberto</span>
+				<v-icon>
+						inbox
+				</v-icon>
+			</v-btn>
+			<v-btn @click="withAnsweredStatus">
+				<span>Respondidas</span>
+				<v-icon>
+					comment
+				</v-icon>
+			</v-btn>
+			<v-btn @click="withNegotiationStatus">
+				<span>
+					Em negociação
+				</span>
+				<v-icon>
+					forum
+				</v-icon>
+			</v-btn>
+			<v-btn @click="withFinishedStatus">
+				<span>Finalizadas</span>
+				<v-icon>
+					done_all
+				</v-icon>
+			</v-btn>
+		</v-bottom-navigation>
 	</div>
 </template>
 
