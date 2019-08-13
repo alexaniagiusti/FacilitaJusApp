@@ -11,6 +11,7 @@ import Atualizar from './components/usuario/Atualizar.vue';
 import AreasDeAtuacao from './components/usuario/AreasDeAtuacao.vue';
 import CidadesAtendidas from './components/usuario/CidadesAtendidas.vue';
 import ServicosAtendidos from './components/usuario/ServicosAtendidos.vue';
+import AtualizarSenha from './components/usuario/AtualizarSenha.vue'
 
 //Diligências
 import Diligencias from './pages/Diligencias.vue';
@@ -68,6 +69,11 @@ export default new Router({
 							name: 'servicosAtendidos',
 							component: ServicosAtendidos,
 						},
+						{
+							path:'/perfil/atualizar-senha',
+							name: 'atualizarSenha',
+							component: AtualizarSenha,
+						}
 					],
 				},
 				{

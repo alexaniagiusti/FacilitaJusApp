@@ -70,6 +70,11 @@
 							<v-list-item-title>Áreas de Atuação</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
+					<v-list-item @click="$router.push({'name': 'atualizarSenha'})">
+						<v-list-item-content>
+							<v-list-item-title>Atualizar Senha</v-list-item-title>
+						</v-list-item-content>
+					</v-list-item>
 				</v-list-group>
 				<v-list-group prepend-icon="work" no-action>
 					<template v-slot:activator>
