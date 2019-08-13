@@ -99,6 +99,7 @@
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
 						this.diligences = res.data;
+						this.verifyDiligencesExists('Não há diligências em aberto.');
 						this.showListar = true
 					})
 					.catch(e => console.log(e))
@@ -110,6 +111,7 @@
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
 						this.diligences = res.data;
+						this.verifyDiligencesExists('Não há diligências respondidas.');
 						this.showListar = true
 					})
 					.catch(e => console.log(e))
@@ -121,6 +123,7 @@
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
 						this.diligences = res.data;
+						this.verifyDiligencesExists('Não há diligências em negociação.');
 						this.showListar = true
 					})
 					.catch(e => console.log(e))
@@ -132,9 +135,16 @@
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
 						this.diligences = res.data;
+						this.verifyDiligencesExists('Não há diligências finalizadas.');
 						this.showListar = true
 					})
 					.catch(e => console.log(e))
+			},
+			verifyDiligencesExists(message){
+				if(this.diligences.length <= 0){
+					this.$store.dispatch("snackbar_success", message);
+					this.$store.dispa
+				}
 			}
 			
 		},

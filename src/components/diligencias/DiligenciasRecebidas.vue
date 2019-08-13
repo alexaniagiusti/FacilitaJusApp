@@ -31,13 +31,13 @@
 				<v-divider></v-divider>
 
 				<v-tabs-items v-model="tab">
-					<v-tab-item><Listar v-if="this.showListar" :diligences="this.legalCases" /></v-tab-item>
+					<v-tab-item><Listar v-if="this.showListar" :diligences="this.diligences" /></v-tab-item>
 
-					<v-tab-item><Listar v-if="this.showListar" :diligences="this.legalCases" /></v-tab-item>
+					<v-tab-item><Listar v-if="this.showListar" :diligences="this.diligences" /></v-tab-item>
 
-					<v-tab-item><Listar v-if="this.showListar" :diligences="this.legalCases" /></v-tab-item>
+					<v-tab-item><Listar v-if="this.showListar" :diligences="this.diligences" /></v-tab-item>
 
-					<v-tab-item><Listar v-if="this.showListar" :diligences="this.legalCases" /></v-tab-item>
+					<v-tab-item><Listar v-if="this.showListar" :diligences="this.diligences" /></v-tab-item>
 				</v-tabs-items>
 			</v-flex>
 		</v-layout>
@@ -87,7 +87,7 @@
 		},
 		data() {
 			return {
-				legalCases: '',
+				diligences: '',
 				tab: 0,
 				showListar: false
 			};
@@ -98,7 +98,8 @@
 				axios.get(`${this.$store.getters.api}/api/v1/diligences/received/open/${this.$store.getters.getUsuario.id}`, 
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
-						this.legalCases = res.data;
+						this.diligences = res.data;
+						this.verifyDiligencesExists('Não há diligências em aberto.');
 						this.showListar = true
 					})
 					.catch(e => console.log(e))
@@ -109,7 +110,8 @@
 				axios.get(`${this.$store.getters.api}/api/v1/diligences/received/answered/${this.$store.getters.getUsuario.id}`, 
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
-						this.legalCases = res.data;
+						this.diligences = res.data;
+						this.verifyDiligencesExists('Não há diligências respondidas.');
 						this.showListar = true
 					})
 					.catch(e => console.log(e))
@@ -120,7 +122,8 @@
 				axios.get(`${this.$store.getters.api}/api/v1/diligences/received/negotiation/${this.$store.getters.getUsuario.id}`, 
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
-						this.legalCases = res.data;
+						this.diligences = res.data;
+						this.verifyDiligencesExists('Não há diligências em negociação.');
 						this.showListar = true
 					})
 					.catch(e => console.log(e))
@@ -131,10 +134,18 @@
 				axios.get(`${this.$store.getters.api}/api/v1/diligences/received/finished/${this.$store.getters.getUsuario.id}`, 
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
-						this.legalCases = res.data;
+						this.diligences = res.data;
+						this.verifyDiligencesExists('Não há diligências finalizadas.');
 						this.showListar = true
 					})
 					.catch(e => console.log(e))
+			},
+
+			verifyDiligencesExists(message){
+				if(this.diligences.length <= 0){
+					this.$store.dispatch("snackbar_success", message);
+					this.$store.dispa
+				}
 			}
 		},
 		mounted() {
