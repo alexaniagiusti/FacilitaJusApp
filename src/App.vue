@@ -17,11 +17,6 @@ export default {
     SnackbarError
   },
 
-  mounted() {
-    if (!this.$store.state.usuario) {
-      return this.$router.push({ name: "login" });
-    }
-  }
 };
 </script>
 
