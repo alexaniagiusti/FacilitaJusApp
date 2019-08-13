@@ -88,7 +88,7 @@ export default new Vuex.Store({
     },
     api() {
       // return 'http://co.site';
-      return 'https://api.facilitajus.com.br'
+      return 'http://api.facilitajus.com.br'
     },
   },
 });
