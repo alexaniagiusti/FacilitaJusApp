@@ -1,11 +1,11 @@
 <template>
   <v-container fluid>
     <div class="linhaSemQuebra">
-      <h3 class="pa-1 mt-3">
+      <h3 style="text-align:center">
         Envie sua diligência:
       </h3>
     </div>
-    <v-card class="pa-5 mt-3">
+    <v-card class="pa-3">
       <v-layout row>
         <v-flex xs12 md4 pa-2>
           <v-text-field

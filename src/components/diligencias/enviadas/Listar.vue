@@ -7,7 +7,7 @@
 						<th class="text-left blue--text">#</th>
 						<th class="text-left blue--text">Cidade</th>
 						<th class="text-left blue--text">Tipo</th>
-						<th class="hidden-sm-and-down text-left blue--text"></th>
+						<th class="text-left blue--text"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -15,7 +15,7 @@
 						<td>{{ diligence.id }}</td>
 						<td>{{ diligence.city.city }}</td>
 						<td>{{ diligence.service.service }}</td>
-						<td class="hidden-sm-and-down">
+						<td>
 							<v-btn class="ma-3" small color="primary">Visualizar</v-btn>
 						</td>
 					</tr>

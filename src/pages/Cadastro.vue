@@ -15,7 +15,7 @@
               <v-btn
               flat
               color="#43A047"
-              to="/login"
+              to="/"
               >
               <h4 class="font-weight-light pr-2 white--text">Login</h4>
                 <v-icon
@@ -30,12 +30,13 @@
           <h3 class="text-center white--text mt-5 font-weight-light">Cadastre-se agora mesmo, seja um usuário ou parceiro do FacilitaJUS.</h3>
         </div>
       </v-flex>
-      <v-card width="600" class="mt-5 pt-2 pb-3">
+      <v-card width="600" class="mt-5">
         <v-form ref="cadastroForm">
 
           <v-flex pa-2 xs12>
             <v-text-field
               :rules="nameRules"
+              filled
               v-model="name"
               label="Nome"
               required
@@ -43,6 +44,7 @@
             </v-text-field>
             <v-text-field
               :rules="emailRules"
+              filled
               v-model="email"
               label="E-mail"
               type="email"
@@ -50,6 +52,7 @@
             </v-text-field>
             <v-text-field
               :rules="cpfRules"
+              filled
               v-mask="cpfMask"
               v-model="cpf"
               label="CPF"
@@ -59,6 +62,7 @@
               :append-icon="showPass ? 'visibility' : 'visibility_off'"
               :type="showPass ? 'text' : 'password'"
               :rules="senhaRules"
+              filled
               v-model="password"
               label="Senha"
               @click:append="showPass = !showPass"
@@ -70,6 +74,7 @@
               :rules="confirmaSenhaRules"
               :hint="passwordHint"
               @click:append="showPass = !showPass"
+              filled
               v-model="confirmPassword"
               label="Confirme a senha"
             >
