@@ -33,6 +33,9 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    setUser(state, n){
+      state.usuario = n;
+    },
     desativa_snackbar(state) {
       state.snackbar_success = {
         mostrar: false,
@@ -84,7 +87,7 @@ export default new Vuex.Store({
       return state.snackbar_error
     },
     api() {
-//       return 'http://co.site';
+      // return 'http://co.site';
       return 'https://api.facilitajus.com.br'
     },
   },
