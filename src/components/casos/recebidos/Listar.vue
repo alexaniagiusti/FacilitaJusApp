@@ -7,7 +7,7 @@
 						<th class="text-left blue--text">#</th>
 						<th class="text-left blue--text">Cidade</th>
 						<th class="text-left blue--text">Tipo</th>
-						<th class="text-left blue--text"></th>
+						<th class="text-left blue--text hidden-sm-and-down"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -15,7 +15,7 @@
 						<td>{{ legalCase.id }}</td>
 						<td>{{ legalCase.city.city }}</td>
 						<td>{{ legalCase.actuation.actuation }}</td>
-                        <td>
+                        <td class="hidden-sm-and-down">
                             <v-btn class="ma-3" small color="primary">Visualizar</v-btn>
                         </td>
 					</tr>
