@@ -38,29 +38,31 @@
       <v-layout row>
         <v-flex xs12 md3 pa-2>
           <v-autocomplete
-          label="Serviço:"
-          :items="services"
-          v-model="serviceSelected"
-          item-value="id"
-          item-text="service"
-          hide-no-data
-          placeholder="Serviço que deseja solicitar"
+            label="Serviço:"
+            :items="services"
+            v-model="serviceSelected"
+            item-value="id"
+            item-text="service"
+            hide-no-data
+            autocomplete="off"
+            placeholder="Serviço que deseja solicitar"
           />
 
         </v-flex>
         <v-flex xs12 md3 pa-2>
          <v-autocomplete
-							v-model="city"
-							:items="cities"
-							hide-no-data
-							return-object
-							label="Cidade"
-              placeholder="Cidade"
-							item-text="city"
-							item-value="id"
-						>
+            v-model="citySelected"
+            :items="cities"
+            autocomplete="off"
+            hide-no-data
+            return-object
+            label="Cidade"
+            placeholder="Cidade"
+            item-text="city"
+            item-value="id"
+					>
 							<template v-slot:selection="data">
-									{{ data.item.city }} - {{ data.item.state }}
+								{{ data.item.city }} - {{ data.item.state }}
 							</template>
 							<template v-slot:item="data">
 								<template v-if="typeof data.item !== 'object'">
