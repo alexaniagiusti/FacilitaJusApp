@@ -95,9 +95,11 @@
 		methods: {
 			withOpenStatus() {
 				this.showListar = false
+				this.$store.commit('setVueLoad', true)
 				axios.get(`${this.$store.getters.api}/api/v1/legal-cases/sent/open/${this.$store.getters.getUsuario.email}`, 
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
+						this.$store.commit('setVueLoad', false)
 						this.legalCases = res.data;
 						this.verifyLegalCaseExists('Não há casos jurídicos em aberto.')
 						this.showListar = true
@@ -107,9 +109,11 @@
 			
 			withAnsweredStatus(){
 				this.showListar = false
+				this.$store.commit('setVueLoad', true)
 				axios.get(`${this.$store.getters.api}/api/v1/legal-cases/sent/answered/${this.$store.getters.getUsuario.email}`, 
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
+						this.$store.commit('setVueLoad', false)
 						this.legalCases = res.data;
 						this.verifyLegalCaseExists('Não há casos jurídicos respondidos.')
 						this.showListar = true
@@ -119,9 +123,11 @@
 
 			withNegotiationStatus(){
 				this.showListar = false
+				this.$store.commit('setVueLoad', true)
 				axios.get(`${this.$store.getters.api}/api/v1/legal-cases/sent/negotiation/${this.$store.getters.getUsuario.email}`, 
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
+						this.$store.commit('setVueLoad', false)
 						this.legalCases = res.data;
 						this.verifyLegalCaseExists('Não há casos jurídicos em negociação.')
 						this.showListar = true
@@ -131,9 +137,11 @@
 
 			withFinishedStatus(){
 				this.showListar = false
+				this.$store.commit('setVueLoad', true)
 				axios.get(`${this.$store.getters.api}/api/v1/legal-cases/sent/finished/${this.$store.getters.getUsuario.email}`, 
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
+						this.$store.commit('setVueLoad', false)
 						this.legalCases = res.data;
 						this.verifyLegalCaseExists('Não há casos jurídicos finalizados.')
 						this.showListar = true

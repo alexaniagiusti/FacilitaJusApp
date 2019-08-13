@@ -1,5 +1,6 @@
 <template>
   <v-app app>
+    <VueLoad />
     <SnackbarSuccess />
     <SnackbarError />
     <router-view></router-view>
@@ -9,12 +10,14 @@
 <script>
 import SnackbarSuccess from "./components/core/SnackbarSucess.vue";
 import SnackbarError from "./components/core/SnackbarError.vue";
+import VueLoad from './components/core/VueLoad'
 
 export default {
   name: "App",
   components: {
     SnackbarSuccess,
-    SnackbarError
+    SnackbarError,
+    VueLoad
   },
 
 };

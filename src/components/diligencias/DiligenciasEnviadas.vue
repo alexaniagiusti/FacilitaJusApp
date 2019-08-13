@@ -94,10 +94,12 @@
 		},
 		methods: {
 			withOpenStatus() {
+				this.$store.commit('setVueLoad', true)
 				this.showListar = false
 				axios.get(`${this.$store.getters.api}/api/v1/diligences/sent/open/${this.$store.getters.getUsuario.email}`, 
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
+						this.$store.commit('setVueLoad', false)
 						this.diligences = res.data;
 						this.verifyDiligencesExists('Não há diligências em aberto.');
 						this.showListar = true
@@ -106,10 +108,12 @@
 			},
 			
 			withAnsweredStatus(){
+				this.$store.commit('setVueLoad', true)
 				this.showListar = false
 				axios.get(`${this.$store.getters.api}/api/v1/diligences/sent/answered/${this.$store.getters.getUsuario.email}`, 
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
+						this.$store.commit('setVueLoad', false)
 						this.diligences = res.data;
 						this.verifyDiligencesExists('Não há diligências respondidas.');
 						this.showListar = true
@@ -118,10 +122,12 @@
 			},
 
 			withNegotiationStatus(){
+				this.$store.commit('setVueLoad', true)
 				this.showListar = false
 				axios.get(`${this.$store.getters.api}/api/v1/diligences/sent/negotiation/${this.$store.getters.getUsuario.email}`, 
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
+						this.$store.commit('setVueLoad', false)
 						this.diligences = res.data;
 						this.verifyDiligencesExists('Não há diligências em negociação.');
 						this.showListar = true
@@ -130,10 +136,12 @@
 			},
 
 			withFinishedStatus(){
+				this.$store.commit('setVueLoad', true)
 				this.showListar = false
 				axios.get(`${this.$store.getters.api}/api/v1/diligences/sent/finished/${this.$store.getters.getUsuario.email}`, 
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
+						this.$store.commit('setVueLoad', false)
 						this.diligences = res.data;
 						this.verifyDiligencesExists('Não há diligências finalizadas.');
 						this.showListar = true

@@ -151,6 +151,7 @@ export default {
         .then(res => this.cities = res.data)
     },
     sendDiligence() {
+      this.$store.commit('setVueLoad', true)
       const data = {
         name: this.name,
         phone: this.phone,
@@ -164,7 +165,10 @@ export default {
       console.log(data)
 
       axios.post(`${this.$store.getters.api}/api/v1/diligences`, data, { headers: { Authorization: `Bearer ${this.$store.getters.getToken}` } })
-        .then(() => this.$store.dispatch('snackbar_success', 'Diligência enviada com sucesso') )
+        .then(() => {
+          this.$store.commit('setVueLoad', false)
+          this.$store.dispatch('snackbar_success', 'Diligência enviada com sucesso')
+        })
         .catch(() => this.$$store.dispatch('snackbar_error', 'Erro, tente novamente'))
     }
   },

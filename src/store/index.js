@@ -22,6 +22,7 @@ export default new Vuex.Store({
     }
   },
   state: {
+    vueLoad : false,
     usuario: sessionStorage.getItem('usuario') ? JSON.parse(sessionStorage.getItem('usuario')) : null,
     snackbar_error: {
       mostrar: false,
@@ -35,6 +36,9 @@ export default new Vuex.Store({
   mutations: {
     setUser(state, n){
       state.usuario = n;
+    },
+    setVueLoad(state, status){
+      state.vueLoad = status
     },
     desativa_snackbar(state) {
       state.snackbar_success = {
@@ -87,7 +91,7 @@ export default new Vuex.Store({
       return state.snackbar_error
     },
     api() {
-      // return 'http://co.site';
+    //  return 'http://co.site';
       return 'https://api.facilitajus.com.br'
     },
   },
