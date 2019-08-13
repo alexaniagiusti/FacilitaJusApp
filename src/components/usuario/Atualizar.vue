@@ -152,18 +152,12 @@
 					}`;
 				let perfilAtualizado = this.perfil;
 				perfilAtualizado.birthdate = formatedBirtdate;
-				const { token } = this.perfil;
-				const { id } = this.perfil;
-				const headers = {
-					"Access-Control-Allow-Origin": "*",
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`
-				};
+				
 				axios
 					.put(
-						`${this.$store.getters.api}/api/v1/users/${id}`,
+						`${this.$store.getters.api}/api/v1/users/${this.$store.getters.getUsuario.id}`,
 						perfilAtualizado,
-						headers
+						{headers: {Authorization: `Bearer ${this.$store.getters.getToken}`} }
 					)
 					.then(res => {
 						this.$store.dispatch("snackbar_success", "Dados Atualizados.");
