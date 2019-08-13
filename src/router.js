@@ -20,7 +20,7 @@ import DiligenciasEnviadas from './components/diligencias/DiligenciasEnviadas.vu
 import DiligenciasRecebidas from './components/diligencias/DiligenciasRecebidas.vue'
 import VisualizarDiligenciaRecebida from './components/diligencias/recebidas/Visualizar.vue'
 import VisualizarDiligenciaEnviada from './components/diligencias/enviadas/Visualizar.vue'
-import EnviarDiligencia from './components/diligencias/enviadas/Enviar.vue'
+import EnviarDiligencia from './components/diligencias/Enviar.vue'
 
 //Casos jurídicos
 import CasosJuridicos from './pages/CasosJuridicos.vue';
