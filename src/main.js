@@ -9,7 +9,6 @@ import './registerServiceWorker';
 import '@babel/polyfill';
 import 'roboto-fontface/css/roboto/roboto-fontface.css';
 import '@mdi/font/css/materialdesignicons.css';
-// import Echo from 'laravel-echo'
 
 Vue.use(rtdbPlugin);
 Vue.config.productionTip = false;

@@ -7,12 +7,12 @@
 						<h3 class="text-xs-center font-weight-light">Dados do perfil</h3>
 						<v-spacer></v-spacer>
 						<v-tooltip bottom>
-							<template v-slot:activator="{ on }">
+							<!-- <template v-slot:activator="{ on }">
 								<v-btn v-on="on" flat to="/home/usuario/servicos-atendidos" icon>
 									<v-icon class="animated delay-2s infinite heartBeat" color="green">arrow_forward
 									</v-icon>
 								</v-btn>
-							</template>
+							</template> -->
 							<span>Serviços Atendidos</span>
 						</v-tooltip>
 					</div>
@@ -76,7 +76,7 @@
 				<v-flex xs12>
 					<div class="linhaSemQuebra">
 
-						<v-btn :disabled="carregandoSalvar" @click="salvarPerfil" block color="green"
+						<v-btn :disabled="carregandoSalvarPerfil" @click="salvarPerfil" block color="green"
 							class="white--text">
 
 							Salvar

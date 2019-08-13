@@ -88,7 +88,7 @@
 				this.itemsSelecionados = novos;
 			},
 			pegaItemsSeecionados() {
-				axios.get(`${this.$store.getters.api}/api/v1/users/actuations/${this.$store.getters.getUsuario.id}`, { headers: { Authorization: `Bearer ${this.$store.getters.getToken}` } })
+				axios.get(`${this.$store.getters.api}/api/v1/users/actuations/${this.$store.getters.getUsuario.id}`, { headers: { 'Authorization': `Bearer ${this.$store.getters.getToken}` } })
 					.then((res) => {
 						const ids_marcados = res.data.actuations;
 						const todos = this.items;
@@ -106,8 +106,7 @@
 					});
 			},
 			pegaDados() {
-
-				axios.get(this.$store.getters.api + '/api/v1/actuations', { headers: { Authorization: `${this.$store.getters.getToken}` } })
+				axios.get(this.$store.getters.api + '/api/v1/actuations', { headers: { 'Authorization': `Bearer ${this.$store.getters.getToken}` } })
 					.then((res) => {
 						this.items = res.data;
 					})

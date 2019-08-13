@@ -8,14 +8,14 @@
         <v-flex xs12 class="pa-2">
           <v-flex xs12>
             <v-text-field
-              color="black" append-icon="account_circle" v-model="email" label="Digite seu e-mail" />
+              color="black" append-icon="account_circle" v-model="dataLogin.email" label="Digite seu e-mail" />
           </v-flex>
           <v-flex xs12>
             <v-text-field color="black"
               :append-icon="showPass ? 'visibility' : 'visibility_off'"
               :type="showPass ? 'text' : 'password'"
               @click:append="showPass = !showPass"
-              @keydown.enter="login" v-model="senha"
+              @keydown.enter="login" v-model="dataLogin.password"
               label="Senha" />
           </v-flex>
           <v-flex xs12>
@@ -119,9 +119,11 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      dataLogin: {
+        email: '',
+        password: '',
+      },
       dataDeHoje: '',
-      email: '',
-      senha: '',
       showPass: false,
       entrando: false,
       error: false,
@@ -141,21 +143,7 @@ export default {
 
     },
     login() {
-      this.carregandoLogin = true;
-      const { email } = this;
-      const { senha } = this;
-
-      const data = {
-        email,
-        password: senha,
-      };
-
-      const headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',
-      };
-
-      axios.post(this.$store.getters.api + '/api/v1/login', data, headers)
+      axios.post(this.$store.getters.api + '/api/v1/login', this.dataLogin)
         .then((res) => {
           if(res.data.status){
             this.carregandoLogin = false;
@@ -163,7 +151,7 @@ export default {
             sessionStorage.setItem('usuario', JSON.stringify(res.data.user))
             this.$router.push({'name': 'home'});
           }else{
-            alert('Erro ao efetuar login, verifique seus dados!')
+            this.$store.dispatch('snackbar_error', 'E-mail ou Senha inválidos!');
           }
           
         })
@@ -173,11 +161,11 @@ export default {
       this.carregandoLogin = true;
     },
   },
-  mounted() {
-    this.dataDeHoje = Moment().locale('pt-br').format('llll');
-    
-    if(this.$store.state.usuario){
-      return this.$router.push({'name': 'home'})
+  created() {
+    let user = this.$store.getters.getUsuario;
+    console.log(user)
+    if(user){
+      this.$router.push({'name': 'home'});
     }
   },
 };
