@@ -109,9 +109,10 @@
 		},
 
 		mounted() {
+			this.$store.commit('setVueLoad', true)
 			axios.get(`${this.$store.getters.api}/api/v1/legal-cases/sent/${this.$route.params.id}`, { headers: { 'Authorization': `Bearer ${this.$store.getters.getToken}` } })
 				.then(res => {
-                    console.log(res.data)
+					this.$store.commit('setVueLoad', false)
 					this.showLegalCase = true;
 				})
 				.catch(e => console.log(e))

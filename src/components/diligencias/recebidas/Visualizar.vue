@@ -67,11 +67,10 @@
 		},
 
 		mounted() {
-			console.log(this.$store.getters.getToken)
-
+			this.$store.commit('setVueLoad', true)
 			axios.get(`${this.$store.getters.api}/api/v1/diligence/received/${this.$route.params.id}`, { headers: { 'Authorization': `Bearer ${this.$store.getters.getToken}` } })
 				.then(res => {
-					console.log(res.data)
+					this.$store.commit('setVueLoad', false)
 					this.dadosDiligencia = res.data;
 					this.urlChat = `${this.$store.getters.api}/api/v1/diligence/received/${this.dadosDiligencia.diligence.id}/reply`
 					this.mostrarDiligencia = true;

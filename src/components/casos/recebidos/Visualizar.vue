@@ -66,11 +66,10 @@
     },
  
     mounted() {
-      console.log(this.$store.getters.getToken)
-    
+      this.$store.commit('setVueLoad', true)
       axios.get(`${this.$store.getters.api}/api/v1/legal-case/received/${this.$route.params.id}`, {headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
       .then(res => {
-        console.log(res.data)
+        this.$store.commit('setVueLoad', false)
         this.dadosCaso = res.data;
         this.urlChat = `${this.$store.getters.api}/api/v1/legal-case/received/${this.dadosCaso.legalCase.id}/reply`
         this.mostrarCaso = true;
