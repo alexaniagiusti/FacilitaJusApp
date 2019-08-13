@@ -146,8 +146,9 @@
 				console.log('fui chamada')
 			},
 			sair() {
-				sessionStorage.removeItem('usuario')
-				this.$router.push('/login')
+				sessionStorage.clear()
+				this.$store.commit('setUser', null)
+				this.$router.push({'name': 'login'})
 			},
 		},
 		created() {

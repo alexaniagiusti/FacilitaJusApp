@@ -98,7 +98,6 @@
 				axios.get(`${this.$store.getters.api}/api/v1/diligences/received/open/${this.$store.getters.getUsuario.id}`, 
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
-            console.log(res.data)
 						this.legalCases = res.data;
 						this.showListar = true
 					})
