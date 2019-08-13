@@ -99,6 +99,7 @@
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
 						this.legalCases = res.data;
+						this.verifyLegalCaseExists('Não há casos jurídicos em aberto.')
 						this.showListar = true
 					})
 					.catch(e => console.log(e))
@@ -110,6 +111,7 @@
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
 						this.legalCases = res.data;
+						this.verifyLegalCaseExists('Não há casos jurídicos respondidos.')
 						this.showListar = true
 					})
 					.catch(e => console.log(e))
@@ -121,6 +123,7 @@
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
 						this.legalCases = res.data;
+						this.verifyLegalCaseExists('Não há casos jurídicos em negociação.')
 						this.showListar = true
 					})
 					.catch(e => console.log(e))
@@ -132,13 +135,18 @@
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
 						this.legalCases = res.data;
+						this.verifyLegalCaseExists('Não há casos jurídicos finalizados.')
 						this.showListar = true
 					})
 					.catch(e => console.log(e))
+			},
+			verifyLegalCaseExists(message){
+				if(this.legalCases.length <= 0){
+					this.$store.dispatch("snackbar_success", message);
+					this.$store.dispa
+				}
 			}
-			
 		},
-
 		mounted() {
 			this.withOpenStatus();
 		},

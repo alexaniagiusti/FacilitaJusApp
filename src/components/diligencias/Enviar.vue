@@ -50,7 +50,7 @@
         </v-flex>
         <v-flex xs12 md3 pa-2>
          <v-autocomplete
-							v-model="city"
+							v-model="citySelected"
 							:items="cities"
 							hide-no-data
 							return-object
@@ -157,13 +157,14 @@ export default {
         email: this.email,
         message: this.message,
         service_id: this.serviceSelected,
-        city_id: this.citySelected,
+        city_id: this.citySelected.id,
         time: this.hour,
         date: this.dateFormat
       }
+      console.log(data)
 
       axios.post(`${this.$store.getters.api}/api/v1/diligences`, data, { headers: { Authorization: `Bearer ${this.$store.getters.getToken}` } })
-        .then( () => this.$store.dispatch('snackbar_success', 'Diligência enviada com sucesso') )
+        .then(() => this.$store.dispatch('snackbar_success', 'Diligência enviada com sucesso') )
         .catch(() => this.$$store.dispatch('snackbar_error', 'Erro, tente novamente'))
     }
   },
