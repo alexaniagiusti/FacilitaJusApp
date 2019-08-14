@@ -1,31 +1,6 @@
 <template>
 	<div class="expandeDiv" style="flex-direction: column">
-		<v-flex xs12>
-			<v-toolbar dense class="elevation-3">
-				<div class="linhaSemQuebra">
-					<h3 class="text-xs-center font-weight-light">Serviços Atendidos</h3>
-					<v-spacer></v-spacer>
-					<v-tooltip bottom>
-						<template v-slot:activator="{ on }">
-							<v-btn v-on="on" flat to="/home/usuario/cidades-atendidas" icon>
-								<v-icon class="animated delay-2s infinite pulse" color="green">
-									arrow_forward
-								</v-icon>
-							</v-btn>
-						</template>
-						<span>Cidades Atendidas</span>
-					</v-tooltip>
-				</div>
-			</v-toolbar>
-		</v-flex>
-
 		<v-layout>
-			<v-flex v-if="carregandoDados" xs12>
-				<div class="mt-5 mb-5" style="display: flex; width: 100%; justify-content: center">
-					<v-progress-circular indeterminate color="red"></v-progress-circular>
-				</div>
-			</v-flex>
-
 			<v-flex xs12>
 				<v-list pa-0 ma-0>
 					<template v-for="(servicoAtendido, index) in itemsSelecionados">
@@ -106,7 +81,7 @@
 			},
 			pegaItemsSeecionados() {
 
-				axios.get(`${this.$store.getters.api}/api/v1/users/services/${this.$store.getters.getUsuario.id}`, { headers: { Authorization: `${this.$store.getters.getToken}` } })
+				axios.get(`${this.$store.getters.api}/api/v1/users/services/${this.$store.getters.getUsuario.id}`, { headers: { Authorization: `Bearer ${this.$store.getters.getToken}` } })
 					.then((res) => {
 						const ids_marcados = res.data.services;
 						const todos = this.items;
@@ -125,11 +100,16 @@
 					});
 			},
 			pegaDados() {
-
-				axios.get(`${this.$store.getters.api}/api/v1/services`, { headers: { Authorization: `${this.$store.getters.getToken}` } })
+				this.$store.commit('setVueLoad', true)
+				axios.get(`${this.$store.getters.api}/api/v1/services`, { headers: { Authorization: `Bearer ${this.$store.getters.getToken}` } })
 					.then((res) => {
+						this.$store.commit('setVueLoad', false)
 						this.items = res.data;
-					});
+					})
+					.catch((erro) => {
+						this.$store.commit('setVueLoad', false)
+						this.$store.dispatch('snackbar_error', 'Erro: ' + erro)
+					})
 				this.pegaItemsSeecionados();
 			},
 			salvar() {
@@ -139,11 +119,11 @@
 				const { itemsSelecionados } = this;
 				itemsSelecionados.map(item => service_id.push(item.id));
 
-				const atualizacao = {
-					service_id,
+				const data = {
+					service_id
 				};
 
-				axios.put(`${this.$store.getters.api}/api/v1/users/services/${this.$store.getters.getUsuario.id}`, atualizacao, { headers: { Authorization: `Bearer ${this.$store.getters.getToken}` } })
+				axios.put(`${this.$store.getters.api}/api/v1/users/services/${this.$store.getters.getUsuario.id}`, data, { headers: { Authorization: `Bearer ${this.$store.getters.getUsuario.token}` } })
 					.then((res) => {
 						this.carregandoSalvar = false;
 						this.$store.dispatch('snackbar_success', 'Atualizado Com Sucesso!.');
