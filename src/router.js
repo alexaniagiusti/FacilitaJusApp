@@ -52,36 +52,9 @@ export default new Router({
 			component: Home,
 			children: [
 				{
-					path: '/perfil',
+					path: '/home/perfil',
 					name: 'Usuario',
-					component: Usuario,
-					children: [
-						{
-							path: '/perfil/atualizar',
-							name: 'perfilUsuario',
-							component: Atualizar,
-						},
-						{
-							path: '/perfil/areas-de-atuacao',
-							name: 'areasDeAtuacao',
-							component: AreasDeAtuacao,
-						},
-						{
-							path: '/perfil/cidades-atendidas',
-							name: 'cidadesAtendidas',
-							component: CidadesAtendidas,
-						},
-						{
-							path: '/perfil/servicos-atendidos',
-							name: 'servicosAtendidos',
-							component: ServicosAtendidos,
-						},
-						{
-							path:'/perfil/atualizar-senha',
-							name: 'atualizarSenha',
-							component: AtualizarSenha,
-						}
-					],
+					component: Usuario
 				},
 				{
 					path: '/diligencias',
