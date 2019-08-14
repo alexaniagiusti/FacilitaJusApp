@@ -154,9 +154,7 @@
 					this.$store.dispa
 				}
 			}
-			
 		},
-
 		mounted() {
 			this.withOpenStatus();
 		},
