@@ -41,7 +41,7 @@
 			</v-flex>
 
 			<v-flex>
-				<v-card >
+				<v-card v-if="legalCase.chats.length > 0">
 					<v-card-title>Respostas</v-card-title>
 					<v-list subheader>
 
