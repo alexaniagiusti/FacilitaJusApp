@@ -1,95 +1,80 @@
 <template>
-	<div class="expandeDiv">
-		<v-layout justify-left>
-			<v-flex xs12>
-				<v-toolbar dense class="elevation-3">
-					<div class="linhaSemQuebra">
-						<h3 class="text-xs-center font-weight-light">Dados do perfil</h3>
-						<v-spacer></v-spacer>
-						<v-tooltip bottom>
-							<!-- <template v-slot:activator="{ on }">
-								<v-btn v-on="on" flat to="/home/usuario/servicos-atendidos" icon>
-									<v-icon class="animated delay-2s infinite heartBeat" color="green">arrow_forward
-									</v-icon>
-								</v-btn>
-							</template> -->
-							<span>Serviços Atendidos</span>
-						</v-tooltip>
-					</div>
-				</v-toolbar>
-				<v-card class="pa-2">
-					<div class="expandeDiv">
-						<v-flex xs12>
-							<v-flex xs12>
-								<v-text-field label="nome" append-icon="account_circle" v-model="perfil.name" />
-							</v-flex>
-							<v-flex xs12>
-								<v-text-field label="email" v-model="perfil.email" />
-							</v-flex>
-
-							<v-flex xs12>
-								<v-text-field v-mask="masks.cpf" label="CPF" v-model="perfil.cpf" />
-							</v-flex>
-
-							<v-flex xs12>
-								<v-select single-line menu-props="auto" label="Sexo" hide-details :items="sexOptions"
-									v-model="perfil.sex" />
-							</v-flex>
-
-							<v-flex xs12>
-								<v-text-field v-mask="masks.nascimento" class="mt-4" label="Nascimento"
-									v-model="perfil.birthdate" />
-							</v-flex>
-
-							<v-flex xs12>
-								<v-text-field v-mask="masks.telefone" label="Telefone" v-model="perfil.phone_1" />
-							</v-flex>
-
-							<v-flex xs12>
-
-								<v-text-field v-mask="masks.cep" label="CEP" v-model="perfil.postal_code" @blur="pesquisaCep" />
-
-							</v-flex>
-
-							<v-flex xs12>
-								<v-text-field label="Endereço" v-model="perfil.street" />
-							</v-flex>
-
-							<v-flex xs12>
-								<v-text-field id="number" label="Número" v-model="perfil.number" />
-							</v-flex>
-
-							<v-flex xs12>
-								<v-text-field label="Bairro" v-model="perfil.neighborhood" />
-							</v-flex>
-
-							<v-flex xs12>
-								<v-text-field label="Cidade" v-model="perfil.city" />
-							</v-flex>
-
-							<v-flex xs12>
-								<v-text-field label="Estado" v-model="perfil.state" />
-							</v-flex>
-						</v-flex>
-					</div>
-				</v-card>
-				<v-flex xs12>
-					<div class="linhaSemQuebra">
-
-						<v-btn :disabled="carregandoSalvarPerfil" @click="salvarPerfil" block color="green"
-							class="white--text">
-
-							Salvar
-							<v-icon color="white" size="18" class="ml-1">save</v-icon>
-							<v-progress-circular class="ml-1" indeterminate size="18" color="white"
-								v-if="carregandoSalvarPerfil"></v-progress-circular>
-						</v-btn>
-					</div>
+	<v-container fluid>
+		<v-card class="pa-3">
+			<v-layout row>
+				<v-flex xs12 md4 pa-2>
+					<v-text-field label="Nome" v-model="perfil.name" />
 				</v-flex>
-			</v-flex>
-		</v-layout>
-	</div>
 
+				<v-flex xs12 md4 pa-2>
+					<v-text-field label="E-mail" v-model="perfil.email" />
+				</v-flex>
+
+				<v-flex xs12 md4 pa-2>
+					<v-text-field v-mask="masks.cpf" label="CPF" v-model="perfil.cpf" />
+				</v-flex>
+
+			</v-layout>
+
+			<v-layout row>
+				<v-flex xs12 md4 pa-2>
+					<v-select
+						:items="sexOptions"
+						hide-details
+						single-line menu-props="auto"
+						label="Sexo"
+						v-model="perfil.sex" />
+				</v-flex>
+
+				<v-flex xs12 md4 pa-2>
+					<v-text-field
+						v-mask="masks.nascimento"
+						v-model="perfil.birthdate"
+						label="Nascimento" />
+				</v-flex>
+
+				<v-flex xs12 md4 pa-2>
+						<v-text-field v-mask="masks.telefone" label="Telefone" v-model="perfil.phone_1" />
+				</v-flex>
+			</v-layout>
+
+			<v-layout row>
+				<v-flex xs12 md4 pa-2>
+						<v-text-field label="Endereço" v-model="perfil.street" />
+				</v-flex>
+
+				<v-flex xs12 md4 pa-2>
+						<v-text-field v-mask="masks.cep" label="CEP" v-model="perfil.postal_code" @blur="pesquisaCep" />
+				</v-flex>
+
+				<v-flex xs12 md4 pa-2>
+						<v-text-field id="number" label="Número" v-model="perfil.number" />
+				</v-flex>
+			</v-layout>
+
+			<v-layout row>
+				<v-flex xs12 md4 pa-2>
+						<v-text-field label="Bairro" v-model="perfil.neighborhood" />
+				</v-flex>
+
+				<v-flex xs12 md4 pa-2>
+						<v-text-field label="Cidade" v-model="perfil.city" />
+				</v-flex>
+
+				<v-flex xs12 md4 pa-2>
+						<v-text-field label="Estado" v-model="perfil.state" />
+				</v-flex>
+				<v-flex xs12 md12 pa-2>
+					<v-btn 
+						:disabled="carregandoSalvarPerfil" 
+						@click="salvarPerfil" 
+						block color="green"
+						class="white--text"> 	Salvar
+					</v-btn>
+				</v-flex>
+			</v-layout>
+		</v-card>
+	</v-container>
 </template>
 
 <script>

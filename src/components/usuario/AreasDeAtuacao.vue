@@ -1,17 +1,7 @@
 <template>
 	<div class="expandeDiv" style="flex-direction: column">
-		<v-flex xs12>
-			<v-toolbar dense class="elevation-3">
-				<h3 class="text-xs-center font-weight-light">Áreas de Atuação</h3>
-			</v-toolbar>
-		</v-flex>
 		<v-layout>
-			<v-flex v-if="carregandoDados" xs12>
-				<div class="mt-5 mb-5" style="display: flex; width: 100%; justify-content: center">
-					<v-progress-circular indeterminate color="red"></v-progress-circular>
-				</div>
-			</v-flex>
-			<v-flex v-if="!carregandoDados" xs12>
+			<v-flex xs12>
 				<v-list pa-0 ma-0>
 					<template v-for="(areaDeAtuacao, index) in itemsSelecionados">
 						<v-list-item @click="" :key="areaDeAtuacao.actuation">
