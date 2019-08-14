@@ -136,7 +136,6 @@
 					const formatedBirtdate = `${formatBirthDate[2]}/${formatBirthDate[1]}/${
 						formatBirthDate[0]
 						}`;
-					console.log("teste: " + formatedBirtdate);
 					perfil.birthdate = formatedBirtdate;
 					this.perfil = perfil;
 				} else {
@@ -144,6 +143,7 @@
 				}
 			},
 			salvarPerfil() {
+				this.$store.commit('setVueLoad', true)
 				this.carregandoSalvarPerfil = true;
 				const birthDate = this.perfil.birthdate;
 				const formatBirthDate = birthDate.split("/");
@@ -160,6 +160,7 @@
 						{headers: {Authorization: `Bearer ${this.$store.getters.getToken}`} }
 					)
 					.then(res => {
+						this.$store.commit('setVueLoad', false)
 						this.$store.dispatch("snackbar_success", "Dados Atualizados.");
 						sessionStorage.usuario = JSON.stringify(this.perfil);
 						this.carregandoSalvarPerfil = false;

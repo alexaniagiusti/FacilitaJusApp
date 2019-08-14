@@ -99,9 +99,11 @@
 
 		methods: {
 			openChat(id) {
+				this.$store.commit('setVueLoad', true)
 				this.showChat = false
 				axios.get(`${this.$store.getters.api}/api/v1/chats/${id}`)
 					.then(res => {
+						this.$store.commit('setVueLoad', false)
 						this.chatId = id;
 						this.chatUrl = `${this.$store.getters.api}/api/v1/diligence/sent/reply/chat/${id}`
 						this.showChat = true
