@@ -142,10 +142,11 @@
 				this.itemsSelecionados = novos;
 			},
 			pegaItemsSelecionados() {
-
+				this.$store.commit('setVueLoad', true)
 				axios.get(`${this.$store.getters.api}/api/v1/users/cities/${this.$store.getters.getUsuario.id}`,
 					{ headers: { Authorization: `Bearer ${this.$store.getters.getToken}` } })
 					.then((res) => {
+						this.$store.commit('setVueLoad', false)
 						const ids_marcados = res.data.cities;
 						const todos = this.items;
 						const itemsMarcados = [];
@@ -163,15 +164,17 @@
 					});
 			},
 			pegaDados() {
-
+				this.$store.commit('setVueLoad', true)
 				axios.get(this.$store.getters.api + '/api/v1/cities',
 					{ headers: { Authorization: `Bearer ${this.$store.getters.getToken}` } })
 					.then((res) => {
+						this.$store.commit('setVueLoad', false)
 						this.items = res.data;
 						this.pegaItemsSelecionados();
 					});
 			},
 			salvar() {
+				this.$store.commit('setVueLoad', true)
 				this.carregandoSalvar = true;
 
 				const service_id = [];
@@ -185,10 +188,12 @@
 				axios.put(`${this.$store.getters.api}/api/v1/users/cities/${this.$store.getters.getUsuario.id}`, data,
 					{ headers: { Authorization: `Bearer ${this.$store.getters.getToken}` } })
 					.then((res) => {
+						this.$store.commit('setVueLoad', false)
 						this.carregandoSalvar = false;
 						this.$store.dispatch('snackbar_success', 'Atualizado Com Sucesso!.');
 					})
 					.catch((err) => {
+						this.$store.commit('setVueLoad', false)
 						this.carregandoSalvar = false;
 						this.$store.dispatch('snackbar_error', err);
 					});
