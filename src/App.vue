@@ -3,6 +3,8 @@
     <VueLoad />
     <SnackbarSuccess />
     <SnackbarError />
+    <SnackbarWarning />
+    <SnackbarInfo />
     <router-view></router-view>
   </v-app>
 </template>
@@ -10,6 +12,8 @@
 <script>
 import SnackbarSuccess from "./components/core/SnackbarSucess.vue";
 import SnackbarError from "./components/core/SnackbarError.vue";
+import SnackbarWarning from "./components/core/SnackbarWarning.vue";
+import SnackbarInfo from "./components/core/SnackbarInfo.vue";
 import VueLoad from './components/core/VueLoad'
 
 export default {
@@ -17,10 +21,11 @@ export default {
   components: {
     SnackbarSuccess,
     SnackbarError,
-    VueLoad
-  },
-
-};
+    VueLoad,
+    SnackbarWarning,
+    SnackbarInfo
+  }
+}
 </script>
 
 <style>

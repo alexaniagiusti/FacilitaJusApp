@@ -32,6 +32,14 @@ export default new Vuex.Store({
       mostrar: false,
       mensagem: '',
     },
+    snackbar_warning: {
+      mostrar: false,
+      mensagem: '',
+    },
+    snackbar_info: {
+      mostrar: false,
+      mensagem: '',
+    }
   },
   mutations: {
     setUser(state, n){
@@ -44,25 +52,44 @@ export default new Vuex.Store({
       state.snackbar_success = {
         mostrar: false,
         mensagem: '',
-      };
+      }
       state.snackbar_error = {
         mostrar: false,
         mensagem: '',
-      };
+      }
+      state.snackbar_warning = {
+        mostrar: false,
+        mensagem: '',
+      }
+      state.snackbar_info = {
+        mostrar: false,
+        mensagem: '',
+      }
     },
     snackbar_error(state, mensagem) {
       state.snackbar_error = {
         mostrar: true,
         mensagem,
-      };
+      }
     },
     snackbar_success(state, mensagem) {
       state.snackbar_success = {
         mostrar: true,
         mensagem,
-      };
+      }
     },
-    
+    snackbar_warning(state, mensagem) {
+      state.snackbar_warning = {
+        mostrar: true,
+        mensagem,
+      }
+    },
+    snackbar_info(state, mensagem) {
+      state.snackbar_info = {
+        mostrar: true,
+        mensagem,
+      }
+    },
   },
   actions: {
     desativa_snackbar(state) {
@@ -75,6 +102,12 @@ export default new Vuex.Store({
     // chama a mutation snackbar_success
     snackbar_success(state, mensagem) {
       state.commit('snackbar_success', mensagem);
+    },
+    snackbar_warning(state, mensagem) {
+      state.commit('snackbar_warning', mensagem);
+    },
+    snackbar_info(state, mensagem) {
+      state.commit('snackbar_info', mensagem);
     },
   },
   getters: {
@@ -89,6 +122,12 @@ export default new Vuex.Store({
     },
     snackbar_error(state) {
       return state.snackbar_error
+    },
+    snackbar_warning(state) {
+      return state.snackbar_warning
+    },
+    snackbar_info(state) {
+      return state.snackbar_info
     },
     api() {
     //  return 'http://co.site';
