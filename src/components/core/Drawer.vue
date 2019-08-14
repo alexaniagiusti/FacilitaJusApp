@@ -41,41 +41,16 @@
 				<!-- <v-subheader class="ml-3">
           INÍCIO
         </v-subheader> -->
-				<v-list-group prepend-icon="person" no-action>
-					<template v-slot:activator>
-						<v-list-item-content>
-							<v-list-item-title>Perfil</v-list-item-title>
-						</v-list-item-content>
-					</template>
 
-					<v-list-item @click="$router.push({'name': 'perfilUsuario'})">
-						<v-list-item-content>
-							<v-list-item-title>Dados Pessoais</v-list-item-title>
-						</v-list-item-content>
-					</v-list-item>
+				<v-list-item @click="$router.push({'name': 'Usuario'})">
+					<v-icon class="mr-5">
+						account_circle
+					</v-icon>
+					<v-list-item-content>
+						<v-list-item-title class="ml-3">Dados Pessoais</v-list-item-title>
+					</v-list-item-content>
+				</v-list-item>
 
-					<v-list-item @click="$router.push({'name': 'areasDeAtuacao'})">
-						<v-list-item-content>
-							<v-list-item-title>Serviços Atendidos</v-list-item-title>
-						</v-list-item-content>
-					</v-list-item>
-
-					<v-list-item @click="$router.push({'name': 'cidadesAtendidas'})">
-						<v-list-item-content>
-							<v-list-item-title>Cidades Atendidas</v-list-item-title>
-						</v-list-item-content>
-					</v-list-item>
-					<v-list-item @click="$router.push({'name': 'areasDeAtuacao'})">
-						<v-list-item-content>
-							<v-list-item-title>Áreas de Atuação</v-list-item-title>
-						</v-list-item-content>
-					</v-list-item>
-					<v-list-item @click="$router.push({'name': 'atualizarSenha'})">
-						<v-list-item-content>
-							<v-list-item-title>Atualizar Senha</v-list-item-title>
-						</v-list-item-content>
-					</v-list-item>
-				</v-list-group>
 				<v-list-group prepend-icon="work" no-action>
 					<template v-slot:activator>
 						<v-list-item-content>
