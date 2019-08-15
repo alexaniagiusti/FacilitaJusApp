@@ -3,19 +3,12 @@
     <v-flex xs12 md8 pa-2>
       <v-flex xs12 pt-5>
           <div class="linhaSemQuebra pr-5 mb-2 animated delay-1s flipInX">
-            <v-icon
-              size="35"
-              color="white"
-              class="pl-4"
-            >
-              account_balance
-            </v-icon>
-            <span style="font-size:20px" class="white--text font-weight-light">Facilita</span><span style="font-size:20px" class="font-weight-bold white--text">JUS</span>
+          <img class="mt-2 animated delay-1s bounceInDown" src="https://firebasestorage.googleapis.com/v0/b/centraldeoportunidades-de3a9.appspot.com/o/Untitled-W.png?alt=media&token=ded0cc4f-cbe8-4a18-bec9-192263d3dd2b" height="35">
             <v-spacer></v-spacer>
               <v-btn
               flat
               color="#43A047"
-              to="/"
+              to="/login"
               >
               <h4 class="font-weight-light pr-2 white--text">Login</h4>
                 <v-icon
@@ -36,7 +29,6 @@
           <v-flex pa-2 xs12>
             <v-text-field
               :rules="nameRules"
-              filled
               v-model="name"
               label="Nome"
               required
@@ -44,7 +36,6 @@
             </v-text-field>
             <v-text-field
               :rules="emailRules"
-              filled
               v-model="email"
               label="E-mail"
               type="email"
@@ -52,7 +43,6 @@
             </v-text-field>
             <v-text-field
               :rules="cpfRules"
-              filled
               v-mask="cpfMask"
               v-model="cpf"
               label="CPF"
@@ -62,7 +52,6 @@
               :append-icon="showPass ? 'visibility' : 'visibility_off'"
               :type="showPass ? 'text' : 'password'"
               :rules="senhaRules"
-              filled
               v-model="password"
               label="Senha"
               @click:append="showPass = !showPass"
@@ -74,7 +63,6 @@
               :rules="confirmaSenhaRules"
               :hint="passwordHint"
               @click:append="showPass = !showPass"
-              filled
               v-model="confirmPassword"
               label="Confirme a senha"
             >
@@ -190,7 +178,7 @@ export default {
 <style>
 
 .principal {
-  background: linear-gradient(to right, #4b6cb7, #182848);
+  background: linear-gradient(to right, #780206, #061161);
   display: flex;
   justify-content: center;
   align-items: center;
