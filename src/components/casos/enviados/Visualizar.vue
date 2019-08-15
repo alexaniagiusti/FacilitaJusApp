@@ -99,7 +99,7 @@
 		methods: {
 			openChat(id){
 				this.showChat = false
-				axios.get(`${this.$store.getters.api}/api/v1/chats/${id}`)
+				axios.get(`${this.$store.getters.api}/api/v1/chats/${id}`, {headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 				.then(res => {
 					this.chatId = id;
 					this.chatUrl = `${this.$store.getters.api}/api/v1/legal-cases/sent/reply/chat/${id}`
@@ -110,9 +110,10 @@
 
 		mounted() {
 			this.$store.commit('setVueLoad', true)
-			axios.get(`${this.$store.getters.api}/api/v1/legal-cases/sent/${this.$route.params.id}`, { headers: { 'Authorization': `Bearer ${this.$store.getters.getToken}` } })
+			axios.get(`${this.$store.getters.api}/api/v1/legal-cases/sent/${this.$route.params.id}`, { headers: { 'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 				.then(res => {
 					this.$store.commit('setVueLoad', false)
+					this.legalCase = res.data
 					this.showLegalCase = true;
 				})
 				.catch(e => console.log(e))
