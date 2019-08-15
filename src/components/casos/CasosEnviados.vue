@@ -150,7 +150,7 @@
 			},
 			verifyLegalCaseExists(message){
 				if(this.legalCases.length <= 0){
-					this.$store.dispatch("snackbar_success", message);
+					this.$store.dispatch("snackbar_warning", message);
 					this.$store.dispa
 				}
 			}
