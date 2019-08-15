@@ -1,7 +1,7 @@
 <template>
 	<v-container grid-list-md>
-		<v-layout v-if="showLegalCase">
-			<v-flex>
+		<v-layout column v-if="showLegalCase">
+			<v-flex xs12>
 				<v-card>
 					<v-card-title>Caso Jurídico #{{legalCase.id}}</v-card-title>
 
@@ -39,13 +39,15 @@
 					</template>
 				</v-card>
 			</v-flex>
+		</v-layout>
 
-			<v-flex>
+		<v-layout row>
+			<v-flex xs12 md3 class="pa-2">
 				<v-card v-if="legalCase.chats.length > 0">
 					<v-card-title>Respostas</v-card-title>
 					<v-list subheader>
 
-						<v-list-item v-for="item of legalCase.chats" @click="openChat(item.id)">
+						<v-list-item :key="item.chatId" v-for="item of legalCase.chats" @click="openChat(item.id)">
 							<v-list-item-avatar>
 								<v-img src="https://firebasestorage.googleapis.com/v0/b/centraldeoportunidades-de3a9.appspot.com/o/avatar.png?alt=media&token=51d40592-131a-4f3c-939c-b08fc1613842"></v-img>
 							</v-list-item-avatar>
@@ -61,9 +63,10 @@
 					</v-list>
 				</v-card>
 			</v-flex>
-
-			<!-- <Chat v-if="this.dadosDiligencia.chat != null" :chatId="this.dadosDiligencia.chat.id" :url="this.urlChat"/> -->
+			<v-flex xs12 md9 class="pa-2">
+				<!-- <Chat v-if="this.dadosDiligencia.chat != null" :chatId="this.dadosDiligencia.chat.id" :url="this.urlChat"/> -->
 				<Chat v-if="this.showChat" :chatId="this.chatId" :url="this.chatUrl"/>
+			</v-flex>
 		</v-layout>
 	</v-container>
 </template>
