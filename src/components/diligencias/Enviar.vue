@@ -168,7 +168,6 @@ export default {
         time: this.hour,
         date: this.dateFormat
       }
-      console.log(data)
 
       axios.post(`${this.$store.getters.api}/api/v1/diligences`, data, { headers: { Authorization: `Bearer ${this.$store.getters.getToken}` } })
         .then(() => {
