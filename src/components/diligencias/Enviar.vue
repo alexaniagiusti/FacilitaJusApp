@@ -1,9 +1,11 @@
 <template>
   <v-container fluid>
     <div class="linhaSemQuebra">
-      <h3 style="text-align:center">
-        Envie sua diligência:
-      </h3>
+      <v-toolbar>
+        <span class="font-weight-light title">
+          Envie sua diligência:
+        </span>
+      </v-toolbar>
     </div>
     <v-card class="pa-3">
       <v-layout row>
@@ -112,7 +114,11 @@
             color="green"
             @click="sendDiligence"
           >
-            Enviar
+           <span
+            class="font-weight-bold white--text"
+           >
+              Enviar
+           </span>
           </v-btn>
         </v-flex>
       </v-layout>
