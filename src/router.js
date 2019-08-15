@@ -34,6 +34,7 @@ Vue.use(Router);
 
 export default new Router({
 	base: process.env.BASE_URL,
+	mode: 'history',
 	routes: [
 		{
 			path: '/reset/password/:token',
@@ -42,7 +43,7 @@ export default new Router({
 			props: true
 		},
 		{
-			path: '/login',
+			path: '/',
 			name: 'login',
 			component: Login,
 		},
