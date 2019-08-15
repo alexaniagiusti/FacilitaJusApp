@@ -113,7 +113,7 @@
 
 		mounted() {
 			this.$store.commit('setVueLoad', true)
-			axios.get(`${this.$store.getters.api}/api/v1/diligence/sent/${this.$route.params.id}`, { headers: { 'Authorization': `Bearer ${this.$store.getters.getToken}` } })
+			axios.get(`${this.$store.getters.api}/api/v1/diligence/sent/${this.$route.params.id}`, { headers: { 'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 				.then(res => {
 					this.$store.commit('setVueLoad', false)
 					this.dadosDiligencia = res.data;
