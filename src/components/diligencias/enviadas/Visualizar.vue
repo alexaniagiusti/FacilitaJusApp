@@ -39,9 +39,9 @@
 			</v-card>
 		</v-flex>
 
-		<v-layout>
+		<v-layout row>
 			<v-flex  xs12 md3 class="pa-2">
-				<v-card v-if="dadosDiligencia.chats.length > 0" height="488" class="elevation-0">
+				<v-card v-if="dadosDiligencia.chats.length > 0" class="elevation-0">
 					<v-card-title>Respostas</v-card-title>
 					<v-list subheader>
 						<v-list-item v-for="item of dadosDiligencia.chats" @click="openChat(item.id)" :key="item.id">
