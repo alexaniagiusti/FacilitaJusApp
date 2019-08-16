@@ -81,6 +81,11 @@
 						</v-list-item-content>
 					</template>
 
+					<v-list-item @click="$router.push({'name': 'enviarCasoJuridico'})">
+						<v-list-item-content>
+							<v-list-item-title>Enviar</v-list-item-title>
+						</v-list-item-content>
+					</v-list-item>
 					<v-list-item @click="$router.push({'name': 'casosJuridicosEnviados'})">
 						<v-list-item-content>
 							<v-list-item-title>Enviados</v-list-item-title>

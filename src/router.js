@@ -18,6 +18,7 @@ import EnviarDiligencia from './components/diligencias/Enviar.vue'
 //Casos jurídicos
 import CasosJuridicos from './pages/CasosJuridicos.vue';
 import casosJuridicosRecibidos from './components/casos/CasosRecebidos.vue'
+import EnviarCasoJuridico from './components/casos/Enviar.vue'
 
 import VisualizarCasoRecebido from './components/casos/recebidos/Visualizar.vue'
 import casosJuridicosEnviados from './components/casos/CasosEnviados.vue'
@@ -79,6 +80,11 @@ export default new Router({
 							path: '/diligencia/enviar',
 							name: 'enviarDiligencia',
 							component: EnviarDiligencia
+						},
+						{
+							path: '/enviar-caso',
+							name: 'enviarCasoJuridico',
+							component: EnviarCasoJuridico
 						}
 					],
 				},
