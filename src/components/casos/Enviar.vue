@@ -47,7 +47,7 @@
           return-object
           label="Tipo de dúvida:"
           :items="actuations"
-          v-model="actuationsSelected"
+          v-model="actuationSelected"
           item-value="id"
           item-text="actuation"
           hide-no-data
@@ -134,7 +134,7 @@ export default {
       cities: [],
       citySelected: '',
       actuations: [],
-      actuationsSelected: '',
+      actuationSelected: '',
     }
   },
   methods: {
@@ -154,18 +154,21 @@ export default {
         name: this.name,
         phone: this.phone,
         email: this.email,
-        actuation_id: this.actuationSelected,
+        message: this.message,
+        actuation_id: this.actuationSelected.id,
         city_id: this.citySelected.id,
       }
 
-      axios.post(`${this.$store.getters.api}/api/v1/legal-cases`, data, { headers: { Authorization: `Bearer ${this.$store.getters.getToken}` } })
+      console.log(data)
+
+      axios.post(`${this.$store.getters.api}/api/v1/legal-cases`, data, { headers: { 'Authorization' : `Bearer ${this.$store.getters.getToken}`}})
         .then(() => {
-          this.$store.commit('setVueLoad', true)
+          this.$store.commit('setVueLoad', false)
           this.$store.dispatch('snackbar_success', 'Caso enviado com sucesso')
         })
-        .catch(() => {
+        .catch((erro) => {
           this.$store.commit('setVueLoad', false)
-          this.$store.dispatch('snackbar_error', 'Erro, tente novamente')
+          this.$store.dispatch('snackbar_error', 'Erro, tente novamente' + erro)
         })
       }
     }
