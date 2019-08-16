@@ -1,11 +1,11 @@
 <template>
-  <v-app>
-    <Drawer />
-    <v-content>
-      <router-view></router-view>
-      <v-container v-if="$route.name === 'home'" fluid>
-        <div class="cards">
-          <v-flex class="pa-2" v-for="n in cards" :key="n" xs12 md4>
+    <v-app>
+        <Drawer />
+        <v-content>
+            <router-view></router-view>
+            <v-container v-if="$route.name === 'home'" fluid>
+                <div class="cards">
+                    <!-- <v-flex class="pa-2" v-for="n in cards" :key="n" xs12 md4>
             <v-card
               class="mt-5 mb-5 mx-auto"
               max-width="400"
@@ -38,112 +38,132 @@
                 <span class="caption grey--text font-weight-light">last registration 26 minutes ago</span>
               </v-card-text>
             </v-card>
-          </v-flex>
-          
-          <!-- Mini cards -->
-          <v-flex class="pa-2" v-for="n in minicards" :key="n" xs12 md3>
-            <v-card
-              class="mt-5 mx-1"
-              max-width="300"
-            >
-              <div class="linhaSemQuebra">
-                <v-sheet
-                  class="v-minisheet--offset ml-3 mr-3"
-                  :color="n.color"
-                  elevation="6"
-                  max-width="80px"
-                >
-                  <v-icon color="white" size="50" class="ma-4">account_circle</v-icon>
-                </v-sheet>
-                <div class="linhaSemQuebra">
-                  <v-spacer></v-spacer>
-                  <div class="coluna pr-4 pt-4">
-                    <h3 class="text-right font-weight-light grey--text">teste</h3>
-                    <h2 class="font-weight-light">teste2</h2>
-                  </div>
-                </div>
-              </div>
-              <v-card-text class="pt-5">
-                <v-divider class="mb-2"></v-divider>
-                <v-icon
-                  class="mr-2"
-                  small
-                >
+          </v-flex> -->
+
+                    <!-- Mini cards -->
+                    <v-flex class="pa-2" xs12 md6>
+                        <v-card class="mt-5 mx-1" max-width="100%">
+                            <div class="linhaSemQuebra">
+                                <v-sheet class="v-minisheet--offset ml-3 mr-3" color="blue" elevation="6"
+                                    max-width="80px">
+                                    <v-icon color="white" size="50" class="ma-4">worker</v-icon>
+                                </v-sheet>
+                                <div class="linhaSemQuebra">
+                                    <v-spacer></v-spacer>
+                                    <div class="coluna pr-4 pt-4">
+                                        <h3 class="text-right font-weight-light grey--text">Diligências</h3>
+                                        <h2 class="font-weight-light" align="right">{{diligences.length}}</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <v-card-text class="pt-5">
+                                <!-- <v-divider class="mb-2"></v-divider>
+                <v-icon class="mr-2" small>
                   mdi-clock
                 </v-icon>
-                <span class="pl-2 caption grey--text font-weight-light">last registration 26 minutes ago</span>
-              </v-card-text>
-            </v-card>
-          </v-flex>
-        </div>
-      </v-container>
-    </v-content>
-    <Footer />
-  </v-app>
+                <span class="pl-2 caption grey--text font-weight-light">last registration 26 minutes ago</span> -->
+                            </v-card-text>
+                        </v-card>
+
+                    </v-flex>
+
+                    <v-flex class="pa-2" xs12 md6>
+                        <v-card class="mt-5 mx-1" max-width="100%">
+                            <div class="linhaSemQuebra">
+                                <v-sheet class="v-minisheet--offset ml-3 mr-3" color="red" elevation="6"
+                                    max-width="80px">
+                                    <v-icon color="white" size="50" class="ma-4">gavel</v-icon>
+                                </v-sheet>
+                                <div class="linhaSemQuebra">
+                                    <v-spacer></v-spacer>
+                                    <div class="coluna pr-4 pt-4">
+                                        <h3 class="text-right font-weight-light grey--text">Casos jurídicos</h3>
+                                        <h2 class="font-weight-light" align="right">{{legalCases.length}}</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <v-card-text class="pt-5">
+                                <!-- <v-divider class="mb-2"></v-divider> -->
+                                <!-- <v-icon class="mr-2" small>
+                  mdi-clock
+                </v-icon> -->
+                                <!-- <span class="pl-2 caption grey--text font-weight-light">last registration 26 minutes ago</span> -->
+                            </v-card-text>
+                        </v-card>
+
+                    </v-flex>
+                </div>
+            </v-container>
+        </v-content>
+        <Footer />
+    </v-app>
 </template>
 
 <script>
-import Drawer from '../components/core/Drawer.vue';
-import Footer from '../components/core/Footer.vue';
+    import Drawer from '../components/core/Drawer.vue';
+    import Footer from '../components/core/Footer.vue';
+    import axios from 'axios';
 
-export default {
-  data() {
-    return {
-      labels: [
-        '12am',
-        '3am',
-        '6am',
-        '9am',
-        '12pm',
-        '3pm',
-        '6pm',
-        '9pm',
-      ],
-      value: [
-        200,
-        675,
-        410,
-        390,
-        310,
-        460,
-        250,
-        240,
-      ],
-      cards: [
-        {color: 'blue'},
-        {color: 'red'},
-        {color: 'green'}
-      ],
-      minicards: [
-        {color: 'blue'},
-        {color: 'red'},
-        {color: 'green'},
-        {color: 'yellow darken-3'}
-      ]
+    export default {
+        data() {
+            return {
+                diligences: '',
+                legalCases: '',
+            }
+        },
+        components: {
+            Drawer,
+            Footer,
+        },
+        methods: {
+            diligencesWithOpenStatus() {
+                this.showListar = false
+                axios.get(`${this.$store.getters.api}/api/v1/diligences/received/open/${this.$store.getters.getUsuario.id}`,
+                    { headers: { 'Authorization': `Bearer ${this.$store.getters.getToken}` } })
+                    .then(res => {
+                        this.$store.commit('setVueLoad', false)
+                        this.diligences = res.data;
+                        this.showListar = true
+                    })
+                    .catch(e => console.log(e))
+            },
+            legalCasesWithOpenStatus() {
+                this.showListar = false
+                axios.get(`${this.$store.getters.api}/api/v1/legal-cases/received/open/${this.$store.getters.getUsuario.id}`,
+                    { headers: { 'Authorization': `Bearer ${this.$store.getters.getToken}` } })
+                    .then(res => {
+                        this.$store.commit('setVueLoad', false)
+                        this.legalCases = res.data;
+                        this.showListar = true
+                    })
+                    .catch(e => console.log(e))
+            },
+        },
+        mounted() {
+            this.$store.commit('setVueLoad', true)
+            this.diligencesWithOpenStatus()
+            this.legalCasesWithOpenStatus()
+            this.$store.commit('setVueLoad', false)
+        },
+
     };
-  },
-  components: {
-    Drawer,
-    Footer,
-  },
-};
 </script>
 
 <style>
-  .v-sheet--offset {
-    top: -24px;
-    height: 180px;
-    position: relative;
-  }
-  
-  .v-minisheet--offset {
-    top: -4px;
-    position: relative;
-  }
+    .v-sheet--offset {
+        top: -24px;
+        height: 180px;
+        position: relative;
+    }
 
-  .cards {
-    display: flex;
-    width: 100%;
-    flex-wrap: wrap;
-  }
+    .v-minisheet--offset {
+        top: -4px;
+        position: relative;
+    }
+
+    .cards {
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+    }
 </style>
