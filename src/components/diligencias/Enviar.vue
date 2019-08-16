@@ -14,6 +14,7 @@
           label="Nome:"
           v-model="name"
           placeholder="Qual o seu nome?"
+          autocomplete="new-name"
           >
 
           </v-text-field>
@@ -32,6 +33,8 @@
           label="E-mail:"
           v-model="email"
           placeholder="Qual o seu e-mail?"
+          autocomplete="new-email"
+
           >
 
           </v-text-field>
@@ -52,6 +55,7 @@
         </v-flex>
         <v-flex xs12 md3 pa-2>
          <v-autocomplete
+              autocomplete="new-city"
 							v-model="citySelected"
 							:items="cities"
 							hide-no-data
