@@ -42,7 +42,7 @@
           <span @click="alteraSenhaDialog = true" class="text-weight-thin caption white--text ">Esqueci a senha</span>
         </a>
         <v-icon style="padding-top: 2px;" class="ml-2 mr-2" size="5">fiber_manual_record</v-icon>
-        <a style="text-decoration:none" href="/#/cadastro"  >
+        <a style="text-decoration:none" @click="$router.push({'name': 'cadastro'})" >
           <span class="text-weight-thin caption white--text ">Não tenho conta</span>
         </a>
         <v-icon style="padding-top: 2px;" class="ml-2 mr-2" size="5">fiber_manual_record</v-icon>
