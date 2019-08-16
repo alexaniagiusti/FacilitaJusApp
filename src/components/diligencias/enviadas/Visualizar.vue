@@ -101,7 +101,8 @@
 			openChat(id) {
 				this.$store.commit('setVueLoad', true)
 				this.showChat = false
-				axios.get(`${this.$store.getters.api}/api/v1/chats/${id}`)
+				axios.get(`${this.$store.getters.api}/api/v1/chats/${id}`,
+				{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
 						this.$store.commit('setVueLoad', false)
 						this.chatId = id;
