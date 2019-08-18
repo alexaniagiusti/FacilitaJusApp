@@ -149,12 +149,12 @@ export default {
           password,
         };
 
-         const headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',
-      };
+        const headers = {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
+        };
 
-        axios.post(this.$store.getters.api + '/api/v1/users', data, headers)
+        axios.post(this.$store.getters.api + '/api/v1/register', data, headers)
           .then((res) => {
             this.$store.dispatch('snackbar_success', 'Cadastrado com sucesso!');
             this.$router.push('/');
