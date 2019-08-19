@@ -1,56 +1,17 @@
 <template>
-	<div class="expandeDiv" style="flex-direction: column">
-		<v-layout>
+	<v-container fluid>
+		<v-layout class="arredondaBorda" ma-1 pa-2 elevation-2 row wrap>
+
+			<v-flex xs12 md4 v-for="service in items" :key="service.id">
+				<v-checkbox v-model="itemsSelecionados" :label="service.service" :value="service.id"></v-checkbox>
+			</v-flex>
+
 			<v-flex xs12>
-				<v-list pa-0 ma-0>
-					<template v-for="(servicoAtendido, index) in itemsSelecionados">
-						<v-list-item @click="" :key="servicoAtendido.service">
-							<v-avatar class="ml-1">
-								<v-icon color="green">done</v-icon>
-							</v-avatar>
-							<v-list-item-content>
-								<v-list-item-title>
-									{{ servicoAtendido.service }}
-								</v-list-item-title>
-							</v-list-item-content>
-							<v-list-item-action>
-								<v-btn color="red" icon @click="removeItem(servicoAtendido.id)">
-									<v-icon size="18" color="grey darken-2">
-										delete
-									</v-icon>
-								</v-btn>
-							</v-list-item-action>
-						</v-list-item>
-						<v-divider :key="index"></v-divider>
-					</template>
-				</v-list>
+				<v-btn block class="green white--text" @click="salvar">Salvar</v-btn>
 			</v-flex>
+
 		</v-layout>
-
-		<v-layout justify-center>
-			<v-flex class="pa-2" xs12>
-
-				<v-card class="arredondaBorda">
-					<div class="expandeDiv">
-						<v-combobox :items="items" v-model="itemsSelecionados" return-object item-value="service"
-							item-text="service" :hide-selected="true" label="Serviços Atendidos" :multiple="true"
-							:small-chips="true" />
-					</div>
-				</v-card>
-
-				<v-flex xs12>
-					<div class="linhaSemQuebra">
-						<v-btn :disabled="carregandoSalvar" @click="salvar" block color="green" class="white--text mr-2">Salvar
-							<v-icon color="white" size="18" class="ml-1">save</v-icon>
-							<v-progress-circular class="ml-1" indeterminate size="18" color="white"
-								v-if="carregandoSalvar"></v-progress-circular>
-						</v-btn>
-					</div>
-				</v-flex>
-
-			</v-flex>
-		</v-layout>
-	</div>
+	</v-container>
 </template>
 
 <script>
@@ -59,28 +20,15 @@
 	export default {
 		data() {
 			return {
-				carregandoDados: true,
 				items: [],
 				itemsSelecionados: [],
-				carregandoSalvar: false,
 			};
 		},
+		watch: {
+			//itemsSelecionados() {this.salvar()}
+		},
 		methods: {
-			removeItem(id) {
-				const selecionados = this.itemsSelecionados;
-				const novos = [];
-
-				selecionados.map((item) => {
-					if (item.id === id) {
-					} else {
-						novos.push(item);
-					}
-				});
-
-				this.itemsSelecionados = novos;
-			},
-			pegaItemsSeecionados() {
-
+			pegaItemsSelecionados() {
 				axios.get(`${this.$store.getters.api}/api/v1/users/services/${this.$store.getters.getUsuario.id}`, { headers: { Authorization: `Bearer ${this.$store.getters.getToken}` } })
 					.then((res) => {
 						const ids_marcados = res.data.services;
@@ -90,7 +38,7 @@
 						todos.map((item) => {
 							ids_marcados.map((i) => {
 								if (i.id === item.id) {
-									itemsMarcados.push(item);
+									itemsMarcados.push(item.id);
 								}
 							});
 						});
@@ -110,26 +58,22 @@
 						this.$store.commit('setVueLoad', false)
 						this.$store.dispatch('snackbar_error', 'Erro: ' + erro)
 					})
-				this.pegaItemsSeecionados();
+				this.pegaItemsSelecionados();
 			},
 			salvar() {
-				this.carregandoSalvar = true;
-
-				const service_id = [];
-				const { itemsSelecionados } = this;
-				itemsSelecionados.map(item => service_id.push(item.id));
+				this.$store.commit('setVueLoad', true)
 
 				const data = {
-					service_id
+					service_id: this.itemsSelecionados
 				};
 
 				axios.put(`${this.$store.getters.api}/api/v1/users/services/${this.$store.getters.getUsuario.id}`, data, { headers: { Authorization: `Bearer ${this.$store.getters.getUsuario.token}` } })
 					.then((res) => {
-						this.carregandoSalvar = false;
+						this.$store.commit('setVueLoad', false)
 						this.$store.dispatch('snackbar_success', 'Atualizado Com Sucesso!.');
 					})
 					.catch((err) => {
-						this.carregandoSalvar = false;
+						this.$store.commit('setVueLoad', false)
 						this.$store.dispatch('snackbar_error', err);
 					});
 			},
