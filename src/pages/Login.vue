@@ -8,7 +8,11 @@
         <v-flex xs12 class="pa-2">
           <v-flex xs12>
             <v-text-field
-              color="black" append-icon="account_circle" v-model="dataLogin.email" label="Digite seu e-mail" />
+              autocomplete="new-login"
+              color="black" 
+              append-icon="account_circle" 
+              v-model="dataLogin.email" 
+              label="Digite seu e-mail" />
           </v-flex>
           <v-flex xs12>
             <v-text-field color="black"

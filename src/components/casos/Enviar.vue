@@ -1,9 +1,9 @@
 <template>
   <v-container fluid>
     <div class="linhaSemQuebra">
-      <v-toolbar>
+      <v-toolbar class="toolbarForm">
         <span class="font-weight-light title">
-          Envie sua diligência:
+          Envie seu caso jurídico:
         </span>
       </v-toolbar>
     </div>
@@ -14,46 +14,48 @@
           label="Nome:"
           v-model="name"
           placeholder="Qual o seu nome?"
-          autocomplete="new-name"
           >
-
           </v-text-field>
         </v-flex>
+  
         <v-flex xs12 md4 pa-2>
           <v-text-field
           label="Celular:"
           v-model="phone"
           placeholder="Qual o seu celular?"
+          v-mask="masktelefone"
           >
 
-          </v-text-field>
-        </v-flex>
+        </v-text-field>
+      </v-flex>
         <v-flex xs12 md4 pa-2>
           <v-text-field
+          autocomplete="new-email"
           label="E-mail:"
           v-model="email"
           placeholder="Qual o seu e-mail?"
-          autocomplete="new-email"
-
           >
-
           </v-text-field>
         </v-flex>
       </v-layout>
+
       <v-layout row>
-        <v-flex xs12 md3 pa-2>
+
+        <v-flex xs12 md6 pa-2>
           <v-autocomplete
-          label="Serviço:"
-          :items="services"
-          v-model="serviceSelected"
+          autocomplete="new-case"
+          return-object
+          label="Tipo de dúvida:"
+          :items="actuations"
+          v-model="actuationSelected"
           item-value="id"
-          item-text="service"
+          item-text="actuation"
           hide-no-data
-          placeholder="Serviço que deseja solicitar"
+          placeholder="Qual a sua dúvida?"
           />
 
         </v-flex>
-        <v-flex xs12 md3 pa-2>
+        <v-flex xs12 md6 pa-2>
          <v-autocomplete
               autocomplete="new-city"
 							v-model="citySelected"
@@ -84,45 +86,26 @@
 							</template>
 						</v-autocomplete>
         </v-flex>
-        <v-flex xs12 md3 pa-2>
-          <v-text-field
-          label="Data:"
-          v-model="date"
-          placeholder="Em que dia:"
-          >
-
-          </v-text-field>
-        </v-flex>
-        <v-flex xs12 md3 pa-2>
-          <v-text-field
-          label="Horário:"
-          v-model="hour"
-          placeholder="Em qual horário?"
-          >
-
-          </v-text-field>
-        </v-flex>
       </v-layout>
+
       <v-layout row>
         <v-flex xs12 md12 pa-2>
           <v-textarea
             v-model="message"
-            label="Fale um pouco mais sobre sua diligência:"
+            label="Explique melhor a sua dúvida:"
           >
 
           </v-textarea>
         </v-flex>
+
+
         <v-flex xs12 md12 pa-2>
           <v-btn
             block
             color="green"
-            @click="sendDiligence"
+            @click="sendCase"
           >
-           <span
-            class="font-weight-bold white--text"
-           >
-              Enviar
-           </span>
+            <span class="font-weight-bold white--text">Enviar</span>
           </v-btn>
         </v-flex>
       </v-layout>
@@ -134,62 +117,69 @@
 import axios from 'axios'
 import moment from 'moment'
 import 'moment/locale/pt-br'
+import { mask } from 'vue-the-mask'
+
 
 export default {
+  directives: {
+    mask
+  },
   data() {
     return {
+      masktelefone: '(##) # #### ####',
       name: '',
       phone: '',
       email: '',
-      date: '',
-      dateFormat: '',
-      hour: '',
       message: '',
       cities: [],
       citySelected: '',
-      services: [],
-      serviceSelected: ''
+      actuations: [],
+      actuationSelected: '',
     }
   },
   methods: {
-    getServices() {
-      axios.get(this.$store.getters.api + '/api/v1/services',{ headers: { Authorization: `Bearer ${this.$store.getters.getToken}` }})
-        .then(res => this.services = res.data)
+    getActuations() {
+      axios.get(this.$store.getters.api + '/api/v1/actuations',{ headers: { Authorization: `Bearer ${this.$store.getters.getToken}` }})
+        .then(res => this.actuations = res.data)
     },
+
     getCities() {
       axios.get(this.$store.getters.api + '/api/v1/cities',{ headers: { Authorization: `Bearer ${this.$store.getters.getToken}` }})
         .then(res => this.cities = res.data)
     },
-    sendDiligence() {
+    sendCase() {
+    if(this.message === ''){this.$store.dispatch('snackbar_warning', 'É necessário escrever uma mensagem')} else {
       this.$store.commit('setVueLoad', true)
       const data = {
         name: this.name,
         phone: this.phone,
         email: this.email,
         message: this.message,
-        service_id: this.serviceSelected,
+        actuation_id: this.actuationSelected.id,
         city_id: this.citySelected.id,
-        time: this.hour,
-        date: this.dateFormat
       }
 
-      axios.post(`${this.$store.getters.api}/api/v1/diligences`, data, { headers: { Authorization: `Bearer ${this.$store.getters.getToken}` } })
+      console.log(data)
+
+      axios.post(`${this.$store.getters.api}/api/v1/legal-cases`, data, { headers: { 'Authorization' : `Bearer ${this.$store.getters.getToken}`}})
         .then(() => {
           this.$store.commit('setVueLoad', false)
-          this.$store.dispatch('snackbar_success', 'Diligência enviada com sucesso')
+          this.$store.dispatch('snackbar_success', 'Caso enviado com sucesso')
         })
-        .catch(() => this.$$store.dispatch('snackbar_error', 'Erro, tente novamente'))
+        .catch((erro) => {
+          this.$store.commit('setVueLoad', false)
+          this.$store.dispatch('snackbar_error', 'Erro, tente novamente' + erro)
+        })
+      }
     }
   },
   created() {
     this.name = this.$store.getters.getUsuario.name
     this.phone = this.$store.getters.getUsuario.phone_1
     this.email = this.$store.getters.getUsuario.email
-    this.date = moment().format('DD[/]MM[/]YYYY')
-    this.dateFormat = moment().format('YYYY[-]MM[-]DD')
-    this.hour = moment().format('HH:mm')
+  
     // pega os serviços e as cidades ao iniciar o componente para carregá-los nos selects
-    this.getServices()
+    this.getActuations()
     this.getCities()
   }
 }

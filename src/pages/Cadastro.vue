@@ -8,7 +8,7 @@
               <v-btn
               flat
               color="#43A047"
-              to="/login"
+              @click="$router.push({'name': 'login'})"
               >
               <h4 class="font-weight-light pr-2 white--text">Login</h4>
                 <v-icon
@@ -28,6 +28,7 @@
 
           <v-flex pa-2 xs12>
             <v-text-field
+               autocomplete="new-name"
               :rules="nameRules"
               v-model="name"
               label="Nome"
@@ -35,6 +36,7 @@
             >
             </v-text-field>
             <v-text-field
+               autocomplete="new-email"
               :rules="emailRules"
               v-model="email"
               label="E-mail"
@@ -147,12 +149,12 @@ export default {
           password,
         };
 
-         const headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',
-      };
+        const headers = {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
+        };
 
-        axios.post(this.$store.getters.api + '/api/v1/users', data, headers)
+        axios.post(this.$store.getters.api + '/api/v1/register', data, headers)
           .then((res) => {
             this.$store.dispatch('snackbar_success', 'Cadastrado com sucesso!');
             this.$router.push('/');

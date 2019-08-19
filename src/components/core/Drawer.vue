@@ -6,7 +6,7 @@
 			</v-btn>
 			<v-spacer></v-spacer>
 			<v-icon color="white">account_circle</v-icon>
-		<!--	<span class="white--text ml-3 mr-5"> {{ nome }} </span>  -->
+		<span class="white--text ml-3 mr-5"> {{ nome | first}} </span>
 		</v-app-bar>
 		<v-navigation-drawer v-model="drawer" width="250" class="grey lighten-4" app>
 			<div class="mb-5"
@@ -16,8 +16,7 @@
 						src="https://firebasestorage.googleapis.com/v0/b/centraldeoportunidades-de3a9.appspot.com/o/Untitled-1.png?alt=media&token=1ecc2ffb-2b00-492f-a05e-d5a7382990c7"
 						height="40">
 				</div>
-			<!--	<h3 class="animated delay-1s fadeIn font-weight-light black--text">{{ nome }}</h3> -->
-
+			<!-- <h3 class="animated delay-1s fadeIn font-weight-light black--text">{{ nome | first }}</h3> -->
 				<v-avatar style="bottom: -28px" color="white" v-if="masculino" size="70">
 					<v-img style="border: 6px solid #fff"
 						src="https://firebasestorage.googleapis.com/v0/b/centraldeoportunidades-de3a9.appspot.com/o/avatar.png?alt=media&token=51d40592-131a-4f3c-939c-b08fc1613842">
@@ -81,6 +80,11 @@
 						</v-list-item-content>
 					</template>
 
+					<v-list-item @click="$router.push({'name': 'enviarCasoJuridico'})">
+						<v-list-item-content>
+							<v-list-item-title>Enviar</v-list-item-title>
+						</v-list-item-content>
+					</v-list-item>
 					<v-list-item @click="$router.push({'name': 'casosJuridicosEnviados'})">
 						<v-list-item-content>
 							<v-list-item-title>Enviados</v-list-item-title>
@@ -106,6 +110,8 @@
 </template>
 
 <script>
+import Helper from '../../helper.js'
+
 	export default {
 		data() {
 			return {
@@ -114,6 +120,13 @@
 				feminino: false,
 				semSexo: true,
 				drawer: true,
+			}
+		},
+		filters: {
+			first(val) {
+				const helpers = new Helper()
+				const fn = helpers.firstName(val)
+				return fn
 			}
 		},
 		methods: {
