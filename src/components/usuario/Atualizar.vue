@@ -3,11 +3,11 @@
 		<v-card class="pa-3">
 			<v-layout row>
 				<v-flex xs12 md4 pa-2>
-					<v-text-field label="Nome" v-model="perfil.name" />
+					<v-text-field label="Nome" v-model="perfil.name" autocomplete="new-name" />
 				</v-flex>
 
 				<v-flex xs12 md4 pa-2>
-					<v-text-field label="E-mail" v-model="perfil.email" />
+					<v-text-field label="E-mail" v-model="perfil.email" autocomplete="new-email" />
 				</v-flex>
 
 				<v-flex xs12 md4 pa-2>
@@ -17,7 +17,7 @@
 			</v-layout>
 
 			<v-layout row>
-				<v-flex xs12 md4 pa-2>
+				<v-flex xs12 md3 pa-2>
 					<v-select
 						:items="sexOptions"
 						hide-details
@@ -26,43 +26,63 @@
 						v-model="perfil.sex" />
 				</v-flex>
 
-				<v-flex xs12 md4 pa-2>
+				<v-flex xs12 md2 pa-2>
 					<v-text-field
 						v-mask="masks.nascimento"
 						v-model="perfil.birthdate"
 						label="Nascimento" />
 				</v-flex>
+				<v-flex xs12 md2 pa-2>
+					<v-text-field
+						v-model="perfil.oabNumber"
+						label="Número OAB" />
+				</v-flex>
+				<v-flex xs12 md2 pa-2>
+					<v-select
+						v-model="perfil.ufOAB"
+						:items="estados"
+						label="UF OAB" />
+				</v-flex>
 
-				<v-flex xs12 md4 pa-2>
-						<v-text-field v-mask="masks.telefone" label="Telefone" v-model="perfil.phone_1" />
+				<v-flex xs12 md3 pa-2>
+						<v-select
+							v-model="perfil.tipoAdv"
+							label="Tipo"
+							:items="['Estagiário(a)', 'Escritório', 'Advogado(a)']"
+						>
+						</v-select>
 				</v-flex>
 			</v-layout>
 
 			<v-layout row>
-				<v-flex xs12 md4 pa-2>
-						<v-text-field label="Endereço" v-model="perfil.street" />
+				<v-flex xs12 md3 pa-2>
+						<v-text-field v-mask="masks.cep" label="CEP" v-model="perfil.postal_code" @blur="pesquisaCep" autocomplete="new-cep" />
 				</v-flex>
 
-				<v-flex xs12 md4 pa-2>
-						<v-text-field v-mask="masks.cep" label="CEP" v-model="perfil.postal_code" @blur="pesquisaCep" />
+				<v-flex xs12 md3 pa-2>
+						<v-text-field label="Endereço" v-model="perfil.street" autocomplete="new-endereco" />
 				</v-flex>
 
-				<v-flex xs12 md4 pa-2>
+				<v-flex xs12 md3 pa-2>
 						<v-text-field id="number" label="Número" v-model="perfil.number" />
 				</v-flex>
+
+				<v-flex xs12 md3 pa-2>
+						<v-text-field label="Telefone" v-model="perfil.phone_1" v-mask="masks.telefone" autocomplete="new-telefone" />
+				</v-flex>
 			</v-layout>
 
 			<v-layout row>
 				<v-flex xs12 md4 pa-2>
-						<v-text-field label="Bairro" v-model="perfil.neighborhood" />
+						<v-text-field label="Bairro" v-model="perfil.neighborhood" autocomplete="new-bairro" />
 				</v-flex>
 
 				<v-flex xs12 md4 pa-2>
-						<v-text-field label="Cidade" v-model="perfil.city" />
+						<v-text-field label="Cidade" v-model="perfil.city" autocomplete="new-city" />
 				</v-flex>
 
 				<v-flex xs12 md4 pa-2>
-						<v-text-field label="Estado" v-model="perfil.state" />
+						<v-text-field label="Estado" v-model="perfil.state" autocomplete="new-state" />
 				</v-flex>
 				<v-flex xs12 md12 pa-2>
 					<v-btn 
@@ -91,10 +111,15 @@
 					cpf: "###.###.###-##",
 					nascimento: "##/##/####",
 					telefone: "(##) # ####-####",
-					cep: "#####-###"
+					cep: "#####-###",
+					oabNumber: "#.###.###"
 				},
 				sexOptions: ["Masculino", "Feminino"],
+				estados: ["AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"],
 				perfil: {
+					tipoAdv: "",
+					oabNumber: "",
+					ufOAB: "",
 					name: "",
 					email: "",
 					cpf: "",
@@ -108,7 +133,6 @@
 					city: "",
 					state: ""
 				},
-				teste: "",
 				carregandoSalvarPerfil: false
 			};
 		},
