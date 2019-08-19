@@ -130,7 +130,7 @@ export default new Vuex.Store({
       return state.snackbar_info
     },
     api() {
-      // return 'http://facilitajus.api';
+      // return 'http://facilitajus.api'
       return 'https://facilita-jus-api.herokuapp.com'
       //return 'https://api.facilitajus.com'
     },
