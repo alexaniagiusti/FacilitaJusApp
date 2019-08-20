@@ -17,7 +17,7 @@
 					<tr v-for="diligence in diligences" :key="diligence.id" style="cursor: pointer" @click="showDiligence(diligence.id, diligence.name)">
 						<td>{{ diligence.user_id }}</td>
 						<td>{{ diligence.name | nameFilter }}</td>
-						<td>{{ diligence.city.city }}</td>
+						<td>{{ diligence.city.city }} - {{ diligence.city.state }}</td>
 						<td>{{ diligence.service.service }}</td>
 						<td>{{ diligence.date | dateFilter }}</td>
 						<td>{{ diligence.time }}</td>
