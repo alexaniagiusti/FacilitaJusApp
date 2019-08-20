@@ -5,6 +5,7 @@
 				<thead>
 					<tr>
 						<th class="text-left blue--text">#</th>
+						<th class="text-left blue--text">Nome</th>
 						<th class="text-left blue--text">Cidade</th>
 						<th class="text-left blue--text">Tipo</th>
 						<th class="text-left blue--text hidden-sm-and-down"></th>
@@ -12,12 +13,13 @@
 				</thead>
 				<tbody>
 					<tr v-for="legalCase in legalCases" :key="legalCase.id" style="cursor: pointer" @click="showDiligence(legalCase.id)">
-						<td>{{ legalCase.id }}</td>
-						<td>{{ legalCase.city.city }}</td>
+						<td>{{ legalCase.user_id }}</td>
+						<td>{{ legalCase.name | nameFilter }}</td>
+						<td>{{ legalCase.city.city }} - {{ legalCase.city.state }}</td>
 						<td>{{ legalCase.actuation.actuation }}</td>
-                        <td class="hidden-sm-and-down">
-                            <v-btn class="ma-3" small color="primary">Visualizar</v-btn>
-                        </td>
+						<td class="hidden-sm-and-down">
+								<v-btn class="ma-3" small color="primary">Visualizar</v-btn>
+						</td>
 					</tr>
 				</tbody>
 			</v-simple-table>
@@ -26,6 +28,7 @@
 </template>
 
 <script>
+import Helper from  '../../../helper.js'
 
 	export default {
 		props: ['legalCases'],
@@ -35,6 +38,11 @@
 				this.$router.push({name: 'visualizarCasoRecebido', params:{id : idLegalCase}})
 			}
 		},
-
+		filters: {
+			nameFilter(val) {
+				const firstName = new Helper().firstName(val)
+				return firstName
+			}
+		}
 	}
 </script>
