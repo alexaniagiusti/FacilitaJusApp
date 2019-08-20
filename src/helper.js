@@ -1,7 +1,14 @@
+import moment from 'moment'
+
 export default class Helper {
   firstName(name) {
-    let fn = name.split(' ')
-    console.log('fannn: ' + fn[0])
-    return fn[0]
+    let firstName = name.split(' ')
+    return firstName[0]
+  }
+
+  // format from YYYY-MM-DD to DD/MM/YYYY
+  dateFilter(dataReceived) {
+    let dateParse = moment(dataReceived).format('DD/MM/YYYY')
+    return dateParse
   }
 }
