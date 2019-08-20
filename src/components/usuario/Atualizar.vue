@@ -46,7 +46,7 @@
 
 				<v-flex xs12 md3 pa-2>
 						<v-select
-							v-model="perfil.tipoAdv"
+							v-model="perfil.type_profile"
 							label="Tipo"
 							:items="['Estagiário(a)', 'Escritório', 'Advogado(a)']"
 						>
@@ -117,7 +117,7 @@
 				sexOptions: ["Masculino", "Feminino"],
 				estados: ["AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"],
 				perfil: {
-					tipoAdv: "",
+					type_profile: "",
 					oabNumber: "",
 					ufOAB: "",
 					name: "",
