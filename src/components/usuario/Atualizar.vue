@@ -34,12 +34,12 @@
 				</v-flex>
 				<v-flex xs12 md2 pa-2>
 					<v-text-field
-						v-model="perfil.oabNumber"
+						v-model="perfil.oab_number"
 						label="Número OAB" />
 				</v-flex>
 				<v-flex xs12 md2 pa-2>
 					<v-select
-						v-model="perfil.ufOAB"
+						v-model="perfil.oab_state"
 						:items="estados"
 						label="UF OAB" />
 				</v-flex>
@@ -118,8 +118,8 @@
 				estados: ["AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"],
 				perfil: {
 					type_profile: "",
-					oabNumber: "",
-					ufOAB: "",
+					oab_number: "",
+					oab_state: "",
 					name: "",
 					email: "",
 					cpf: "",
@@ -159,13 +159,13 @@
 				const formatedBirtdate = `${formatBirthDate[2]}-${formatBirthDate[1]}-${
 					formatBirthDate[0]
 					}`;
-				let perfilAtualizado = this.perfil;
-				perfilAtualizado.birthdate = formatedBirtdate;
-				
+				let data = this.perfil;
+				data.birthdate = formatedBirtdate;
+
 				axios
 					.put(
 						`${this.$store.getters.api}/api/v1/users/${this.$store.getters.getUsuario.id}`,
-						perfilAtualizado,
+						data,
 						{headers: {Authorization: `Bearer ${this.$store.getters.getToken}`} }
 					)
 					.then(res => {
