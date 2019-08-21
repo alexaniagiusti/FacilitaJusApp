@@ -1,7 +1,6 @@
 <template>
 	<v-container fluid>
-		<v-layout class="arredondaBorda" ma-1 pa-2 elevation-2 row wrap>
-
+		<v-layout class="arredondaBorda" ma-2 pa-2 elevation-2 row wrap>
 			<v-flex xs12 md4 v-for="area in items" :key="area.id">
 				<v-checkbox v-model="itemsSelecionados" :label="area.actuation" :value="area.id"></v-checkbox>
 			</v-flex>
@@ -9,7 +8,6 @@
 			<v-flex xs12>
 				<v-btn block class="green white--text" @click="salvar">Salvar</v-btn>
 			</v-flex>
-
 		</v-layout>
 	</v-container>
 </template>
