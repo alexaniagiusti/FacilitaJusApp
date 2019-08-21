@@ -61,6 +61,7 @@
 	import Helper from  '../../../helper.js'
 
 	export default {
+		props: ['id'],
 		components: {
 			Chat
 		},
@@ -75,13 +76,18 @@
 			horaDaMensagem(val) {
 				return moment(val).locale('pt-br').fromNow()
 			},
-			dateFilter(val) {
-			const dateFomatted = new Helper().dateFilter(val)
-			return dateFomatted
-		}
-	},
-
-		mounted() {
+				dateFilter(val) {
+				const dateFomatted = new Helper().dateFilter(val)
+				return dateFomatted
+			}
+		},
+		watch: {
+			id() {
+				this.getDiligence()
+			}
+		},
+		methods: {
+			getDiligence() {
 			this.$store.commit('setVueLoad', true)
 			axios.get(`${this.$store.getters.api}/api/v1/diligence/received/${this.$route.params.id}`, { headers: { 'Authorization': `Bearer ${this.$store.getters.getToken}` } })
 				.then(res => {
@@ -91,7 +97,10 @@
 					this.mostrarDiligencia = true;
 				})
 				.catch(e => console.log(e))
-
+			}
+		},
+		mounted() {
+			this.getDiligence()
 		},
 	}
 </script>

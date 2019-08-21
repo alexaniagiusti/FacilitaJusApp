@@ -66,6 +66,7 @@ export default new Router({
 							path: '/diligencia/recebida/:id',
 							name: 'visualizarDiligenciaRecebida',
 							component: VisualizarDiligenciaRecebida,
+							props: true,
 						},
 						{
 							path: '/diligencias/diligencias-recebidas',
@@ -102,7 +103,8 @@ export default new Router({
 						{
 							path: '/casos-juridicos/recebido/:id',
 							name: 'visualizarCasoRecebido',
-							component: VisualizarCasoRecebido
+							component: VisualizarCasoRecebido,
+							props: true
 						},
 						{
 							path: '/casos-juridicos/enviados',

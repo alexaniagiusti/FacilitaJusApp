@@ -49,6 +49,7 @@
   import Chat from '../../chat/Chat'
 
   export default {
+    props: ['id'],
     components:{
         Chat
     },
@@ -59,23 +60,34 @@
         urlChat: ''
       }
     },
+    watch: {
+      id() {
+        this.getDiligence()
+      }
+    },
+    methods:{
+      getDiligence(){
+        this.$store.commit('setVueLoad', true)
+         axios.get(`${this.$store.getters.api}/api/v1/legal-case/received/${this.$route.params.id}`, {headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
+        .then(res => {
+          this.$store.commit('setVueLoad', false)
+          this.dadosCaso = res.data;
+          this.urlChat = `${this.$store.getters.api}/api/v1/legal-case/received/${this.dadosCaso.legalCase.id}/reply`
+          this.mostrarCaso = true;
+        })
+        .catch(e => console.log(e))
+      }
+    },
     filters: {
       horaDaMensagem(val) {
         return moment(val).locale('pt-br').fromNow()
       }
     },
- 
-    mounted() {
-      this.$store.commit('setVueLoad', true)
-      axios.get(`${this.$store.getters.api}/api/v1/legal-case/received/${this.$route.params.id}`, {headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
-      .then(res => {
-        this.$store.commit('setVueLoad', false)
-        this.dadosCaso = res.data;
-        this.urlChat = `${this.$store.getters.api}/api/v1/legal-case/received/${this.dadosCaso.legalCase.id}/reply`
-        this.mostrarCaso = true;
-      })
-      .catch(e => console.log(e))
-
+    created() {
+      this.getDiligence();
     },
+    // updated(){
+    //   this.getDiligence();
+    // }
   }
 </script>
