@@ -4,17 +4,16 @@ import 'firebase/auth';
 import 'firebase/storage';
 
 const config = {
-  apiKey: 'AIzaSyBUaYNClSABpqziITNwFJfQ49DBzOemn3w',
-  authDomain: 'egestor-876cd.firebaseapp.com',
-  databaseURL: 'https://egestor-876cd.firebaseio.com',
-  projectId: 'egestor-876cd',
-  storageBucket: '',
-  messagingSenderId: '529575315507',
-  appId: '1:529575315507:web:b4202d8714379a49',
+  apiKey: "AIzaSyAHB61SbrxePljc9_KHeIkHpwdDMhH6Ie8",
+  authDomain: "facilitajus-e142e.firebaseapp.com",
+  databaseURL: "https://facilitajus-e142e.firebaseio.com",
+  projectId: "facilitajus-e142e",
+  storageBucket: "",
+  messagingSenderId: "946961257063",
+  appId: "1:946961257063:web:04723c6653d1f5f8"
 };
 
 const f = firebase.initializeApp(config);
 
 export const db = f.database();
 export const auth = f.auth();
-export const storage = f.storage();

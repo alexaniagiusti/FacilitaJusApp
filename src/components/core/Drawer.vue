@@ -7,58 +7,58 @@
 			<v-spacer></v-spacer>
 			<span class="white--text ml-3 mr-5"> {{ nome | first}} </span>
 			<v-icon color="white">account_circle</v-icon>
-			
-			<v-badge
-				class="ml-2"
-				color="green"
-				overlap
-			>
-				<template v-slot:badge>
-					<span>{{ diligencesLength }}</span>
-				</template>
-				<v-icon
-					@click="$router.push({ name: 'diligenciasRecebidas' })"
-					size="27"
-					color="white"
-				>
-					work
-				</v-icon>
-			</v-badge>
 
-			<v-badge
-				class="mr-3 ml-3"
-				color="green"
-				overlap
-			>
-				<template v-slot:badge>
-					<span>{{ legalCaseLength }}</span>
-				</template>
-				<v-icon
-					@click="$router.push({ name: 'casosJuridicosRecebidos' })"
-					size="27"
-					color="white"
+			<v-menu
+			transition="slide-y-transition"
+			bottom
+		>
+			<template v-slot:activator="{ on }">
+				<v-btn
+					icon
+					v-on="on"
 				>
-					gavel
-				</v-icon>
-			</v-badge>
-
-			<v-badge
-				class="mr-2"
-				color="green"
-				overlap
-			>
-				<template v-slot:badge>
-					<span>{{ diligencesLength + legalCaseLength }}</span>
-				</template>
-				<v-icon
-					@click="$router.push({ name: 'home' })"
-					size="27"
-					color="white"
+					<v-badge
+						class="mr-2"
+						color="green"
+						overlap
+					>
+						<template v-slot:badge>
+							<span>{{ notifies.length }}</span>
+						</template>
+						<v-icon
+							size="27"
+							color="white"
+						>
+							notifications
+						</v-icon>
+					</v-badge>
+				</v-btn>
+			</template>
+			<v-list style="overflow: auto">
+				<v-list-item
+					v-for="(item, i) in notifies"
+					:key="i"
+					@click="openNotification(item)"
 				>
-					notifications
-				</v-icon>
-			</v-badge>
-		</v-app-bar>
+					<v-avatar v-if="item.type_notification === 'Diligência' ? true : false">
+						<v-icon>
+							work
+						</v-icon>
+					</v-avatar>
+					<v-avatar v-if="item.type_notification === 'Dúvida Jurídica' ? true : false">
+						<v-icon>
+							gavel
+						</v-icon>
+					</v-avatar>
+					<v-list-item-content>
+						<v-list-item-title>{{ item.type }}</v-list-item-title>
+						<v-list-item-subtitle>{{ item.city }}</v-list-item-subtitle>
+						<v-list-item-subtitle>#{{ item.id }}</v-list-item-subtitle>
+					</v-list-item-content>
+				</v-list-item>
+			</v-list>
+		</v-menu>
+	</v-app-bar>
 		<v-navigation-drawer v-model="drawer" width="270" class="grey lighten-4" app>
 			<div class="mb-5"
 				style="border-bottom:1px solid #E0E0E0;background: linear-gradient(to right, #fff, #fff); display: flex; width: 100%; align-items: center; flex-direction: column">
@@ -162,6 +162,7 @@
 
 <script>
 import Helper from '../../helper.js'
+import { db } from '../../services/Firebase'
 
 	export default {
 		props: [
@@ -170,6 +171,8 @@ import Helper from '../../helper.js'
 		],
 		data() {
 			return {
+				id: 0,
+				notifies: [],
 				nome: 'Carregando...',
 				masculino: false,
 				feminino: false,
@@ -185,6 +188,17 @@ import Helper from '../../helper.js'
 			}
 		},
 		methods: {
+			openNotification(notification) {
+				db.ref(`usuarios/${this.$store.getters.getUsuario.id}/${notification.key}`).remove()
+					.then(() => this.redirecting(notification))
+			},
+			redirecting(notification) {
+				if(notification.type_notification === 'Diligência') {
+					this.$router.push(`/diligencia/recebida/${notification.id}`)
+				} else {
+					this.$router.push(`/casos-juridicos/recebido/${notification.id}`)
+				}
+			},
 			irPara(rota) {
 				console.log('fui chamada')
 			},
@@ -196,6 +210,7 @@ import Helper from '../../helper.js'
 		},
 		created() {
 			const usuario = JSON.parse(sessionStorage.usuario)
+			this.id = usuario.id
 			this.nome = usuario.name
 			const sexo = usuario.sex
 			if (sexo === 'Masculino') {
@@ -207,6 +222,16 @@ import Helper from '../../helper.js'
 			} else {
 				this.semSexo = true
 			}
+			const query = db.ref(`usuarios/${usuario.id}`)
+			query.on('value', dataSnap => {
+				let notifies = []
+				dataSnap.forEach(dataChild => {
+					let item = dataChild.val()
+					item['key'] = dataChild.key
+					notifies.push(item)
+				})
+				this.notifies = notifies
+			})
 		},
 	}
 </script>
