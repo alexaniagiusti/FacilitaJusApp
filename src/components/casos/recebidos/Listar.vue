@@ -23,7 +23,7 @@
 					</tr>
 				</tbody>
 			</v-simple-table>
-			<v-list three-line>
+			<v-list three-line class="hidden-sm-and-up">
 				<v-list-item v-for="legalCase in legalCases" :key="legalCase.id" @click="showDiligence(legalCase.id)">
 					<v-avatar class="pr-2">
 						<span>#{{legalCase.id}}</span>
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import Helper from  '../../../helper.js'
+import Helper from '../../../helper.js'
 
 	export default {
 		props: ['legalCases'],

@@ -2,9 +2,11 @@
   <v-container fluid>
     <div class="linhaSemQuebra">
       <v-toolbar class="toolbarForm">
+        <v-spacer></v-spacer>
         <span class="font-weight-light title">
-          Envie seu caso jurídico:
+          Envie sua dúvida jurídica:
         </span>
+        <v-spacer></v-spacer>
       </v-toolbar>
     </div>
     <v-card class="pa-3">

@@ -5,10 +5,61 @@
 				<v-icon color="white" size="20">menu</v-icon>
 			</v-btn>
 			<v-spacer></v-spacer>
+			<span class="white--text ml-3 mr-5"> {{ nome | first}} </span>
 			<v-icon color="white">account_circle</v-icon>
-		<span class="white--text ml-3 mr-5"> {{ nome | first}} </span>
+			
+			<v-badge
+				class="ml-2"
+				color="green"
+				overlap
+			>
+				<template v-slot:badge>
+					<span>{{ diligencesLength }}</span>
+				</template>
+				<v-icon
+					@click="$router.push({ name: 'diligenciasRecebidas' })"
+					size="27"
+					color="white"
+				>
+					work
+				</v-icon>
+			</v-badge>
+
+			<v-badge
+				class="mr-3 ml-3"
+				color="green"
+				overlap
+			>
+				<template v-slot:badge>
+					<span>{{ legalCaseLength }}</span>
+				</template>
+				<v-icon
+					@click="$router.push({ name: 'casosJuridicosRecebidos' })"
+					size="27"
+					color="white"
+				>
+					gavel
+				</v-icon>
+			</v-badge>
+
+			<v-badge
+				class="mr-2"
+				color="green"
+				overlap
+			>
+				<template v-slot:badge>
+					<span>{{ diligencesLength + legalCaseLength }}</span>
+				</template>
+				<v-icon
+					@click="$router.push({ name: 'home' })"
+					size="27"
+					color="white"
+				>
+					notifications
+				</v-icon>
+			</v-badge>
 		</v-app-bar>
-		<v-navigation-drawer v-model="drawer" width="250" class="grey lighten-4" app>
+		<v-navigation-drawer v-model="drawer" width="270" class="grey lighten-4" app>
 			<div class="mb-5"
 				style="border-bottom:1px solid #E0E0E0;background: linear-gradient(to right, #fff, #fff); display: flex; width: 100%; align-items: center; flex-direction: column">
 				<div @click="$router.push({name: 'home'})" class="mt-3 mb-2" style="display: flex">
@@ -36,7 +87,7 @@
 				</v-avatar>
 			</div>
 			<!-- Grupo com informações do perfil do usuário -->
-			<v-list class="pa-0 mt-0">
+			<v-list class="pa-3 mt-3" dense rounded>
 				<!-- <v-subheader class="ml-3">
           INÍCIO
         </v-subheader> -->
@@ -57,17 +108,17 @@
 						</v-list-item-content>
 					</template>
 
-					<v-list-item @click="$router.push({'name':'enviarDiligencia'})">
+					<v-list-item class="ml-2" @click="$router.push({'name':'enviarDiligencia'})">
 						<v-list-item-content>
 							<v-list-item-title>Enviar</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
-					<v-list-item @click="$router.push({'name':'diligenciasEnviadas'})">
+					<v-list-item class="ml-2" @click="$router.push({'name':'diligenciasEnviadas'})">
 						<v-list-item-content>
 							<v-list-item-title>Enviadas</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
-					<v-list-item @click="$router.push({'name':'diligenciasRecebidas'})">
+					<v-list-item class="ml-2" @click="$router.push({'name':'diligenciasRecebidas'})">
 						<v-list-item-content>
 							<v-list-item-title>Recebidas</v-list-item-title>
 						</v-list-item-content>
@@ -80,17 +131,17 @@
 						</v-list-item-content>
 					</template>
 
-					<v-list-item @click="$router.push({'name': 'enviarCasoJuridico'})">
+					<v-list-item class="ml-2" @click="$router.push({'name': 'enviarCasoJuridico'})">
 						<v-list-item-content>
 							<v-list-item-title>Enviar</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
-					<v-list-item @click="$router.push({'name': 'casosJuridicosEnviados'})">
+					<v-list-item class="ml-2" @click="$router.push({'name': 'casosJuridicosEnviados'})">
 						<v-list-item-content>
 							<v-list-item-title>Enviados</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
-					<v-list-item @click="$router.push({'name': 'casosJuridicosRecebidos'})">
+					<v-list-item class="ml-2" @click="$router.push({'name': 'casosJuridicosRecebidos'})">
 						<v-list-item-content>
 							<v-list-item-title>Recebidos</v-list-item-title>
 						</v-list-item-content>
@@ -113,6 +164,10 @@
 import Helper from '../../helper.js'
 
 	export default {
+		props: [
+			'diligencesLength',
+			'legalCaseLength'
+		],
 		data() {
 			return {
 				nome: 'Carregando...',

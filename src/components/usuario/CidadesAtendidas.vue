@@ -1,72 +1,71 @@
 <template>
-	<div class="expandeDiv" style="flex-direction: column">
-		<v-layout>
-			<v-flex xs12>
-				<v-list pa-0 ma-0>
-					<template v-for="(cidadesAtendidas, index) in itemsSelecionados">
-						<v-list-item @click="" :key="cidadesAtendidas.city">
-							<v-avatar class="ml-1">
-								<v-icon color="green">done</v-icon>
-							</v-avatar>
-							<v-list-item-content>
-								<v-list-item-title>
-									{{ cidadesAtendidas.city }} - {{ cidadesAtendidas.state }}
-								</v-list-item-title>
-							</v-list-item-content>
-							<v-list-item-action>
-								<v-btn color="red" icon @click="removeItem(cidadesAtendidas.id)">
-									<v-icon size="18" color="grey darken-2">
-										delete
-									</v-icon>
-								</v-btn>
-							</v-list-item-action>
-						</v-list-item>
-						<v-divider :key="index"></v-divider>
-					</template>
-				</v-list>
-			</v-flex>
+	<v-container fluid>
+		<v-layout column="">
+			<v-card class="pa-3">
+				<v-flex xs12>
+					<v-list pa-0 ma-0>
+						<template v-for="(cidadesAtendidas, index) in itemsSelecionados">
+							<v-list-item @click="" :key="cidadesAtendidas.city">
+								<v-avatar class="ml-1">
+									<v-icon color="green">done</v-icon>
+								</v-avatar>
+								<v-list-item-content>
+									<v-list-item-title>
+										{{ cidadesAtendidas.city }} - {{ cidadesAtendidas.state }}
+									</v-list-item-title>
+								</v-list-item-content>
+								<v-list-item-action>
+									<v-btn color="red" icon @click="removeItem(cidadesAtendidas.id)">
+										<v-icon size="18" color="grey darken-2">
+											delete
+										</v-icon>
+									</v-btn>
+								</v-list-item-action>
+							</v-list-item>
+							<v-divider :key="index"></v-divider>
+						</template>
+					</v-list>
+				</v-flex>
+
+				<v-flex xs12>
+						<div class="expandeDiv">
+							<v-flex xs12>
+								<v-text-field autocomplete="new-city" label="Pesquise uma cidade para adicionar" v-model="pesquisa"></v-text-field>
+							</v-flex>
+							<v-flex xs12>
+								<v-list pa-0 ma-0>
+									<template v-for="(item, index) in itemsFiltrados">
+										<v-list-item v-if="jaAdicionado(item)" @click="addItem(item)" :key="item.id">
+											<v-list-item-avatar class="elevation-1">
+													<v-icon>place</v-icon>
+												</v-list-item-avatar>
+												<v-list-item-content>
+													<v-list-item-title v-html="item.city"></v-list-item-title>
+													<v-list-item-subtitle v-html="item.state"></v-list-item-subtitle>
+												</v-list-item-content>
+												<v-list-item-action>
+													<v-btn rounded @click="addItem(item)" color="green" small>
+														<span class="hidden-sm-and-down white--text">Adicionar</span>
+														<v-icon color="white">add</v-icon>
+													</v-btn>
+												</v-list-item-action>
+										</v-list-item>
+										<v-divider :key="index"></v-divider>
+									</template>
+								</v-list>
+							</v-flex>
+						</div>
+						<div class="linhaSemQuebra">
+							<v-btn :disabled="carregandoSalvar" @click="salvar" block color="green" class="white--text mr-2">Salvar
+								<v-icon color="white" size="18" class="ml-1">save</v-icon>
+								<v-progress-circular class="ml-1" indeterminate size="18" color="white"
+									v-if="carregandoSalvar"></v-progress-circular>
+							</v-btn>
+						</div>
+				</v-flex>
+			</v-card>
 		</v-layout>
-		<v-layout justify-center>
-			<v-flex xs12>
-				<v-card class="arredondaBorda">
-					<div class="expandeDiv">
-						<v-flex xs12>
-							<v-text-field autocomplete="new-city" label="Pesquise uma cidade para adicionar" v-model="pesquisa"></v-text-field>
-						</v-flex>
-						<v-flex xs12>
-							<v-list pa-0 ma-0>
-								<template v-for="(item, index) in itemsFiltrados">
-									<v-list-item v-if="jaAdicionado(item)" @click="addItem(item)" :key="item.id">
-										<v-list-item-avatar class="elevation-1">
-												<v-icon>place</v-icon>
-											</v-list-item-avatar>
-											<v-list-item-content>
-												<v-list-item-title v-html="item.city"></v-list-item-title>
-												<v-list-item-subtitle v-html="item.state"></v-list-item-subtitle>
-											</v-list-item-content>
-											<v-list-item-action>
-												<v-btn rounded @click="addItem(item)" color="green" small>
-													<span class="hidden-sm-and-down white--text">Adicionar</span>
-													<v-icon color="white">add</v-icon>
-												</v-btn>
-											</v-list-item-action>
-									</v-list-item>
-									<v-divider :key="index"></v-divider>
-								</template>
-							</v-list>
-						</v-flex>
-					</div>
-					<div class="linhaSemQuebra">
-						<v-btn :disabled="carregandoSalvar" @click="salvar" block color="green" class="white--text mr-2">Salvar
-							<v-icon color="white" size="18" class="ml-1">save</v-icon>
-							<v-progress-circular class="ml-1" indeterminate size="18" color="white"
-								v-if="carregandoSalvar"></v-progress-circular>
-						</v-btn>
-					</div>
-				</v-card>
-			</v-flex>
-		</v-layout>
-	</div>
+	</v-container>
 </template>
 
 <script>
