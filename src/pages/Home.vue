@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <Drawer />
+        <Drawer :legalCaseLength="legalCases.length" :diligencesLength="diligences.length" />
         <v-content>
             <router-view></router-view>
             <v-container v-if="$route.name === 'home'" fluid>
@@ -123,6 +123,7 @@
                     .then(res => {
                         this.$store.commit('setVueLoad', false)
                         this.diligences = res.data;
+                        sessionStorage.diligencesLength = res.data.length
                         this.showListar = true
                     })
                     .catch(e => console.log(e))
@@ -134,6 +135,7 @@
                     .then(res => {
                         this.$store.commit('setVueLoad', false)
                         this.legalCases = res.data;
+                        sessionStorage.legalCasesLength = res.data.length
                         this.showListar = true
                     })
                     .catch(e => console.log(e))

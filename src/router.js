@@ -7,6 +7,7 @@ import Cadastro from './pages/Cadastro.vue';
 
 import Usuario from './pages/Usuario.vue';
 
+
 //Diligências
 import Diligencias from './pages/Diligencias.vue';
 import DiligenciasEnviadas from './components/diligencias/DiligenciasEnviadas.vue'
