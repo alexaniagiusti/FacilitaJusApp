@@ -173,6 +173,34 @@ export default {
         .then(res =>
           console.log("o token foi enviadiu: " + JSON.stringify(res.data))
         );
+    },
+    userHasToken() {
+      messaging.getToken().then(currentToken => {
+        if (currentToken) {
+          console.log("já tem token: " + currentToken);
+          messaging.usePublicVapidKey(
+            "BPTNHRboMGxQheuMuJWDnXMtL_wpNxV3RJ8xcj06eKCo1Cs71Y4HnjRwtdEri_IhJmR1KKcBCzt__p-tOPqPuSA"
+          );
+        } else {
+          messaging
+            .requestPermission()
+            .then(() => {
+              console.log("Notification permission granted.");
+              messaging.getToken().then(token => {
+                this.sendTokenToPushNotification(token);
+              });
+            })
+            .catch(err => {
+              console.log("Unable to get permission to notify.", err);
+            });
+        }
+      });
+      this.listeningNewPushMessages();
+    },
+    listeningNewPushMessages() {
+      messaging.onMessage(msg => {
+        console.log("recebido", msg);
+      });
     }
   },
   created() {
@@ -180,27 +208,7 @@ export default {
     this.diligencesWithOpenStatus();
     this.legalCasesWithOpenStatus();
     this.$store.commit("setVueLoad", false);
-
-    messaging.getToken().then(currentToken => {
-      if (currentToken) {
-        console.log("já tem token: " + currentToken);
-        messaging.usePublicVapidKey(
-          "BPTNHRboMGxQheuMuJWDnXMtL_wpNxV3RJ8xcj06eKCo1Cs71Y4HnjRwtdEri_IhJmR1KKcBCzt__p-tOPqPuSA"
-        );
-      } else {
-        messaging
-          .requestPermission()
-          .then(() => {
-            console.log("Notification permission granted.");
-            messaging.getToken().then(token => {
-              this.sendTokenToPushNotification(token);
-            });
-          })
-          .catch(err => {
-            console.log("Unable to get permission to notify.", err);
-          });
-      }
-    });
+    this.userHasToken();
   }
 };
 </script>
