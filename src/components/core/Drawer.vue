@@ -8,6 +8,7 @@
 			<span class="white--text ml-3 mr-5"> {{ nome | first}} </span>
 			<v-icon color="white">account_circle</v-icon>
 
+
 			<v-menu
 			transition="slide-y-transition"
 			bottom
@@ -34,29 +35,33 @@
 					</v-badge>
 				</v-btn>
 			</template>
-			<v-list style="overflow: auto">
-				<v-list-item
-					v-for="(item, i) in notifies"
-					:key="i"
-					@click="openNotification(item)"
-				>
-					<v-avatar v-if="item.type_notification === 'Diligência' ? true : false">
-						<v-icon>
-							work
-						</v-icon>
-					</v-avatar>
-					<v-avatar v-if="item.type_notification === 'Dúvida Jurídica' ? true : false">
-						<v-icon>
-							gavel
-						</v-icon>
-					</v-avatar>
-					<v-list-item-content>
-						<v-list-item-title>{{ item.type }}</v-list-item-title>
-						<v-list-item-subtitle>{{ item.city }}</v-list-item-subtitle>
-						<v-list-item-subtitle>#{{ item.id }}</v-list-item-subtitle>
-					</v-list-item-content>
-				</v-list-item>
+			<!-- Aqui começa a lista de notificações que é exibida n badge -->
+			<v-list style="max-height: 350px; overflow: auto;">
+				<template v-for="(item, i) in notifies">
+					<v-list-item
+						:key="i"
+						@click="openNotification(item)"
+					>
+						<v-avatar v-if="item.type_notification === 'Diligência' ? true : false">
+							<v-icon>
+								work
+							</v-icon>
+						</v-avatar>
+						<v-avatar v-if="item.type_notification === 'Dúvida Jurídica' ? true : false">
+							<v-icon>
+								gavel
+							</v-icon>
+						</v-avatar>
+						<v-list-item-content>
+							<v-list-item-title>{{ item.type }}</v-list-item-title>
+							<v-list-item-subtitle>{{ item.city }}</v-list-item-subtitle>
+							<v-list-item-subtitle>#{{ item.id }}</v-list-item-subtitle>
+						</v-list-item-content>
+					</v-list-item>
+					<v-divider :key="i"></v-divider>
+				</template>
 			</v-list>
+			<!-- Final da lista de notificações -->
 		</v-menu>
 	</v-app-bar>
 		<v-navigation-drawer v-model="drawer" width="270" class="grey lighten-4" app>
