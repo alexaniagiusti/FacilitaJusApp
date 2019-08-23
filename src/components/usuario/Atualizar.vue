@@ -85,12 +85,27 @@
 						<v-text-field label="Estado" v-model="perfil.state" autocomplete="new-state" />
 				</v-flex>
 				<v-flex xs12 md12 pa-2>
-					<v-btn 
+				
+				<v-layout row>
+        <v-flex xs12 md12 pa-2>
+          <v-textarea
+            v-model="sobre"
+            label="Resumo profissional"
+          >
+
+          </v-textarea>
+        </v-flex>
+
+
+        <v-flex xs12 md12 pa-2>
+          <v-btn 
 						:disabled="carregandoSalvarPerfil" 
 						@click="salvarPerfil" 
 						block color="green"
 						class="white--text"> 	Salvar
 					</v-btn>
+        	</v-flex>
+      	 </v-layout>
 				</v-flex>
 			</v-layout>
 		</v-card>
