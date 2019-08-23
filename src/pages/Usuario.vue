@@ -2,6 +2,14 @@
   <v-container pa-0 ma-0 fluid>
     <v-layout column>
       <v-flex xs12>
+        <v-toolbar flat color="white" dark>
+					<v-spacer></v-spacer>
+					<v-toolbar-title class="font-weight-light black--text">Dados Pessoais</v-toolbar-title>
+					<v-spacer></v-spacer>
+				</v-toolbar>
+        <v-divider></v-divider>
+
+
         <v-tabs
           app
           grow
@@ -45,6 +53,7 @@
         </v-tabs>
       </v-flex>
 
+    <v-divider></v-divider>
       <v-flex xs12>
         <v-tabs-items v-model="tab">
           <v-tab-item>

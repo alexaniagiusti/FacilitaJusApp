@@ -5,10 +5,66 @@
 				<v-icon color="white" size="20">menu</v-icon>
 			</v-btn>
 			<v-spacer></v-spacer>
+			<span class="white--text ml-3 mr-5"> {{ nome | first}} </span>
 			<v-icon color="white">account_circle</v-icon>
-		<span class="white--text ml-3 mr-5"> {{ nome | first}} </span>
-		</v-app-bar>
-		<v-navigation-drawer v-model="drawer" width="250" class="grey lighten-4" app>
+
+
+			<v-menu
+			transition="slide-y-transition"
+			bottom
+		>
+			<template v-slot:activator="{ on }">
+				<v-btn
+					icon
+					v-on="on"
+				>
+					<v-badge
+						class="mr-2"
+						color="green"
+						overlap
+					>
+						<template v-slot:badge>
+							<span>{{ notifies.length }}</span>
+						</template>
+						<v-icon
+							size="27"
+							color="white"
+						>
+							notifications
+						</v-icon>
+					</v-badge>
+				</v-btn>
+			</template>
+			<!-- Aqui começa a lista de notificações que é exibida n badge -->
+			<v-list style="max-height: 350px; overflow: auto;">
+				<template v-for="(item, i) in notifies">
+					<v-list-item
+						:key="i"
+						@click="openNotification(item)"
+					>
+						<v-avatar v-if="item.type_notification === 'Diligência' ? true : false">
+							<v-icon>
+								work
+							</v-icon>
+						</v-avatar>
+						<v-avatar v-if="item.type_notification === 'Dúvida Jurídica' ? true : false">
+							<v-icon>
+								gavel
+							</v-icon>
+						</v-avatar>
+						<v-list-item-content>
+							<v-list-item-title>{{ item.type }}</v-list-item-title>
+							<v-list-item-subtitle>{{ item.city }}</v-list-item-subtitle>
+							<v-list-item-subtitle>#{{ item.id }}</v-list-item-subtitle>
+						</v-list-item-content>
+					</v-list-item>
+					<v-divider :key="i"></v-divider>
+				</template>
+			</v-list>
+			<!-- Final da lista de notificações -->
+		</v-menu>
+	</v-app-bar>
+		<v-navigation-drawer v-model="drawer" width="270" class="grey lighten-4" app>
 			<div class="mb-5"
 				style="border-bottom:1px solid #E0E0E0;background: linear-gradient(to right, #fff, #fff); display: flex; width: 100%; align-items: center; flex-direction: column">
 				<div @click="$router.push({name: 'home'})" class="mt-3 mb-2" style="display: flex">
@@ -36,7 +92,7 @@
 				</v-avatar>
 			</div>
 			<!-- Grupo com informações do perfil do usuário -->
-			<v-list class="pa-0 mt-0">
+			<v-list class="pa-3 mt-3" dense rounded>
 				<!-- <v-subheader class="ml-3">
           INÍCIO
         </v-subheader> -->
@@ -57,17 +113,17 @@
 						</v-list-item-content>
 					</template>
 
-					<v-list-item @click="$router.push({'name':'enviarDiligencia'})">
+					<v-list-item class="ml-2" @click="$router.push({'name':'enviarDiligencia'})">
 						<v-list-item-content>
 							<v-list-item-title>Enviar</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
-					<v-list-item @click="$router.push({'name':'diligenciasEnviadas'})">
+					<v-list-item class="ml-2" @click="$router.push({'name':'diligenciasEnviadas'})">
 						<v-list-item-content>
 							<v-list-item-title>Enviadas</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
-					<v-list-item @click="$router.push({'name':'diligenciasRecebidas'})">
+					<v-list-item class="ml-2" @click="$router.push({'name':'diligenciasRecebidas'})">
 						<v-list-item-content>
 							<v-list-item-title>Recebidas</v-list-item-title>
 						</v-list-item-content>
@@ -80,17 +136,17 @@
 						</v-list-item-content>
 					</template>
 
-					<v-list-item @click="$router.push({'name': 'enviarCasoJuridico'})">
+					<v-list-item class="ml-2" @click="$router.push({'name': 'enviarCasoJuridico'})">
 						<v-list-item-content>
 							<v-list-item-title>Enviar</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
-					<v-list-item @click="$router.push({'name': 'casosJuridicosEnviados'})">
+					<v-list-item class="ml-2" @click="$router.push({'name': 'casosJuridicosEnviados'})">
 						<v-list-item-content>
 							<v-list-item-title>Enviados</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
-					<v-list-item @click="$router.push({'name': 'casosJuridicosRecebidos'})">
+					<v-list-item class="ml-2" @click="$router.push({'name': 'casosJuridicosRecebidos'})">
 						<v-list-item-content>
 							<v-list-item-title>Recebidos</v-list-item-title>
 						</v-list-item-content>
@@ -111,10 +167,17 @@
 
 <script>
 import Helper from '../../helper.js'
+import { db } from '../../services/Firebase'
 
 	export default {
+		props: [
+			'diligencesLength',
+			'legalCaseLength'
+		],
 		data() {
 			return {
+				id: 0,
+				notifies: [],
 				nome: 'Carregando...',
 				masculino: false,
 				feminino: false,
@@ -130,6 +193,17 @@ import Helper from '../../helper.js'
 			}
 		},
 		methods: {
+			openNotification(notification) {
+				db.ref(`usuarios/${this.$store.getters.getUsuario.id}/${notification.key}`).remove()
+					.then(() => this.redirecting(notification))
+			},
+			redirecting(notification) {
+				if(notification.type_notification === 'Diligência') {
+					this.$router.push(`/diligencia/recebida/${notification.id}`)
+				} else {
+					this.$router.push(`/casos-juridicos/recebido/${notification.id}`)
+				}
+			},
 			irPara(rota) {
 				console.log('fui chamada')
 			},
@@ -141,6 +215,7 @@ import Helper from '../../helper.js'
 		},
 		created() {
 			const usuario = JSON.parse(sessionStorage.usuario)
+			this.id = usuario.id
 			this.nome = usuario.name
 			const sexo = usuario.sex
 			if (sexo === 'Masculino') {
@@ -152,6 +227,16 @@ import Helper from '../../helper.js'
 			} else {
 				this.semSexo = true
 			}
+			const query = db.ref(`usuarios/${usuario.id}`)
+			query.on('value', dataSnap => {
+				let notifies = []
+				dataSnap.forEach(dataChild => {
+					let item = dataChild.val()
+					item['key'] = dataChild.key
+					notifies.push(item)
+				})
+				this.notifies = notifies
+			})
 		},
 	}
 </script>

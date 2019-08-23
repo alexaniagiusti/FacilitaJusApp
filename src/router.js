@@ -7,6 +7,7 @@ import Cadastro from './pages/Cadastro.vue';
 
 import Usuario from './pages/Usuario.vue';
 
+
 //Diligências
 import Diligencias from './pages/Diligencias.vue';
 import DiligenciasEnviadas from './components/diligencias/DiligenciasEnviadas.vue'
@@ -28,7 +29,6 @@ Vue.use(Router);
 
 export default new Router({
 	base: process.env.BASE_URL,
-	mode: 'history',
 	routes: [
 		{
 			path: '/reset/password/:token',
@@ -65,6 +65,7 @@ export default new Router({
 							path: '/diligencia/recebida/:id',
 							name: 'visualizarDiligenciaRecebida',
 							component: VisualizarDiligenciaRecebida,
+							props: true,
 						},
 						{
 							path: '/diligencias/diligencias-recebidas',
@@ -101,7 +102,8 @@ export default new Router({
 						{
 							path: '/casos-juridicos/recebido/:id',
 							name: 'visualizarCasoRecebido',
-							component: VisualizarCasoRecebido
+							component: VisualizarCasoRecebido,
+							props: true
 						},
 						{
 							path: '/casos-juridicos/enviados',

@@ -27,6 +27,16 @@
 							</tr>
 
 							<tr>
+								<td><strong>Data:</strong></td>
+								<td>{{ dadosDiligencia.diligence.date | dateFilter}}</td>
+							</tr>
+
+							<tr>
+								<td><strong>Telefone:</strong></td>
+								<td>{{ dadosDiligencia.diligence.time }}</td>
+							</tr>
+
+							<tr>
 								<td><strong>Mensagem:</strong></td>
 								<td>{{ dadosDiligencia.diligence.message}}</td>
 							</tr>
@@ -48,8 +58,10 @@
 	import 'moment/locale/pt-br'
 	import axios from 'axios'
 	import Chat from '../../chat/Chat'
+	import Helper from  '../../../helper.js'
 
 	export default {
+		props: ['id'],
 		components: {
 			Chat
 		},
@@ -63,10 +75,19 @@
 		filters: {
 			horaDaMensagem(val) {
 				return moment(val).locale('pt-br').fromNow()
+			},
+				dateFilter(val) {
+				const dateFomatted = new Helper().dateFilter(val)
+				return dateFomatted
 			}
 		},
-
-		mounted() {
+		watch: {
+			id() {
+				this.getDiligence()
+			}
+		},
+		methods: {
+			getDiligence() {
 			this.$store.commit('setVueLoad', true)
 			axios.get(`${this.$store.getters.api}/api/v1/diligence/received/${this.$route.params.id}`, { headers: { 'Authorization': `Bearer ${this.$store.getters.getToken}` } })
 				.then(res => {
@@ -76,7 +97,10 @@
 					this.mostrarDiligencia = true;
 				})
 				.catch(e => console.log(e))
-
+			}
+		},
+		mounted() {
+			this.getDiligence()
 		},
 	}
 </script>

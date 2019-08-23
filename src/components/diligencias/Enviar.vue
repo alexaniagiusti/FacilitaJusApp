@@ -1,10 +1,12 @@
 <template>
   <v-container fluid>
     <div class="linhaSemQuebra">
-      <v-toolbar>
+      <v-toolbar class="toolbarForm">
+        <v-spacer></v-spacer>
         <span class="font-weight-light title">
           Envie sua diligência:
         </span>
+        <v-spacer></v-spacer>
       </v-toolbar>
     </div>
     <v-card class="pa-3">

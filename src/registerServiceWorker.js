@@ -7,7 +7,7 @@ if (process.env.NODE_ENV === 'production') {
     ready() {
       console.log(
         'App is being served from cache by a service worker.\n'
-        + 'For more details, visit https://goo.gl/AFskqB',
+          + 'For more details, visit https://goo.gl/AFskqB',
       );
     },
     registered() {
@@ -23,6 +23,7 @@ if (process.env.NODE_ENV === 'production') {
       console.log('New content is available; please refresh.');
     },
     offline() {
+      alert(' a net caiu');
       console.log('No internet connection found. App is running in offline mode.');
     },
     error(error) {
