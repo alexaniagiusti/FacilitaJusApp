@@ -64,7 +64,7 @@
 			<!-- Final da lista de notificações -->
 		</v-menu>
 	</v-app-bar>
-		<v-navigation-drawer v-model="drawer" width="270" class="grey lighten-4" app>
+		<v-navigation-drawer v-model="drawer" width="280" class="grey lighten-4" app>
 			<div class="mb-5"
 				style="border-bottom:1px solid #E0E0E0;background: linear-gradient(to right, #fff, #fff); display: flex; width: 100%; align-items: center; flex-direction: column">
 				<div @click="$router.push({name: 'home'})" class="mt-3 mb-2" style="display: flex">
@@ -109,30 +109,30 @@
 				<v-list-group prepend-icon="work" no-action>
 					<template v-slot:activator>
 						<v-list-item-content>
-							<v-list-item-title>Diligências</v-list-item-title>
+							<v-list-item-title>Solicitar Serviços</v-list-item-title>
 						</v-list-item-content>
 					</template>
 
 					<v-list-item class="ml-2" @click="$router.push({'name':'enviarDiligencia'})">
 						<v-list-item-content>
-							<v-list-item-title>Enviar</v-list-item-title>
+							<v-list-item-title>Solicitar</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
 					<v-list-item class="ml-2" @click="$router.push({'name':'diligenciasEnviadas'})">
 						<v-list-item-content>
-							<v-list-item-title>Enviadas</v-list-item-title>
+							<v-list-item-title>Solicitados</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
 					<v-list-item class="ml-2" @click="$router.push({'name':'diligenciasRecebidas'})">
 						<v-list-item-content>
-							<v-list-item-title>Recebidas</v-list-item-title>
+							<v-list-item-title>Recebidos</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
 				</v-list-group>
 				<v-list-group prepend-icon="gavel" no-action>
 					<template v-slot:activator>
 						<v-list-item-content>
-							<v-list-item-title>Casos Jurídicos</v-list-item-title>
+							<v-list-item-title>Dúvida Jurídica</v-list-item-title>
 						</v-list-item-content>
 					</template>
 
