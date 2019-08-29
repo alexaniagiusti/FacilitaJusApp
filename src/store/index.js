@@ -130,8 +130,8 @@ export default new Vuex.Store({
     api() {
       // return 'http://facilitajus.api'
       // return 'https://facilita-jus-api.herokuapp.com';
-      // return 'https://api.facilitajus.com'
-      return 'http://159.89.52.170'
+      return 'https://www.api.facilitajus.com'
+      // return 'http://159.89.52.170'
     },
   },
 });
