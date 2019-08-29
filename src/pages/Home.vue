@@ -42,7 +42,11 @@
 
           <!-- Mini cards -->
           <v-flex class="pa-2" xs12 md6>
-            <v-card class="mt-5 mx-1" max-width="100%">
+            <v-card
+              @click="$router.push({name: 'diligenciasRecebidas'})"
+              class="mt-5 mx-1"
+              max-width="100%"
+            >
               <div class="linhaSemQuebra">
                 <v-sheet
                   class="v-minisheet--offset ml-3 mr-3"
@@ -71,7 +75,11 @@
           </v-flex>
 
           <v-flex class="pa-2" xs12 md6>
-            <v-card class="mt-5 mx-1" max-width="100%">
+            <v-card
+              @click="$router.push({name: 'casosJuridicosRecebidos'})"
+              class="mt-5 mx-1"
+              max-width="100%"
+            >
               <div class="linhaSemQuebra">
                 <v-sheet
                   class="v-minisheet--offset ml-3 mr-3"
@@ -229,5 +237,18 @@ export default {
   display: flex;
   width: 100%;
   flex-wrap: wrap;
+}
+.perfil:hover .image {
+  opacity: 0.3;
+}
+
+.perfil:hover .middle {
+  opacity: 1;
+}
+
+.text {
+  color: #333;
+  font-size: 16px;
+  padding: 16px 32px;
 }
 </style>
