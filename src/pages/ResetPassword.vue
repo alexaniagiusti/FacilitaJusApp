@@ -61,7 +61,7 @@
         },
         methods: {
             resetPassword() {
-                this.$store.commit('setVueLoad', false)
+                this.$store.commit('setVueLoad', true)
                 this.$store.
                 this.loading = false
                 axios.post(this.$store.getters.api + '/api/password/reset', this.dataResetPassword)
