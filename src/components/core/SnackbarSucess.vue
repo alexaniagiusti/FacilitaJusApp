@@ -1,11 +1,6 @@
 <template>
   <!-- SNACK BAR DE SUCESSO GLOBAL -->
-  <v-dialog
-    width="300"
-    persistent
-    style="overflow: hidden"
-    v-model="snackbar_success.mostrar"
-  >
+  <v-dialog width="300" persistent style="overflow: hidden" v-model="snackbar_success.mostrar">
     <v-card class="pa-3" style="overflow: hidden; border-radius: 10px;" light width="300">
       <div class="meio">
         <v-flex xs12>
@@ -18,14 +13,12 @@
         <v-flex class="mt-3 mb-3" xs12>
           <div class="linhaSemQuebra">
             <v-spacer></v-spacer>
-            <h3 class="text-xs-center">{{ snackbar_success.mensagem }}</h3>
+            <h3 class="text-center">{{ snackbar_success.mensagem }}</h3>
             <v-spacer></v-spacer>
           </div>
         </v-flex>
         <v-flex xs12>
-          <v-btn color="green" block class="white--text" @click="fecha_snackbar">
-            ok
-          </v-btn>
+          <v-btn color="green" block class="white--text" @click="fecha_snackbar">ok</v-btn>
         </v-flex>
       </div>
     </v-card>
@@ -35,19 +28,17 @@
 <script>
 export default {
   data() {
-    return {
-
-    };
+    return {};
   },
   computed: {
     snackbar_success() {
       return this.$store.getters.snackbar_success;
-    },
+    }
   },
   methods: {
     fecha_snackbar() {
-      this.$store.dispatch('desativa_snackbar');
-    },
-  },
+      this.$store.dispatch("desativa_snackbar");
+    }
+  }
 };
 </script>
