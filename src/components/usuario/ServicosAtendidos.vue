@@ -1,5 +1,12 @@
 <template>
 	<v-container fluid>
+		<v-alert prominent type="warning">
+				<v-row align="center">
+					<v-col>
+						Selecione os serviços que você deseja atender!
+					</v-col>
+				</v-row>
+			</v-alert>
 		<v-layout class="arredondaBorda" ma-1 pa-2 elevation-2 row wrap>
 
 			<v-flex xs12 md4 v-for="service in items" :key="service.id">

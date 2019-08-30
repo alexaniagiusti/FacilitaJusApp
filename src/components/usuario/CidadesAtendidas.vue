@@ -3,6 +3,13 @@
 		<v-layout column="">
 			<v-card class="pa-3">
 				<v-flex xs12>
+					<v-alert prominent type="warning">
+						<v-row align="center">
+							<v-col>
+								Selecione as cidades que você atenderá as suas demandas!
+							</v-col>
+						</v-row>
+            </v-alert>
 					<v-list pa-0 ma-0>
 						<template v-for="(cidadesAtendidas, index) in itemsSelecionados">
 							<v-list-item @click="" :key="cidadesAtendidas.city">
