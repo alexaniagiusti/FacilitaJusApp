@@ -61,11 +61,12 @@
           class="pt-3 elevation-0"
           style="border-radius: 0px; align-items: center; display: flex; flex-direction: column"
         >
-          <v-avatar style="bottom: -30px" size="70">
+          <v-avatar style="bottom: -30px" size="100">
             <img
               :src="photo"
-              class="image elevation-1"
-              style="border: 5px solid #fff;"
+              width="94px"
+              class="elevation-1"
+              style="border-radius: 100%;border: 5px solid #fff;"
               @click.prevent="okzao"
             />
             <div class="middle">
@@ -279,7 +280,7 @@ export default {
   display: block;
   width: 100%;
   height: auto;
-  border-radius: 25px;
+  border-radius: 100%;
   transition: 0.5s ease;
   backface-visibility: hidden;
 }
