@@ -3,9 +3,7 @@
     <div class="linhaSemQuebra">
       <v-toolbar class="toolbarForm">
         <v-spacer></v-spacer>
-        <span class="font-weight-light title">
-          Envie sua diligência:
-        </span>
+        <span class="font-weight-light title">Envie sua diligência:</span>
         <v-spacer></v-spacer>
       </v-toolbar>
     </div>
@@ -13,118 +11,87 @@
       <v-layout row>
         <v-flex xs12 md4 pa-2>
           <v-text-field
-          label="Nome:"
-          v-model="name"
-          placeholder="Qual o seu nome?"
-          autocomplete="new-name"
-          >
-
-          </v-text-field>
+            label="Nome:"
+            v-model="name"
+            placeholder="Qual o seu nome?"
+            autocomplete="new-name"
+          ></v-text-field>
+        </v-flex>
+        <v-flex xs12 md4 pa-2>
+          <v-text-field label="Celular:" v-model="phone" placeholder="Qual o seu celular?"></v-text-field>
         </v-flex>
         <v-flex xs12 md4 pa-2>
           <v-text-field
-          label="Celular:"
-          v-model="phone"
-          placeholder="Qual o seu celular?"
-          >
-
-          </v-text-field>
-        </v-flex>
-        <v-flex xs12 md4 pa-2>
-          <v-text-field
-          label="E-mail:"
-          v-model="email"
-          placeholder="Qual o seu e-mail?"
-          autocomplete="new-email"
-
-          >
-
-          </v-text-field>
+            label="E-mail:"
+            v-model="email"
+            placeholder="Qual o seu e-mail?"
+            autocomplete="new-email"
+          ></v-text-field>
         </v-flex>
       </v-layout>
       <v-layout row>
         <v-flex xs12 md3 pa-2>
           <v-autocomplete
-          label="Serviço:"
-          :items="services"
-          v-model="serviceSelected"
-          item-value="id"
-          item-text="service"
-          hide-no-data
-          placeholder="Serviço que deseja solicitar"
+            label="Serviço:"
+            :items="services"
+            v-model="serviceSelected"
+            item-value="id"
+            item-text="service"
+            hide-no-data
+            placeholder="Serviço que deseja solicitar"
           />
-
         </v-flex>
-        <v-flex xs12 md3 pa-2>
-         <v-autocomplete
-              autocomplete="new-city"
-							v-model="citySelected"
-							:items="cities"
-							hide-no-data
-							return-object
-							label="Cidade"
-              placeholder="Cidade"
-							item-text="city"
-							item-value="id"
-						>
-							<template v-slot:selection="data">
-									{{ data.item.city }} - {{ data.item.state }}
-							</template>
-							<template v-slot:item="data">
-								<template v-if="typeof data.item !== 'object'">
-									<v-list-item-content v-text="data.item.city"></v-list-item-content>
-								</template>
-								<template v-else>
-									<v-list-item-avatar class="elevation-1">
-										<v-icon>place</v-icon>
-									</v-list-item-avatar>
-									<v-list-item-content>
-										<v-list-item-title v-html="data.item.city"></v-list-item-title>
-										<v-list-item-subtitle v-html="data.item.state"></v-list-item-subtitle>
-									</v-list-item-content>
-								</template>
-							</template>
-						</v-autocomplete>
-        </v-flex>
-        <v-flex xs12 md3 pa-2>
+        <v-flex xs12 md2 pa-2>
           <v-text-field
-          label="Data:"
-          v-model="date"
-          placeholder="Em que dia:"
-          >
-
-          </v-text-field>
+            label="Preço Sugerido:"
+            v-model="price"
+            hint="Você mesmo pode colocar um preço"
+            prefix="R$"
+          ></v-text-field>
         </v-flex>
         <v-flex xs12 md3 pa-2>
-          <v-text-field
-          label="Horário:"
-          v-model="hour"
-          placeholder="Em qual horário?"
+          <v-autocomplete
+            autocomplete="new-city"
+            v-model="citySelected"
+            :items="cities"
+            hide-no-data
+            return-object
+            label="Cidade"
+            placeholder="Cidade"
+            item-text="city"
+            item-value="id"
           >
-
-          </v-text-field>
+            <template v-slot:selection="data">{{ data.item.city }} - {{ data.item.state }}</template>
+            <template v-slot:item="data">
+              <template v-if="typeof data.item !== 'object'">
+                <v-list-item-content v-text="data.item.city"></v-list-item-content>
+              </template>
+              <template v-else>
+                <v-list-item-avatar class="elevation-1">
+                  <v-icon>place</v-icon>
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title v-html="data.item.city"></v-list-item-title>
+                  <v-list-item-subtitle v-html="data.item.state"></v-list-item-subtitle>
+                </v-list-item-content>
+              </template>
+            </template>
+          </v-autocomplete>
+        </v-flex>
+        <v-flex xs12 md2 pa-2>
+          <v-text-field label="Data:" v-model="date" placeholder="Em que dia:"></v-text-field>
+        </v-flex>
+        <v-flex xs12 md2 pa-2>
+          <v-text-field label="Horário:" v-model="hour" placeholder="Em qual horário?"></v-text-field>
         </v-flex>
       </v-layout>
       <v-layout row>
         <v-flex xs12 md12 pa-2>
-          <v-textarea
-            v-model="message"
-            label="Fale um pouco mais sobre sua diligência:"
-          >
-
-          </v-textarea>
+          <v-textarea v-model="message" label="Fale um pouco mais sobre sua diligência:"></v-textarea>
         </v-flex>
         <v-flex xs12 md12 pa-2>
-          <v-btn
-            block
-            color="green"
-            @click="sendDiligence"
-          >
-           <span
-            class="font-weight-bold white--text"
-           >
-              Enviar
-           </span>
+          <v-btn block color="green" @click="sendDiligence">
+            <span class="font-weight-bold white--text">Enviar</span>
           </v-btn>
         </v-flex>
       </v-layout>
@@ -133,37 +100,62 @@
 </template>
 
 <script>
-import axios from 'axios'
-import moment from 'moment'
-import 'moment/locale/pt-br'
+import axios from "axios";
+import moment from "moment";
+import "moment/locale/pt-br";
 
 export default {
   data() {
     return {
-      name: '',
-      phone: '',
-      email: '',
-      date: '',
-      dateFormat: '',
-      hour: '',
-      message: '',
+      name: "",
+      phone: "",
+      email: "",
+      date: "",
+      dateFormat: "",
+      hour: "",
+      message: "",
       cities: [],
-      citySelected: '',
+      citySelected: "",
       services: [],
-      serviceSelected: ''
+      serviceSelected: "",
+      price: ""
+    };
+  },
+  watch: {
+    serviceSelected() {
+      if (this.serviceSelected !== "") {
+        this.$store.commit("setVueLoad", true);
+        axios
+          .get(
+            `${this.$store.getters.api}/api/v1/services-prices/${this.serviceSelected}`
+          )
+          .then(res => {
+            this.price = `${res.data[0].price}`;
+          })
+          .then(() => this.$store.commit("setVueLoad", false))
+          .catch(err => console.log("erro: " + err));
+      }
     }
   },
   methods: {
     getServices() {
-      axios.get(this.$store.getters.api + '/api/v1/services',{ headers: { Authorization: `Bearer ${this.$store.getters.getToken}` }})
-        .then(res => this.services = res.data)
+      axios
+        .get(this.$store.getters.api + "/api/v1/services", {
+          headers: { Authorization: `Bearer ${this.$store.getters.getToken}` }
+        })
+        .then(res => (this.services = res.data));
+      this.$store.commit("setVueLoad", false);
     },
     getCities() {
-      axios.get(this.$store.getters.api + '/api/v1/cities',{ headers: { Authorization: `Bearer ${this.$store.getters.getToken}` }})
-        .then(res => this.cities = res.data)
+      axios
+        .get(this.$store.getters.api + "/api/v1/cities", {
+          headers: { Authorization: `Bearer ${this.$store.getters.getToken}` }
+        })
+        .then(res => (this.cities = res.data));
+      this.$store.commit("setVueLoad", false);
     },
     sendDiligence() {
-      this.$store.commit('setVueLoad', true)
+      this.$store.commit("setVueLoad", true);
       const data = {
         name: this.name,
         phone: this.phone,
@@ -172,27 +164,37 @@ export default {
         service_id: this.serviceSelected,
         city_id: this.citySelected.id,
         time: this.hour,
-        date: this.dateFormat
-      }
+        date: this.dateFormat,
+        price: this.price
+      };
 
-      axios.post(`${this.$store.getters.api}/api/v1/diligences`, data, { headers: { Authorization: `Bearer ${this.$store.getters.getToken}` } })
-        .then(() => {
-          this.$store.commit('setVueLoad', false)
-          this.$store.dispatch('snackbar_success', 'Diligência enviada com sucesso')
+      axios
+        .post(`${this.$store.getters.api}/api/v1/diligences`, data, {
+          headers: { Authorization: `Bearer ${this.$store.getters.getToken}` }
         })
-        .catch(() => this.$$store.dispatch('snackbar_error', 'Erro, tente novamente'))
+        .then(() => {
+          this.$store.commit("setVueLoad", false);
+          this.$store.dispatch(
+            "snackbar_success",
+            "Diligência enviada com sucesso"
+          );
+        })
+        .catch(() =>
+          this.$$store.dispatch("snackbar_error", "Erro, tente novamente")
+        );
     }
   },
   created() {
-    this.name = this.$store.getters.getUsuario.name
-    this.phone = this.$store.getters.getUsuario.phone_1
-    this.email = this.$store.getters.getUsuario.email
-    this.date = moment().format('DD[/]MM[/]YYYY')
-    this.dateFormat = moment().format('YYYY[-]MM[-]DD')
-    this.hour = moment().format('HH:mm')
+    this.$store.commit("setVueLoad", true);
+    this.name = this.$store.getters.getUsuario.name;
+    this.phone = this.$store.getters.getUsuario.phone_1;
+    this.email = this.$store.getters.getUsuario.email;
+    this.date = moment().format("DD[/]MM[/]YYYY");
+    this.dateFormat = moment().format("YYYY[-]MM[-]DD");
+    this.hour = moment().format("HH:mm");
     // pega os serviços e as cidades ao iniciar o componente para carregá-los nos selects
-    this.getServices()
-    this.getCities()
+    this.getServices();
+    this.getCities();
   }
-}
+};
 </script>
