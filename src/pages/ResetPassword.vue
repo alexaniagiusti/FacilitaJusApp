@@ -61,14 +61,18 @@
         },
         methods: {
             resetPassword() {
+                this.$store.commit('setVueLoad', false)
+                this.$store.
                 this.loading = false
                 axios.post(this.$store.getters.api + '/api/password/reset', this.dataResetPassword)
                     .then((res) => {
+                        this.$store.commit('setVueLoad', false)
                         this.$store.dispatch('snackbar_success', 'Senha alterada com sucesso!');
                         this.loading = true;
                         this.$router.push({'name': 'login'});
                     })
                     .catch((err) => {
+                        this.$store.commit('setVueLoad', false)
                         this.$store.dispatch('snackbar_error', err.data.messages);
                     });
                 this.loading = true;
