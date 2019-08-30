@@ -4,6 +4,27 @@
     <v-content>
       <router-view></router-view>
       <v-container v-if="$route.name === 'home'" fluid>
+        <v-container>
+          <v-layout row>
+            <v-flex md12 class="pa-2">
+              <div>
+                  <v-alert prominent type="warning">
+                    <v-row align="center">
+                      <v-col class="grow">
+                        <span style="text-aling:justify">
+                          Para que você receba Demandas e Dúvidas Júridicas é necessário preencher corretamente todos os seus DADOS PESSOAIS, ÁREAS DE ATUAÇÃO, SERVIÇOS ATENDIDOS E CIDADES ATENDIDAS. <br>
+                          Caso o seu perfil já esteja preenchido, por favor desconsiderar esta mensagem!
+                        </span>
+                      </v-col>
+                      <v-col class="shrink">
+                      <v-btn @click="$router.push({name: 'Usuario'})" color="#007" class="mt-2" >Preencher Agora</v-btn>
+                    </v-col>
+                    </v-row>
+                  </v-alert>
+              </div>
+            </v-flex>
+          </v-layout>
+        </v-container>
         <div class="cards">
           <!-- <v-flex class="pa-2" v-for="n in cards" :key="n" xs12 md4>
             <v-card
