@@ -199,9 +199,9 @@ export default {
     onFileSelected(e) {
       this.$store.commit("setVueLoad", true);
       const fileSelected = e.target.files;
-      console.log("fileSelected", fileSelected);
+      //console.log("fileSelected", fileSelected);
       let fd = new FormData();
-      fd.append("photo", e.target.files);
+      fd.append("photo", e.target.files[0]);
       axios
         .post(`${this.$store.getters.api}/api/v1/users/photo`, fd, {
           headers: {
