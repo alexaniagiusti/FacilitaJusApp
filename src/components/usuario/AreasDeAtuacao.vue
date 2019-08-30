@@ -1,5 +1,12 @@
 <template>
 	<v-container fluid>
+		<v-alert prominent type="warning">
+				<v-row align="center">
+					<v-col>
+						Marque as áreas de atuação para receber as dúvidas júridicas!
+					</v-col>
+				</v-row>
+			</v-alert>
 		<v-layout class="arredondaBorda" ma-2 pa-2 elevation-2 row wrap>
 			<v-flex xs12 md4 v-for="area in items" :key="area.id">
 				<v-checkbox v-model="itemsSelecionados" :label="area.actuation" :value="area.id"></v-checkbox>
