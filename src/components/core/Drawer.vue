@@ -172,7 +172,7 @@
 
 <script>
 import Helper from "../../helper.js";
-import { db } from "../../services/Firebase";
+// import { db } from "../../services/Firebase";
 import axios from "axios";
 
 export default {

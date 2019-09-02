@@ -137,7 +137,7 @@
 <script>
 import Drawer from "../components/core/Drawer.vue";
 import Footer from "../components/core/Footer.vue";
-import { messaging } from "../services/Firebase";
+// import { messaging } from "../services/Firebase";
 import axios from "axios";
 
 export default {
