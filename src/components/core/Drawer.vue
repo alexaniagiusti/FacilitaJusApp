@@ -172,7 +172,7 @@
 
 <script>
 import Helper from "../../helper.js";
-// import { db } from "../../services/Firebase";
+import { db } from "../../services/Firebase";
 import axios from "axios";
 
 export default {
@@ -224,7 +224,7 @@ export default {
     },
     openNotification(notification) {
       db.ref(
-        `usuarios/${this.$store.getters.getUsuario.id}/${notification.key}`
+        `notificacoes-usuarios/${this.$store.getters.getUsuario.id}/${notification.key}`
       )
         .remove()
         .then(() => this.redirecting(notification));
@@ -260,7 +260,7 @@ export default {
     } else {
       this.semSexo = true;
     }
-    const query = db.ref(`usuarios/${usuario.id}`);
+    const query = db.ref(`notificacoes-usuarios/${usuario.id}`);
     query.on("value", dataSnap => {
       let notifies = [];
       dataSnap.forEach(dataChild => {
