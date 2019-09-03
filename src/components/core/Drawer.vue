@@ -20,7 +20,7 @@
           </v-btn>
         </template>
         <!-- Aqui começa a lista de notificações que é exibida n badge -->
-        <v-list style="max-height: 350px; overflow: auto;">
+        <v-list class="pa-0 ma-0" style="max-height: 350px; overflow: auto;">
           <template v-for="(item, i) in notifies">
             <v-list-item :key="i" @click="openNotification(item)">
               <v-avatar v-if="item.type_notification === 'Diligência' ? true : false">
@@ -38,6 +38,16 @@
             <v-divider :key="i"></v-divider>
           </template>
         </v-list>
+        <v-card
+          v-if="notifies.length === 0 ? true : false"
+          width="300"
+          class="pl-4 pr-4 emptyNotification"
+        >
+          <v-icon size="40" class="animated heartBeat infinite">notifications_active</v-icon>
+          <h4
+            class="mt-2 text-center font-weight-light grey--text"
+          >Novas demandas serão notificadas aqui.</h4>
+        </v-card>
         <!-- Final da lista de notificações -->
       </v-menu>
     </v-app-bar>
@@ -324,5 +334,14 @@ export default {
   color: #333;
   font-size: 16px;
   padding: 16px 32px;
+}
+
+.emptyNotification {
+  display: flex;
+  width: 100%;
+  height: 350px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 </style>
