@@ -26,12 +26,13 @@ export default {
     SnackbarInfo
   },
   created() {
-    console.log("urlCarregadaNo momento");
     const usuario = sessionStorage.usuario;
-    if (usuario === undefined) {
+    if (usuario === undefined && window.location.pathname !== "/") {
       sessionStorage.redirectTo = window.location.href;
       this.$store.commit("setVueLoad", false);
       this.$router.push({ name: "login" });
+    } else {
+      console.log("Login Page :)");
     }
   }
 };
