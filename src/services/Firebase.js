@@ -18,10 +18,7 @@ const f = firebase.initializeApp(config);
 const iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 let m = 'sem suporte';
 
-console.log('suporte: ', iOS);
-
 if (iOS) {
-  console.log('não suporta push notification');
 } else {
   m = f.messaging();
 }
