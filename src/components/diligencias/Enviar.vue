@@ -18,7 +18,12 @@
           ></v-text-field>
         </v-flex>
         <v-flex xs12 md4 pa-2>
-          <v-text-field label="Celular:" v-model="phone" placeholder="Qual o seu celular?"></v-text-field>
+          <v-text-field
+           v-mask="masktelefone"
+           label="Celular:"
+           v-model="phone"
+           placeholder="Qual o seu celular?">
+          </v-text-field>
         </v-flex>
         <v-flex xs12 md4 pa-2>
           <v-text-field
@@ -105,10 +110,15 @@
 import axios from "axios";
 import moment from "moment";
 import "moment/locale/pt-br";
+import { mask } from 'vue-the-mask'
 
 export default {
+  directives: {
+    mask
+  },
   data() {
     return {
+      masktelefone: '(##) # #### ####',
       name: "",
       phone: "",
       email: "",
