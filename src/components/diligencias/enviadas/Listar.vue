@@ -11,7 +11,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="diligence in diligences" :key="diligence.id" style="cursor: pointer" @click="showDiligence(diligence.id, diligence.name)">
+					<tr v-for="diligence in diligences" :key="diligence.id" style="cursor: pointer" @click="showDiligence(diligence.uuid, diligence.name)">
 						<td>{{ diligence.id }}</td>
 						<td>{{ diligence.city.city }}</td>
 						<td>{{ diligence.service.service }}</td>
