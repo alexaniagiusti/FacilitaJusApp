@@ -191,6 +191,9 @@
 <script>
 import axios from "axios";
 import { mask } from "vue-the-mask";
+import moment from "moment";
+import "moment/locale/pt-br";
+import { setTimeout } from "timers";
 
 export default {
   directives: {
@@ -278,16 +281,10 @@ export default {
   methods: {
     pegaDadosDoPerfil() {
       let perfil = JSON.parse(sessionStorage.usuario);
-      if (perfil.birthdate !== null) {
-        const formatBirthDate = perfil.birthdate.split("-");
-        const formatedBirtdate = `${formatBirthDate[2]}/${formatBirthDate[1]}/${
-          formatBirthDate[0]
-        }`;
-        perfil.birthdate = formatedBirtdate;
-        this.perfil = perfil;
-      } else {
-        this.perfil = perfil;
-      }
+      this.perfil = perfil;
+      this.perfil.birthdate = moment(perfil.birthdate)
+        .locale("pt-br")
+        .format("DD/MM/YYYY");
     },
     salvarPerfil() {
       if (this.$refs.formUser.validate()) {
@@ -314,8 +311,9 @@ export default {
           .then(res => {
             this.$store.commit("setVueLoad", false);
             this.$store.dispatch("snackbar_success", "Dados Atualizados.");
-            sessionStorage.usuario = JSON.stringify(this.perfil);
+            sessionStorage.usuario = JSON.stringify(data);
             this.carregandoSalvarPerfil = false;
+            setTimeout(() => this.pegaDadosDoPerfil(), 100);
           })
           .catch(err => {
             this.$store.dispatch("snackbar_error", err);
