@@ -3,7 +3,7 @@
     <div class="linhaSemQuebra">
       <v-toolbar class="toolbarForm">
         <v-spacer></v-spacer>
-        <span class="font-weight-light title">Envie sua diligência:</span>
+        <span class="font-weight-light title">Solicitar Serviço:</span>
         <v-spacer></v-spacer>
       </v-toolbar>
     </div>
@@ -18,7 +18,12 @@
           ></v-text-field>
         </v-flex>
         <v-flex xs12 md4 pa-2>
-          <v-text-field label="Celular:" v-model="phone" placeholder="Qual o seu celular?"></v-text-field>
+          <v-text-field
+           v-mask="masktelefone"
+           label="Celular:"
+           v-model="phone"
+           placeholder="Qual o seu celular?">
+          </v-text-field>
         </v-flex>
         <v-flex xs12 md4 pa-2>
           <v-text-field
@@ -87,11 +92,13 @@
       </v-layout>
       <v-layout row>
         <v-flex xs12 md12 pa-2>
-          <v-textarea v-model="message" label="Fale um pouco mais sobre sua diligência:"></v-textarea>
+          <v-textarea v-model="message" 
+            label="Fale sobre o serviço que deseja solicitar:">
+          </v-textarea>
         </v-flex>
         <v-flex xs12 md12 pa-2>
           <v-btn block color="green" @click="sendDiligence">
-            <span class="font-weight-bold white--text">Enviar</span>
+            <span class="font-weight-bold white--text">Solicitar</span>
           </v-btn>
         </v-flex>
       </v-layout>
@@ -103,10 +110,15 @@
 import axios from "axios";
 import moment from "moment";
 import "moment/locale/pt-br";
+import { mask } from 'vue-the-mask'
 
 export default {
+  directives: {
+    mask
+  },
   data() {
     return {
+      masktelefone: '(##) # #### ####',
       name: "",
       phone: "",
       email: "",
@@ -176,7 +188,7 @@ export default {
           this.$store.commit("setVueLoad", false);
           this.$store.dispatch(
             "snackbar_success",
-            "Diligência enviada com sucesso"
+            "Serviço solicitado com sucesso"
           );
         })
         .catch(() =>

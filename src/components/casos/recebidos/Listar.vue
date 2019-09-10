@@ -12,7 +12,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="legalCase in legalCases" :key="legalCase.id" style="cursor: pointer" @click="showDiligence(legalCase.id)">
+					<tr v-for="legalCase in legalCases" :key="legalCase.id" style="cursor: pointer" @click="showDiligence(legalCase.uuid)">
 						<td>{{ legalCase.id }}</td>
 						<td>{{ legalCase.name | nameFilter }}</td>
 						<td>{{ legalCase.city.city }} - {{ legalCase.city.state }}</td>
@@ -24,7 +24,7 @@
 				</tbody>
 			</v-simple-table>
 			<v-list three-line class="hidden-sm-and-up">
-				<v-list-item v-for="legalCase in legalCases" :key="legalCase.id" @click="showDiligence(legalCase.id)">
+				<v-list-item v-for="legalCase in legalCases" :key="legalCase.id" @click="showDiligence(legalCase.uuid)">
 					<v-avatar class="pr-2">
 						<span>#{{legalCase.id}}</span>
 					</v-avatar>

@@ -8,19 +8,23 @@
           <v-layout row>
             <v-flex md12 class="pa-2">
               <div>
-                  <v-alert prominent type="warning">
-                    <v-row align="center">
-                      <v-col class="grow">
-                        <span style="text-aling:justify">
-                          Para que você receba Demandas e Dúvidas Júridicas é necessário preencher corretamente todos os seus DADOS PESSOAIS, ÁREAS DE ATUAÇÃO, SERVIÇOS ATENDIDOS E CIDADES ATENDIDAS. <br>
-                          Caso o seu perfil já esteja preenchido, por favor desconsiderar esta mensagem!
-                        </span>
-                      </v-col>
-                      <v-col class="shrink">
-                      <v-btn @click="$router.push({name: 'Usuario'})" color="#007" class="mt-2" >Preencher Agora</v-btn>
+                <v-alert prominent type="warning">
+                  <v-row align="center">
+                    <v-col class="grow">
+                      <span style="text-aling:justify">
+                        Para que você receba Demandas e Dúvidas Júridicas é necessário preencher corretamente todos os seus DADOS PESSOAIS, ÁREAS DE ATUAÇÃO, SERVIÇOS ATENDIDOS E CIDADES ATENDIDAS.
+                        <br />Caso o seu perfil já esteja preenchido, por favor desconsiderar esta mensagem!
+                      </span>
                     </v-col>
-                    </v-row>
-                  </v-alert>
+                    <v-col class="shrink">
+                      <v-btn
+                        @click="$router.push({name: 'Usuario'})"
+                        color="#007"
+                        class="mt-2"
+                      >Preencher Agora</v-btn>
+                    </v-col>
+                  </v-row>
+                </v-alert>
               </div>
             </v-flex>
           </v-layout>
@@ -137,7 +141,7 @@
 <script>
 import Drawer from "../components/core/Drawer.vue";
 import Footer from "../components/core/Footer.vue";
-// import { messaging } from "../services/Firebase";
+import { messaging } from "../services/Firebase";
 import axios from "axios";
 
 export default {
@@ -237,7 +241,11 @@ export default {
     this.diligencesWithOpenStatus();
     this.legalCasesWithOpenStatus();
     this.$store.commit("setVueLoad", false);
-    this.userHasToken();
+    if (messaging === "sem suporte") {
+      console.log("ios não tem suporte pleno para push");
+    } else {
+      this.userHasToken();
+    }
   }
 };
 </script>

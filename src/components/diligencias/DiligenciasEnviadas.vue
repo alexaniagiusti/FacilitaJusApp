@@ -4,7 +4,7 @@
 			<v-flex>
 				<v-toolbar flat color="white" dark>
 					<v-spacer></v-spacer>
-					<v-toolbar-title class="font-weight-light black--text">Diligências Enviadas</v-toolbar-title>
+					<v-toolbar-title class="font-weight-light black--text">Serviços Enviados</v-toolbar-title>
 					<v-spacer></v-spacer>
 				</v-toolbar>
 
@@ -16,7 +16,7 @@
 					</v-tab>
 
 					<v-tab @click="withAnsweredStatus">
-						<v-icon>comment</v-icon>Respondidas
+						<v-icon>comment</v-icon>Respondidos
 					</v-tab>
 
 					<v-tab @click="withNegotiationStatus">
@@ -24,7 +24,7 @@
 					</v-tab>
 
 					<v-tab @click="withFinishedStatus">
-						<v-icon>done_all</v-icon>Finalizadas
+						<v-icon>done_all</v-icon>Finalizados
 					</v-tab>
 				</v-tabs>
 
@@ -54,7 +54,7 @@
 				</v-icon>
 			</v-btn>
 			<v-btn @click="withAnsweredStatus">
-				<span>Respondidas</span>
+				<span>Respondidos</span>
 				<v-icon>
 					comment
 				</v-icon>
@@ -68,7 +68,7 @@
 				</v-icon>
 			</v-btn>
 			<v-btn @click="withFinishedStatus">
-				<span>Finalizadas</span>
+				<span>Finalizados</span>
 				<v-icon>
 					done_all
 				</v-icon>
@@ -101,7 +101,7 @@
 					.then(res => {
 						this.$store.commit('setVueLoad', false)
 						this.diligences = res.data;
-						this.verifyDiligencesExists('Não há diligências em aberto.');
+						this.verifyDiligencesExists('Não há serviços em aberto.');
 						this.showListar = true
 					})
 					.catch(e => console.log(e))
@@ -115,7 +115,7 @@
 					.then(res => {
 						this.$store.commit('setVueLoad', false)
 						this.diligences = res.data;
-						this.verifyDiligencesExists('Não há diligências respondidas.');
+						this.verifyDiligencesExists('Não há serviços respondidos.');
 						this.showListar = true
 					})
 					.catch(e => console.log(e))
@@ -129,7 +129,7 @@
 					.then(res => {
 						this.$store.commit('setVueLoad', false)
 						this.diligences = res.data;
-						this.verifyDiligencesExists('Não há diligências em negociação.');
+						this.verifyDiligencesExists('Não há serviços em negociação.');
 						this.showListar = true
 					})
 					.catch(e => console.log(e))
@@ -143,7 +143,7 @@
 					.then(res => {
 						this.$store.commit('setVueLoad', false)
 						this.diligences = res.data;
-						this.verifyDiligencesExists('Não há diligências finalizadas.');
+						this.verifyDiligencesExists('Não há serviços finalizados.');
 						this.showListar = true
 					})
 					.catch(e => console.log(e))

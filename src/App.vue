@@ -14,7 +14,7 @@ import SnackbarSuccess from "./components/core/SnackbarSucess.vue";
 import SnackbarError from "./components/core/SnackbarError.vue";
 import SnackbarWarning from "./components/core/SnackbarWarning.vue";
 import SnackbarInfo from "./components/core/SnackbarInfo.vue";
-import VueLoad from './components/core/VueLoad'
+import VueLoad from "./components/core/VueLoad";
 
 export default {
   name: "App",
@@ -24,8 +24,18 @@ export default {
     VueLoad,
     SnackbarWarning,
     SnackbarInfo
+  },
+  created() {
+    const usuario = sessionStorage.usuario;
+    if (usuario === undefined && window.location.pathname !== "/") {
+      sessionStorage.redirectTo = window.location.href;
+      this.$store.commit("setVueLoad", false);
+      this.$router.push({ name: "login" });
+    } else {
+      console.log("Login Page :)");
+    }
   }
-}
+};
 </script>
 
 <style>
