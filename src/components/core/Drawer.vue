@@ -32,7 +32,7 @@
               <v-list-item-content>
                 <v-list-item-title>{{ item.type }}</v-list-item-title>
                 <v-list-item-subtitle>{{ item.city }}</v-list-item-subtitle>
-                <v-list-item-subtitle>#{{ item.id }}</v-list-item-subtitle>
+                <v-list-item-subtitle>#{{ item.uuid }}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
             <v-divider :key="i"></v-divider>
