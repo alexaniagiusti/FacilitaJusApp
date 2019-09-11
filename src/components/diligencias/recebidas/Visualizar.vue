@@ -32,8 +32,13 @@
 							</tr>
 
 							<tr>
-								<td><strong>Telefone:</strong></td>
+								<td><strong>Hora:</strong></td>
 								<td>{{ dadosDiligencia.diligence.time }}</td>
+							</tr>
+
+							<tr>
+								<td><strong>Preço:</strong></td>
+								<td>R$ {{ dadosDiligencia.diligence.price }}</td>
 							</tr>
 
 							<tr>

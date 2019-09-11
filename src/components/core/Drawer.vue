@@ -20,24 +20,54 @@
           </v-btn>
         </template>
         <!-- Aqui começa a lista de notificações que é exibida n badge -->
-        <v-list style="max-height: 350px; overflow: auto;">
-          <template v-for="(item, i) in notifies">
-            <v-list-item :key="i" @click="openNotification(item)">
-              <v-avatar v-if="item.type_notification === 'Diligência' ? true : false">
-                <v-icon>work</v-icon>
-              </v-avatar>
-              <v-avatar v-if="item.type_notification === 'Dúvida Jurídica' ? true : false">
-                <v-icon>gavel</v-icon>
-              </v-avatar>
-              <v-list-item-content>
-                <v-list-item-title>{{ item.type }}</v-list-item-title>
-                <v-list-item-subtitle>{{ item.city }}</v-list-item-subtitle>
-                <v-list-item-subtitle>#{{ item.id }}</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-            <v-divider :key="i"></v-divider>
-          </template>
-        </v-list>
+        <v-card pa-3 style="padding: 10px; border-radius: 6px 6px 0px 0px">
+          <div class="linhaSemQuebra">
+            <v-icon class="ml-3" size="24">notifications</v-icon>
+            <h4 class="ml-2 font-weight-light">Notificações {{notifies.length}}</h4>
+            <v-spacer></v-spacer>
+            <v-icon style="cursor:pointer" size="18">close</v-icon>
+          </div>
+          <v-divider></v-divider>
+          <v-list class="pa-0 ma-0" style="max-height: 350px; overflow: auto;">
+            <template v-for="(item, i) in notifies">
+              <v-list-item pa-0 ma-0 :key="i" @click="openNotification(item)">
+                <v-icon
+                  v-if="item.type_notification === 'Diligência' ? true : false"
+                  pa-0
+                  ma-0
+                  style="margin-right: 10px"
+                  color="#061161"
+                >work</v-icon>
+                <v-icon
+                  v-if="item.type_notification === 'Dúvida Jurídica' ? true : false"
+                  pa-0
+                  ma-0
+                  style="margin-right: 10px"
+                  color="#780206"
+                >gavel</v-icon>
+                <v-list-item-content>
+                  <v-list-item-title class="font-weight-bold">{{ item.type }}</v-list-item-title>
+                  <v-list-item-subtitle>{{ item.city }}</v-list-item-subtitle>
+                  <v-list-item-subtitle>#{{ item.uuid }}</v-list-item-subtitle>
+                </v-list-item-content>
+                <v-list-item-actions>
+                  <v-btn small color="blue darken-2" class="white--text">Ver</v-btn>
+                </v-list-item-actions>
+              </v-list-item>
+              <v-divider :key="i"></v-divider>
+            </template>
+          </v-list>
+        </v-card>
+        <v-card
+          v-if="notifies.length === 0 ? true : false"
+          width="300"
+          class="pl-4 pr-4 emptyNotification"
+        >
+          <v-icon size="40" class="animated heartBeat infinite">notifications_active</v-icon>
+          <h4
+            class="mt-2 text-center font-weight-light grey--text"
+          >Novas demandas serão notificadas aqui.</h4>
+        </v-card>
         <!-- Final da lista de notificações -->
       </v-menu>
     </v-app-bar>
@@ -224,16 +254,16 @@ export default {
     },
     openNotification(notification) {
       db.ref(
-        `usuarios/${this.$store.getters.getUsuario.id}/${notification.key}`
+        `notificacoes-usuarios/${this.$store.getters.getUsuario.id}/${notification.key}`
       )
         .remove()
         .then(() => this.redirecting(notification));
     },
     redirecting(notification) {
       if (notification.type_notification === "Diligência") {
-        this.$router.push(`/diligencia/recebida/${notification.id}`);
+        this.$router.push(`/diligencia/recebida/${notification.uuid}`);
       } else {
-        this.$router.push(`/casos-juridicos/recebido/${notification.id}`);
+        this.$router.push(`/casos-juridicos/recebido/${notification.uuid}`);
       }
     },
     irPara(rota) {
@@ -324,5 +354,14 @@ export default {
   color: #333;
   font-size: 16px;
   padding: 16px 32px;
+}
+
+.emptyNotification {
+  display: flex;
+  width: 100%;
+  height: 350px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 </style>

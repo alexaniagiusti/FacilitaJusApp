@@ -10,17 +10,19 @@
 						<th class="text-left blue--text">Tipo</th>
 						<th class="text-left blue--text">Data</th>
 						<th class="text-left blue--text">Hora</th>
+						<th class="text-left blue--text">Preço:</th>
 						<th class="text-left blue--text hidden-sm-and-down"></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="diligence in diligences" :key="diligence.id" style="cursor: pointer" @click="showDiligence(diligence.id, diligence.name)">
+					<tr v-for="diligence in diligences" :key="diligence.id" style="cursor: pointer" @click="showDiligence(diligence.uuid, diligence.name)">
 						<td>{{ diligence.id }}</td>
 						<td>{{ diligence.name | nameFilter }}</td>
 						<td>{{ diligence.city.city }} - {{ diligence.city.state }}</td>
 						<td>{{ diligence.service.service }}</td>
 						<td>{{ diligence.date | dateFilter }}</td>
 						<td>{{ diligence.time }}</td>
+						<td>R$ {{ diligence.price }}</td>
 						<td class="hidden-sm-and-down"> 
 							<v-btn class="ma-3" small color="primary">Visualizar</v-btn>
 						</td>
@@ -28,7 +30,7 @@
 				</tbody>
 			</v-simple-table>
 			<v-list three-line class="hidden-sm-and-up">
-				<v-list-item v-for="diligence in diligences" :key="diligence.id" @click="showDiligence(diligence.id, diligence.name)">
+				<v-list-item v-for="diligence in diligences" :key="diligence.id" @click="showDiligence(diligence.uuid, diligence.name)">
 					<v-avatar class="pr-2">
 						<span>#{{diligence.id}}</span>
 					</v-avatar>

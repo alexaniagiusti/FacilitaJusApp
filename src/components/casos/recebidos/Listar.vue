@@ -24,7 +24,7 @@
 				</tbody>
 			</v-simple-table>
 			<v-list three-line class="hidden-sm-and-up">
-				<v-list-item v-for="legalCase in legalCases" :key="legalCase.id" @click="showDiligence(legalCase.id)">
+				<v-list-item v-for="legalCase in legalCases" :key="legalCase.id" @click="showDiligence(legalCase.uuid)">
 					<v-avatar class="pr-2">
 						<span>#{{legalCase.id}}</span>
 					</v-avatar>
