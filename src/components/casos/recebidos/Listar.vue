@@ -12,7 +12,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="legalCase in legalCases" :key="legalCase.id" style="cursor: pointer" @click="showDiligence(legalCase.id)">
+					<tr v-for="legalCase in legalCases" :key="legalCase.id" style="cursor: pointer" @click="showDiligence(legalCase.uuid)">
 						<td>{{ legalCase.id }}</td>
 						<td>{{ legalCase.name | nameFilter }}</td>
 						<td>{{ legalCase.city.city }} - {{ legalCase.city.state }}</td>
