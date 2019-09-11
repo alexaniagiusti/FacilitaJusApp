@@ -32,6 +32,7 @@ export default {
   },
   methods: {
     async pegaservicossSelecionados() {
+      this.$store.commit("setVueLoad", true);
       await axios
         .get(
           `${this.$store.getters.api}/api/v1/users/services/${this.$store.getters.getUsuario.id}`,
@@ -54,6 +55,7 @@ export default {
 
           this.servicossSelecionados = itemsMarcados;
           this.carregandoDados = false;
+          this.$store.commit("setVueLoad", false);
         });
     },
     pegaDados() {
@@ -63,14 +65,13 @@ export default {
           headers: { Authorization: `Bearer ${this.$store.getters.getToken}` }
         })
         .then(res => {
-          this.$store.commit("setVueLoad", false);
           this.items = res.data;
+          this.pegaservicossSelecionados();
         })
         .catch(erro => {
           this.$store.commit("setVueLoad", false);
           this.$store.dispatch("snackbar_error", "Erro: " + erro);
         });
-      this.pegaservicossSelecionados();
     },
     async salvar() {
       console.log("chamado");
@@ -104,7 +105,6 @@ export default {
   },
   mounted() {
     this.pegaDados();
-    this.pegaservicossSelecionados();
   }
 };
 </script>
