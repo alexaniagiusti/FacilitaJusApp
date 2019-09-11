@@ -55,6 +55,7 @@ export default {
           });
           this.itemsSelecionados = itemsMarcados;
           this.carregandoDados = false;
+          this.$store.commit("setVueLoad", false);
         });
     },
     pegaDados() {
@@ -64,14 +65,13 @@ export default {
           headers: { Authorization: `Bearer ${this.$store.getters.getToken}` }
         })
         .then(res => {
-          this.$store.commit("setVueLoad", false);
           this.items = res.data;
+          this.pegaItemsSelecionados();
         })
         .catch(erro => {
           this.$store.commit("setVueLoad", false);
           this.$store.dispatch("snackbar_error", "Erro: " + erro);
         });
-      this.pegaItemsSelecionados();
     },
     salvar() {
       this.$store.commit("setVueLoad", true);
@@ -103,7 +103,6 @@ export default {
   },
   mounted() {
     this.pegaDados();
-    this.pegaItemsSelecionados();
   }
 };
 </script>
