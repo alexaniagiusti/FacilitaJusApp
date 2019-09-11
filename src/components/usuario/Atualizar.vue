@@ -295,13 +295,31 @@ export default {
         const formatedBirtdate = `${formatBirthDate[2]}-${formatBirthDate[1]}-${
           formatBirthDate[0]
         }`;
-        let data = this.perfil;
         data.birthdate = formatedBirtdate;
+
+        const dados = {
+          type_profile: this.perfil.type_profile,
+          oab_number: this.perfil.oab_number,
+          oab_state: this.perfil.oab_state,
+          name: this.perfil.name,
+          email: this.perfil.email,
+          cpf: this.perfil.cpf,
+          sex: this.perfil.sex,
+          birthdate: formatedBirtdate,
+          phone_1: this.perfil.phone_1,
+          postal_code: this.perfil.postal_code,
+          street: this.perfil.street,
+          number: this.perfil.number,
+          neighborhood: this.perfil.neighborhood,
+          city: this.perfil.city,
+          state: this.perfil.state,
+          about: this.perfil.about
+        };
 
         axios
           .put(
             `${this.$store.getters.api}/api/v1/users/${this.$store.getters.getUsuario.id}`,
-            data,
+            dados,
             {
               headers: {
                 Authorization: `Bearer ${this.$store.getters.getToken}`

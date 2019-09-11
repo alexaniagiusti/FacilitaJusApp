@@ -20,14 +20,7 @@
           </v-btn>
         </template>
         <!-- Aqui começa a lista de notificações que é exibida n badge -->
-        <v-card pa-3 style="padding: 10px; border-radius: 6px 6px 0px 0px">
-          <div class="linhaSemQuebra">
-            <v-icon class="ml-3" size="24">notifications</v-icon>
-            <h4 class="ml-2 font-weight-light">Notificações {{notifies.length}}</h4>
-            <v-spacer></v-spacer>
-            <v-icon style="cursor:pointer" size="18">close</v-icon>
-          </div>
-          <v-divider></v-divider>
+        <v-card>
           <v-list class="pa-0 ma-0" style="max-height: 350px; overflow: auto;">
             <template v-for="(item, i) in notifies">
               <v-list-item pa-0 ma-0 :key="i" @click="openNotification(item)">
@@ -48,7 +41,7 @@
                 <v-list-item-content>
                   <v-list-item-title class="font-weight-bold">{{ item.type }}</v-list-item-title>
                   <v-list-item-subtitle>{{ item.city }}</v-list-item-subtitle>
-                  <v-list-item-subtitle>#{{ item.uuid }}</v-list-item-subtitle>
+                  <v-list-item-subtitle>#{{ item.id }}</v-list-item-subtitle>
                 </v-list-item-content>
                 <v-list-item-actions>
                   <v-btn small color="blue darken-2" class="white--text">Ver</v-btn>
@@ -261,9 +254,9 @@ export default {
     },
     redirecting(notification) {
       if (notification.type_notification === "Diligência") {
-        this.$router.push(`/diligencia/recebida/${notification.uuid}`);
+        this.$router.push(`/diligencia/recebida/${notification.id}`);
       } else {
-        this.$router.push(`/casos-juridicos/recebido/${notification.uuid}`);
+        this.$router.push(`/casos-juridicos/recebido/${notification.id}`);
       }
     },
     irPara(rota) {
