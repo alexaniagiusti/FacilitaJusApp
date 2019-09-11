@@ -4,7 +4,7 @@
 			<v-flex>
 				<v-toolbar flat color="white" dark>
 					<v-spacer></v-spacer>
-					<v-toolbar-title class="font-weight-light black--text">Casos Jurídicos Recebidos</v-toolbar-title>
+					<v-toolbar-title class="font-weight-light black--text">Dúvidas Jurídicas Recebidas</v-toolbar-title>
 					<v-spacer></v-spacer>
 				</v-toolbar>
 
@@ -101,7 +101,7 @@
 					.then(res => {
 						this.$store.commit('setVueLoad', false)
 						this.legalCases = res.data;
-						this.verifyLegalCaseExists('Não há casos jurídicos em aberto.')
+						this.verifyLegalCaseExists('Não há dúvidas jurídicas em aberto.')
 						this.showListar = true
 					})
 					.catch(e => console.log(e))
@@ -115,7 +115,7 @@
 					.then(res => {
 						this.$store.commit('setVueLoad', false)
 						this.legalCases = res.data;
-						this.verifyLegalCaseExists('Não há casos jurídicos respondidos.')
+						this.verifyLegalCaseExists('Não há dúvidas jurídicas respondidas.')
 						this.showListar = true
 					})
 					.catch(e => console.log(e))
@@ -129,7 +129,7 @@
 					.then(res => {
 						this.$store.commit('setVueLoad', false)
 						this.legalCases = res.data;
-						this.verifyLegalCaseExists('Não há casos jurídicos em negociação.')
+						this.verifyLegalCaseExists('Não há dúvidas jurídicas em negociação.')
 						this.showListar = true
 					})
 					.catch(e => console.log(e))
@@ -143,7 +143,7 @@
 					.then(res => {
 						this.$store.commit('setVueLoad', false)
 						this.legalCases = res.data;
-						this.verifyLegalCaseExists('Não há casos jurídicos finalizados.')
+						this.verifyLegalCaseExists('Não há dúvidas jurídicas finalizadas.')
 						this.showListar = true
 					})
 					.catch(e => console.log(e))
