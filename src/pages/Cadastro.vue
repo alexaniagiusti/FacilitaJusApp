@@ -4,7 +4,7 @@
       <v-card width="600" class="mt-5">
         <v-card-title style="background-color: #757575">
           <img
-            class="mt-2 animated delay-1s bounceInDown"
+            class="mt-2 animated delay-1s bounceIn"
             src="https://firebasestorage.googleapis.com/v0/b/centraldeoportunidades-de3a9.appspot.com/o/Untitled-W.png?alt=media&token=ded0cc4f-cbe8-4a18-bec9-192263d3dd2b"
             width="38%"
           />
