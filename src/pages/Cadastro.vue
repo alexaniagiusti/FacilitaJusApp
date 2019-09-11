@@ -1,26 +1,19 @@
 <template>
   <div class="principal">
     <v-flex xs12 md8 pa-2>
-      <v-flex xs12 pt-5>
-        <div class="linhaSemQuebra pr-5 mb-2 animated delay-1s flipInX">
+      <v-card width="600" class="mt-5">
+        <v-card-title style="background-color: #757575">
           <img
             class="mt-2 animated delay-1s bounceInDown"
             src="https://firebasestorage.googleapis.com/v0/b/centraldeoportunidades-de3a9.appspot.com/o/Untitled-W.png?alt=media&token=ded0cc4f-cbe8-4a18-bec9-192263d3dd2b"
-            height="35"
+            width="38%"
           />
           <v-spacer></v-spacer>
           <v-btn text color="#43A047" @click="$router.push({'name': 'login'})">
             <h4 class="font-weight-light pr-2 white--text">Login</h4>
             <v-icon class="animated delay-2s infinite heartBeat" color="white">arrow_forward</v-icon>
           </v-btn>
-        </div>
-        <div class="linhaSemQuebra">
-          <h3
-            class="text-center white--text mt-5 font-weight-light"
-          >Cadastre-se agora mesmo, seja um usuário ou parceiro do FacilitaJUS.</h3>
-        </div>
-      </v-flex>
-      <v-card width="600" class="mt-5">
+        </v-card-title>
         <v-form ref="cadastroForm">
           <v-flex pa-2 xs12>
             <v-text-field
