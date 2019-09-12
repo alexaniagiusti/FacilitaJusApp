@@ -20,14 +20,7 @@
           </v-btn>
         </template>
         <!-- Aqui começa a lista de notificações que é exibida n badge -->
-        <v-card pa-3 style="padding: 10px; border-radius: 6px 6px 0px 0px">
-          <div class="linhaSemQuebra">
-            <v-icon class="ml-3" size="24">notifications</v-icon>
-            <h4 class="ml-2 font-weight-light">Notificações {{notifies.length}}</h4>
-            <v-spacer></v-spacer>
-            <v-icon style="cursor:pointer" size="18">close</v-icon>
-          </div>
-          <v-divider></v-divider>
+        <v-card>
           <v-list class="pa-0 ma-0" style="max-height: 350px; overflow: auto;">
             <template v-for="(item, i) in notifies">
               <v-list-item pa-0 ma-0 :key="i" @click="openNotification(item)">
@@ -92,9 +85,9 @@
           style="border-radius: 0px; align-items: center; display: flex; flex-direction: column"
         >
           <v-avatar style="bottom: -30px" size="100">
-            <img
+            <v-img
               :src="photo"
-              width="94px"
+              width="94"
               class="elevation-1"
               style="border-radius: 100%;border: 5px solid #fff;"
               @click.prevent="okzao"
