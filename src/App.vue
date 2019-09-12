@@ -5,6 +5,7 @@
     <SnackbarError />
     <SnackbarWarning />
     <SnackbarInfo />
+    <Pagamento />
     <router-view></router-view>
   </v-app>
 </template>
@@ -14,6 +15,7 @@ import SnackbarSuccess from "./components/core/SnackbarSucess.vue";
 import SnackbarError from "./components/core/SnackbarError.vue";
 import SnackbarWarning from "./components/core/SnackbarWarning.vue";
 import SnackbarInfo from "./components/core/SnackbarInfo.vue";
+import Pagamento from "./components/pagamento/Pagamento.vue";
 import VueLoad from "./components/core/VueLoad";
 
 export default {
@@ -23,7 +25,8 @@ export default {
     SnackbarError,
     VueLoad,
     SnackbarWarning,
-    SnackbarInfo
+    SnackbarInfo,
+    Pagamento
   },
   created() {
     const usuario = sessionStorage.usuario;
