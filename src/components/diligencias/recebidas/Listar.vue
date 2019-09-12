@@ -10,6 +10,7 @@
 						<th class="text-left blue--text">Tipo</th>
 						<th class="text-left blue--text">Data</th>
 						<th class="text-left blue--text">Hora</th>
+						<th class="text-left blue--text">Preço:</th>
 						<th class="text-left blue--text hidden-sm-and-down"></th>
 					</tr>
 				</thead>
@@ -21,6 +22,7 @@
 						<td>{{ diligence.service.service }}</td>
 						<td>{{ diligence.date | dateFilter }}</td>
 						<td>{{ diligence.time }}</td>
+						<td>R$ {{ diligence.price }}</td>
 						<td class="hidden-sm-and-down"> 
 							<v-btn class="ma-3" small color="primary">Visualizar</v-btn>
 						</td>

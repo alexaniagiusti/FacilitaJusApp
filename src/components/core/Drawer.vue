@@ -20,24 +20,47 @@
           </v-btn>
         </template>
         <!-- Aqui começa a lista de notificações que é exibida n badge -->
-        <v-list style="max-height: 350px; overflow: auto;">
-          <template v-for="(item, i) in notifies">
-            <v-list-item :key="i" @click="openNotification(item)">
-              <v-avatar v-if="item.type_notification === 'Diligência' ? true : false">
-                <v-icon>work</v-icon>
-              </v-avatar>
-              <v-avatar v-if="item.type_notification === 'Dúvida Jurídica' ? true : false">
-                <v-icon>gavel</v-icon>
-              </v-avatar>
-              <v-list-item-content>
-                <v-list-item-title>{{ item.type }}</v-list-item-title>
-                <v-list-item-subtitle>{{ item.city }}</v-list-item-subtitle>
-                <v-list-item-subtitle>#{{ item.id }}</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-            <v-divider :key="i"></v-divider>
-          </template>
-        </v-list>
+        <v-card>
+          <v-list class="pa-0 ma-0" style="max-height: 350px; overflow: auto;">
+            <template v-for="(item, i) in notifies">
+              <v-list-item pa-0 ma-0 :key="i" @click="openNotification(item)">
+                <v-icon
+                  v-if="item.type_notification === 'Diligência' ? true : false"
+                  pa-0
+                  ma-0
+                  style="margin-right: 10px"
+                  color="#061161"
+                >work</v-icon>
+                <v-icon
+                  v-if="item.type_notification === 'Dúvida Jurídica' ? true : false"
+                  pa-0
+                  ma-0
+                  style="margin-right: 10px"
+                  color="#780206"
+                >gavel</v-icon>
+                <v-list-item-content>
+                  <v-list-item-title class="font-weight-bold">{{ item.type }}</v-list-item-title>
+                  <v-list-item-subtitle>{{ item.city }}</v-list-item-subtitle>
+                  <v-list-item-subtitle>#{{ item.uuid }}</v-list-item-subtitle>
+                </v-list-item-content>
+                <v-list-item-actions>
+                  <v-btn small color="blue darken-2" class="white--text">Ver</v-btn>
+                </v-list-item-actions>
+              </v-list-item>
+              <v-divider :key="i"></v-divider>
+            </template>
+          </v-list>
+        </v-card>
+        <v-card
+          v-if="notifies.length === 0 ? true : false"
+          width="300"
+          class="pl-4 pr-4 emptyNotification"
+        >
+          <v-icon size="40" class="animated heartBeat infinite">notifications_active</v-icon>
+          <h4
+            class="mt-2 text-center font-weight-light grey--text"
+          >Novas demandas serão notificadas aqui.</h4>
+        </v-card>
         <!-- Final da lista de notificações -->
       </v-menu>
     </v-app-bar>
@@ -62,9 +85,9 @@
           style="border-radius: 0px; align-items: center; display: flex; flex-direction: column"
         >
           <v-avatar style="bottom: -30px" size="100">
-            <img
+            <v-img
               :src="photo"
-              width="94px"
+              width="94"
               class="elevation-1"
               style="border-radius: 100%;border: 5px solid #fff;"
               @click.prevent="okzao"
@@ -172,7 +195,7 @@
 
 <script>
 import Helper from "../../helper.js";
-// import { db } from "../../services/Firebase";
+import { db } from "../../services/Firebase";
 import axios from "axios";
 
 export default {
@@ -224,16 +247,16 @@ export default {
     },
     openNotification(notification) {
       db.ref(
-        `usuarios/${this.$store.getters.getUsuario.id}/${notification.key}`
+        `notificacoes-usuarios/${this.$store.getters.getUsuario.id}/${notification.key}`
       )
         .remove()
         .then(() => this.redirecting(notification));
     },
     redirecting(notification) {
       if (notification.type_notification === "Diligência") {
-        this.$router.push(`/diligencia/recebida/${notification.id}`);
+        this.$router.push(`/diligencia/recebida/${notification.uuid}`);
       } else {
-        this.$router.push(`/casos-juridicos/recebido/${notification.id}`);
+        this.$router.push(`/casos-juridicos/recebido/${notification.uuid}`);
       }
     },
     irPara(rota) {
@@ -260,7 +283,7 @@ export default {
     } else {
       this.semSexo = true;
     }
-    const query = db.ref(`usuarios/${usuario.id}`);
+    const query = db.ref(`notificacoes-usuarios/${usuario.id}`);
     query.on("value", dataSnap => {
       let notifies = [];
       dataSnap.forEach(dataChild => {
@@ -324,5 +347,14 @@ export default {
   color: #333;
   font-size: 16px;
   padding: 16px 32px;
+}
+
+.emptyNotification {
+  display: flex;
+  width: 100%;
+  height: 350px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 </style>

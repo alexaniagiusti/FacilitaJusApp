@@ -5,6 +5,11 @@ import { stateDiligencias } from './modulos/diligencias/state';
 import { actionsDiligencias } from './modulos/diligencias/actions';
 import { mutationsDiligencias } from './modulos/diligencias/mutations';
 
+import { statePagamento } from './modulos/pagamento/state';
+import { actionsPagamento } from './modulos/pagamento/actions';
+import { mutationsPagamento } from './modulos/pagamento/mutations';
+import { gettersPagamento } from './modulos/pagamento/getters';
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -18,6 +23,21 @@ export default new Vuex.Store({
       },
       mutations: {
         ...mutationsDiligencias,
+      },
+    },
+    // tudo do módulo de pagamento ação -> mutação -> altera state -> serve com getters
+    pagamento: {
+      state: {
+        ...statePagamento,
+      },
+      actions: {
+        ...actionsPagamento,
+      },
+      mutations: {
+        ...mutationsPagamento,
+      },
+      getters: {
+        ...gettersPagamento,
       },
     },
   },
