@@ -21,10 +21,10 @@
 								<td>{{ dadosDiligencia.diligence.name}}</td>
 							</tr>
 
-							<tr>
+							<!--<tr>
 								<td><strong>Telefone:</strong></td>
 								<td>{{ dadosDiligencia.diligence.phone}}</td>
-							</tr>
+							</tr> -->
 
 							<tr>
 								<td><strong>Data:</strong></td>
