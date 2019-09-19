@@ -25,10 +25,10 @@
 									<td>{{ legalCase.name}}</td>
 								</tr>
 
-								<tr>
+							<!--	<tr>
 									<td><strong>Telefone:</strong></td>
 									<td>{{ legalCase.phone}}</td>
-								</tr>
+								</tr> -->
 
 								<tr>
 									<td><strong>Mensagem:</strong></td>

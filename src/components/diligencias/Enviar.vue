@@ -3,7 +3,7 @@
     <div class="linhaSemQuebra">
       <v-toolbar class="toolbarForm">
         <v-spacer></v-spacer>
-        <span class="font-weight-light title">Solicitar Serviço:</span>
+        <span class="font-weight-light title">Solicitar Serviço: Preencha corretamente para falar com um advogado(a) especialista.</span>
         <v-spacer></v-spacer>
       </v-toolbar>
     </div>
@@ -84,10 +84,10 @@
           </v-autocomplete>
         </v-flex>
         <v-flex xs12 md2 pa-2>
-          <v-text-field label="Data:" v-model="date" placeholder="Em que dia:"></v-text-field>
+          <v-text-field label="Data:" v-mask="maskData" v-model="date" placeholder="Em que dia:"></v-text-field>
         </v-flex>
         <v-flex xs12 md2 pa-2>
-          <v-text-field label="Horário:" v-model="hour" placeholder="Em qual horário?"></v-text-field>
+          <v-text-field label="Horário:" v-mask="maskHour" v-model="hour" placeholder="Em qual horário?"></v-text-field>
         </v-flex>
       </v-layout>
       <v-layout row>
@@ -118,6 +118,8 @@ export default {
   },
   data() {
     return {
+      maskData: '##/##/####',
+      maskHour: '##:##',
       masktelefone: '(##) # #### ####',
       name: "",
       phone: "",
@@ -201,9 +203,7 @@ export default {
     this.name = this.$store.getters.getUsuario.name;
     this.phone = this.$store.getters.getUsuario.phone_1;
     this.email = this.$store.getters.getUsuario.email;
-    this.date = moment().format("DD[/]MM[/]YYYY");
     this.dateFormat = moment().format("YYYY[-]MM[-]DD");
-    this.hour = moment().format("HH:mm");
     // pega os serviços e as cidades ao iniciar o componente para carregá-los nos selects
     this.getServices();
     this.getCities();

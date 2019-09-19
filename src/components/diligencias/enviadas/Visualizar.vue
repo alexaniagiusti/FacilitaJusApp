@@ -25,11 +25,6 @@
 							</tr>
 
 							<tr>
-								<td><strong>Telefone:</strong></td>
-								<td>{{ dadosDiligencia.phone}}</td>
-							</tr>
-
-							<tr>
 								<td><strong>Mensagem:</strong></td>
 								<td>{{ dadosDiligencia.message}}</td>
 							</tr>

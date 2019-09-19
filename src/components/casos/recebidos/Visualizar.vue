@@ -19,11 +19,11 @@
                             <td><strong>Nome:</strong></td>
                             <td>{{ dadosCaso.legalCase.name}}</td>
                         </tr>
-
+                        <!--
                         <tr>
                             <td><strong>Telefone:</strong></td>
                             <td>{{ dadosCaso.legalCase.phone}}</td>
-                        </tr>
+                        </tr> -->
 
                         <tr>
                             <td><strong>Mensagem:</strong></td>
