@@ -1,10 +1,11 @@
 <template>
   <v-container fluid>
     <div class="linhaSemQuebra">
-      <v-toolbar class="toolbarForm">
-        <v-spacer></v-spacer>
+      <v-toolbar class="hidden-sm-and-down">
         <span class="font-weight-light title">Solicitar Serviço: Preencha corretamente para falar com um advogado(a) especialista.</span>
-        <v-spacer></v-spacer>
+      </v-toolbar>
+      <v-toolbar height="100px" class="hidden-sm-and-up">
+        <span class="font-weight-light title mb-2">Solicitar Serviço: Fale com um advogado(a).</span>
       </v-toolbar>
     </div>
     <v-card class="pa-3">
