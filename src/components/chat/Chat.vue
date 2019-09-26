@@ -36,6 +36,7 @@
                 v-if="message.user_id === remetentId ? false : true"
               >{{message.time}}</span>
               <span
+                class="speech-bubble"
                 :class="message.user_id === remetentId ? 'remetent' : 'noRemetent' "
               >{{message.message}}</span>
               <span
@@ -70,6 +71,7 @@
       </v-tab-item>
       <v-tab-item>
         <div
+          v-if="!!status.payments"
           style="border: 1px solid #e0e0e0; background: #f2f2f2; display: flex; width: 100%; flex-direction: column; height: 45vh; overflow: auto"
         >
           <v-list two-line>
@@ -163,7 +165,7 @@ import { db } from "../../services/Firebase";
 import moment from "moment-timezone";
 
 export default {
-  props: ["url", "chatId", "status", "dataChat"],
+  props: ["url", "chatId", "status", "dataChat", "origem"],
   data() {
     return {
       bottomScrolling: "",
@@ -284,9 +286,13 @@ export default {
         message: this.message.message,
         user: this.$store.getters.getUsuario
       };
+      let path =
+        this.origem === "caso"
+          ? `chats/duvidas/${this.chatId}/messages`
+          : `chats/diligencias/${this.chatId}/messages`;
       if (this.message.message !== "") {
         this.message.message = "";
-        db.ref(`chats/${this.chatId}/messages`)
+        db.ref(path)
           .push(mensagem)
           .then(() => {
             this.message.message = "";
@@ -299,6 +305,10 @@ export default {
       }
     },
     getChat(id) {
+      let path =
+        this.origem === "caso"
+          ? `chats/duvidas/${this.chatId}/messages`
+          : `chats/diligencias/${this.chatId}/messages`;
       axios
         .get(`${this.$store.getters.api}/api/v1/chats/${id}`, {
           headers: { Authorization: `Bearer ${this.$store.getters.getToken}` }
@@ -311,7 +321,7 @@ export default {
         })
         .catch(e => console.log(e));
 
-      const query = db.ref(`chats/${id}/messages`);
+      const query = db.ref(path);
       query.on("value", snapshot => {
         let messages = [];
         snapshot.forEach(i => {
@@ -345,6 +355,7 @@ export default {
     }
   },
   mounted() {
+    console.log("status", this.status);
     if (this.chatId !== null) {
       this.$store.commit("setVueLoad", false);
       this.getChat(this.chatId);
@@ -376,6 +387,7 @@ export default {
   padding-right: 10px;
   padding-left: 10px;
   border-radius: 10px;
+  max-width: 250px;
 }
 .noRemetent {
   color: #fff;
@@ -383,6 +395,7 @@ export default {
   padding-right: 10px;
   padding-left: 10px;
   border-radius: 10px;
+  max-width: 250px;
 }
 .inputResponse {
   width: 100%;
