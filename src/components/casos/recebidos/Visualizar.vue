@@ -45,17 +45,17 @@
       </v-card>
       <Chat
         v-if="this.dadosCaso.chat != null"
-        :status="this.dadosCaso.legalCase"
-        :data-chat="this.dadosCaso.chat"
-        origem="caso"
         :chatId="this.dadosCaso.chat.id"
         :url="this.urlChat"
+        :status="this.dadosCaso.legalCase"
+        :dataChat="this.dadosCaso.chat"
+        origem="duvidaRecebida"
       />
       <Chat
         v-if="this.dadosCaso.chat == null"
         :status="this.dadosCaso.legalCase"
-        :data-chat="this.dadosCaso.chat"
-        origem="caso"
+        :dataChat="this.dadosCaso.chat"
+        origem="duvidaRecebida"
         :chatId="null"
         :url="this.urlChat"
       />

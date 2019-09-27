@@ -93,8 +93,9 @@
           v-if="this.showChat"
           :chatId="this.chatId"
           :status="this.dadosDiligencia"
-          :dataChat="this.chatSelected"
+          :dataChat="this.dataChat"
           :url="this.chatUrl"
+          origem="diligenciaEnviada"
         />
       </v-flex>
     </v-layout>
@@ -120,7 +121,8 @@ export default {
       showChat: false,
       chatId: "",
       chatUrl: "",
-      chatSelected: ""
+      chatSelected: "",
+      dataChat: ""
     };
   },
 
@@ -144,6 +146,7 @@ export default {
         .then(res => {
           this.$store.commit("setVueLoad", false);
           this.chatId = chat.id;
+          this.dataChat = res.data.recipient_user;
           this.chatUrl = `${this.$store.getters.api}/api/v1/diligence/sent/reply/chat/${chat.id}`;
           this.showChat = true;
         });

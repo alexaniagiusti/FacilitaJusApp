@@ -3,7 +3,12 @@
     <v-tabs grow v-model="tabs">
       <v-tab>
         <div style="align-items: center; display: flex; flex-wrap: nowrap">
-          <img v-if="!!remetentPhoto" :src="remetentPhoto" height="20" alt="photo perfil" />
+          <img
+            height="20"
+            v-if="!!remetentPhoto"
+            :src="remetentPhoto || `https://firebasestorage.googleapis.com/v0/b/centraldeoportunidades-de3a9.appspot.com/o/avatar.png?alt=media&token=51d40592-131a-4f3c-939c-b08fc1613842`"
+            alt="photo perfil"
+          />
           <img
             v-else
             height="20"
@@ -19,17 +24,18 @@
       <v-tab-item>
         <v-btn
           @click="abrePagamento"
+          v-if="showPaymentButton"
           small
-          flat
+          text
           class="white--text ma-2"
           color="green"
-        >Fazer pagamento para {{ remetent }}</v-btn>
+        >Pagar para {{ remetent }}</v-btn>
         <div
           class="chat_content"
           style="border: 1px solid #e0e0e0; background: #f2f2f2; display: flex; width: 100%; flex-direction: column; height: 35vh; overflow: auto"
         >
-          <template v-for="message in chatFirebase">
-            <div class="mt-1 mb-1 pr-2 linhaSemQuebra">
+          <template v-for="(message, i) in chatFirebase">
+            <div :key="i" class="mt-1 mb-1 pr-2 linhaSemQuebra">
               <v-spacer v-if="message.user_id === remetentId ? false : true "></v-spacer>
               <span
                 class="timestamp pr-1"
@@ -50,7 +56,6 @@
           style="z-index:20; border: 1px solid #e0e0e0; background: #f2f2f2;"
           class="elevation-0"
           fixed
-          app
           static
         >
           <div class="linhaSemQuebra">
@@ -91,70 +96,6 @@
       </v-tab-item>
     </v-tabs-items>
   </v-card>
-  <!-- <span >
-    <v-card class="pa-2 elevation-0">
-      <v-toolbar
-        style="background: linear-gradient(to right, #780206, #061161); border-radius: 10px 10px 0px 0px;"
-        class="elevation-2"
-        fixed
-        app
-        static
-      >
-        <div class="linhaSemQuebra">
-          <v-avatar>
-            <v-icon color="white" size="18">messages</v-icon>
-          </v-avatar>
-          <h3 class="white--text font-weight-light">{{ remetent }}</h3>
-          <v-spacer></v-spacer>
-          <v-btn
-            v-if="status.status_id === 2 ? true : false"
-            rounded
-            small
-            color="green"
-            class="mr-2 ml-2 white--text"
-            @click="abrePagamento"
-          >
-            Pagar
-            <v-icon size="18" class="ml-1">monetization_on</v-icon>
-          </v-btn>
-        </div>
-      </v-toolbar>
-      <div
-        style="border: 1px solid #e0e0e0; background: #f2f2f2; display: flex; width: 100%; flex-direction: column; height: 35vh; overflow: auto"
-      >
-        <template v-for="message in chatFirebase">
-          <div class="mt-1 mb-1 pr-2 linhaSemQuebra">
-            <v-spacer v-if="message.user_id === remetentId ? false : true "></v-spacer>
-            <span
-              :class="message.user_id === remetentId ? 'remetent' : 'noRemetent' "
-            >{{message.message}}</span>
-          </div>
-        </template>
-      </div>
-      <v-toolbar
-        style="z-index:20; border: 1px solid #e0e0e0; background: #f2f2f2; border-radius: 0px 0px 10px 10px;"
-        class="elevation-0"
-        fixed
-        app
-        static
-      >
-        <div class="linhaSemQuebra">
-          <input
-            class="inputResponse"
-            placeholder="Responda aqui..."
-            v-model="message.message"
-            @keypress.enter="replyFirebase"
-            @click:append="replyFirebase"
-            solo
-            append-icon="send"
-          />
-          <v-btn @click="replyFirebase" icon>
-            <v-icon>send</v-icon>
-          </v-btn>
-        </div>
-      </v-toolbar>
-    </v-card>
-  </span>-->
 </template>
 
 
@@ -168,10 +109,9 @@ export default {
   props: ["url", "chatId", "status", "dataChat", "origem"],
   data() {
     return {
-      bottomScrolling: "",
       tabs: 0,
       remetent: "",
-      remetendId: "",
+      remetentId: "",
       remetentPhoto: "",
       chatData: {
         message: [],
@@ -185,47 +125,8 @@ export default {
         user_id: this.$store.getters.getUsuario.id
       },
       chatFirebase: {},
-      showChat: false,
-      chatIdParam: this.chatId,
-      onStatus: {
-        id: 10
-      }
+      showPaymentButton: false
     };
-  },
-  computed: {
-    target() {
-      return 999;
-    },
-    options() {
-      return {
-        duration: 300,
-        offset: 0,
-        easing: "easeInOutCubic"
-      };
-    },
-    element() {
-      const final = this.$refs.final;
-      return final;
-    }
-  },
-  watch: {
-    chatFirebase() {
-      var chatContent = document.querySelector(".chat_content");
-      console.log(".", chatContent.scrollHeight);
-      chatContent.scrollTop = chatContent.scrollHeight;
-    },
-    status(val) {
-      console.log("valor status", val);
-      if (val === null) {
-        this.onStatus = {
-          status: {
-            id: 10
-          }
-        };
-      } else {
-        this.onStatus = this.status;
-      }
-    }
   },
   methods: {
     abrePagamento() {
@@ -243,10 +144,13 @@ export default {
       this.$store.dispatch("abre_pagamento", payload);
     },
     beforeSendMessage() {
-      if (this.chat_id === null) {
+      if (this.chatId === null && this.chat_id === null) {
+        console.log("não existe chat");
         this.reply();
       } else {
-        this.replyFirebase();
+        console.log("já existe chat");
+        this.getChatFirebase();
+        this.replyFirebase(this.chat_id);
       }
     },
     reply() {
@@ -258,7 +162,8 @@ export default {
           .then(res => {
             this.chatData = res.data;
             this.chat_id = res.data.id;
-            this.replyFirebase();
+            this.replyFirebase(res.data.id);
+            this.getChatFirebase(res.data.id);
           })
           .catch(e => console.log(e));
       } else {
@@ -270,7 +175,8 @@ export default {
       console.log(".", chatContent.scrollHeight);
       chatContent.scrollTop = chatContent.scrollHeight;
     },
-    replyFirebase() {
+    replyFirebase(id) {
+      const idOk = this.chatId === null ? id : this.chatId;
       const time = moment()
         .tz("America/Belem")
         .format("HH:mm");
@@ -281,15 +187,15 @@ export default {
         time: time,
         date: date,
         id: this.status.id,
-        chat_id: this.chatId,
+        chat_id: idOk,
         user_id: this.$store.getters.getUsuario.id,
         message: this.message.message,
         user: this.$store.getters.getUsuario
       };
       let path =
-        this.origem === "caso"
-          ? `chats/duvidas/${this.chatId}/messages`
-          : `chats/diligencias/${this.chatId}/messages`;
+        this.origem === "duvidaRecebida" || this.origem === "duvidaEnviada"
+          ? `chats/duvidas/${idOk}/messages`
+          : `chats/diligencias/${idOk}/messages`;
       if (this.message.message !== "") {
         this.message.message = "";
         db.ref(path)
@@ -305,10 +211,6 @@ export default {
       }
     },
     getChat(id) {
-      let path =
-        this.origem === "caso"
-          ? `chats/duvidas/${this.chatId}/messages`
-          : `chats/diligencias/${this.chatId}/messages`;
       axios
         .get(`${this.$store.getters.api}/api/v1/chats/${id}`, {
           headers: { Authorization: `Bearer ${this.$store.getters.getToken}` }
@@ -320,48 +222,75 @@ export default {
           this.$store.commit("setVueLoad", false);
         })
         .catch(e => console.log(e));
-
+    },
+    getChatFirebase(id) {
+      const idOk = this.chatId === null ? this.chat_id : this.chatId;
+      let path =
+        this.origem === "duvidaRecebida" || this.origem === "duvidaEnviada"
+          ? `chats/duvidas/${idOk}/messages`
+          : `chats/diligencias/${idOk}/messages`;
       const query = db.ref(path);
+      console.log("path", path);
       query.on("value", snapshot => {
+        console.log("snap", snapshot.val());
         let messages = [];
         snapshot.forEach(i => {
           let item = i.val();
+          console.log("chamada", item);
           item.key = i.key;
           messages.push(item);
         });
         this.chatFirebase = messages;
-        setTimeout(() => this.scrollChat(), 200);
+        this.scrollChat();
       });
     },
     verificaRemetente() {
-      console.log("verificaRemetente");
-      const localUserId = this.$store.getters.getUsuario.id;
-      let remetent = "";
-      let remetentId = "";
-      let remetentPhoto = "";
-      if (this.chatData.recipient_user_id === localUserId) {
-        remetent = this.chatData.sender_user.name;
-        remetentId = this.chatData.sender_user_id;
-        remetentPhoto = this.chatData.sender_user.photo;
-        this.remetent = remetent;
-        this.remetentId = remetentId;
+      if (
+        this.origem === "duvidaRecebida" ||
+        this.origem === "diligenciaRecebida"
+      ) {
+        this.remetent = this.status.name;
+        this.remetentId = this.status.id;
+        this.remetentPhoto = null;
+      } else if (
+        this.origem === "duvidaEnviada" ||
+        this.origem === "diligenciaEnviada"
+      ) {
+        this.remetent = this.dataChat.name;
+        this.remetentId = this.dataChat.id;
+        this.remetentPhoto = this.dataChat.photo;
       } else {
-        remetent = this.chatData.recipient_user.name;
-        remetentPhoto = this.chatData.recipient_user.photo;
-        remetentId = this.chatData.recipient_user_id;
-        this.remetent = remetent;
-        this.remetentId = remetentId;
+        this.remetent = this.status.user.name;
+        this.remetentId = this.status.user.id;
+        this.remetentPhoto = this.status.user.photo;
+        this.fullRemetent = this.status.user;
       }
     }
   },
   mounted() {
-    console.log("status", this.status);
-    if (this.chatId !== null) {
-      this.$store.commit("setVueLoad", false);
-      this.getChat(this.chatId);
-    } else if (this.chat_id !== null) {
-      this.getChat(this.chat_id);
+    switch (this.origem) {
+      case "diligenciaEnviada":
+        this.showPaymentButton = true;
+        break;
+      case "duvidaEnviada":
+        this.showPaymentButton = true;
+        break;
+      case "diligenciaRecebida":
+        this.showPaymentButton = false;
+        break;
+      case "duvidaRecebida":
+        this.showPaymentButton = false;
+        break;
+      default:
+        console.log("origem inválida");
     }
+    if (this.chatId === null) {
+      //this.$store.commit("setVueLoad", true);
+      //this.getChat(this.chatId);
+    } else {
+      this.getChatFirebase();
+    }
+    this.verificaRemetente();
   }
 };
 </script>
@@ -386,7 +315,7 @@ export default {
   background-color: #1e88e5;
   padding-right: 10px;
   padding-left: 10px;
-  border-radius: 10px;
+  border-radius: 6px 6px 6px 0px;
   max-width: 250px;
 }
 .noRemetent {
@@ -394,7 +323,7 @@ export default {
   background-color: #e53935;
   padding-right: 10px;
   padding-left: 10px;
-  border-radius: 10px;
+  border-radius: 6px 6px 0px 6px;
   max-width: 250px;
 }
 .inputResponse {

@@ -77,10 +77,11 @@
 
       <Chat
         v-if="this.dadosDiligencia.chat == null"
-        :status="this.dadosDiligencia"
-        :dataChat="this.dataChat"
         :chatId="null"
+        :status="this.dadosDiligencia.diligence"
+        :dataChat="this.dadosDiligencia.chat"
         :url="this.urlChat"
+        origem="diligenciaRecebida"
       />
     </v-flex>
   </v-layout>
