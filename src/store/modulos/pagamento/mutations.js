@@ -11,24 +11,24 @@ export const mutationsPagamento = {
   fecha_pagamento(state) {
     state.pagamento.mostrar = false;
     (state.pagamento.items = []),
-    (state.pagamento.recipient_user_id = ''),
-    (state.pagamento.sender_user_id = ''),
-    (state.pagamento.chat_id = '');
+      (state.pagamento.recipient_user_id = ""),
+      (state.pagamento.sender_user_id = ""),
+      (state.pagamento.chat_id = "");
   },
   add_item(state, item) {
     const items = [...state.pagamento.items, item];
     state.pagamento.items = items;
   },
   altera_valor(state, payload) {
-    const itemsAntigos = state.pagamento.items
-    let itemsNovos = []
+    const itemsAntigos = state.pagamento.items;
+    let itemsNovos = [];
     itemsAntigos.map((item, index) => {
-      if(index === payload.position) {
-        item.price = payload.newValue
+      if (index === payload.position) {
+        item.price = parseFloat(payload.newValue);
       }
-      itemsNovos.push(item)
-    })
-    state.pagamento.items = itemsNovos
+      itemsNovos.push(item);
+    });
+    state.pagamento.items = itemsNovos;
   }
 };
 

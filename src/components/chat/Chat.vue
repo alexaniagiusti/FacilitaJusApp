@@ -130,14 +130,16 @@ export default {
   },
   methods: {
     abrePagamento() {
+      // recipient_user é o remetente
+      // sender_user é quem vai pagar
       const payload = {
         item: {
           description: "Pagamento de Diligência para " + this.remetent,
           amount: "1",
-          price: this.status.price
+          price: parseFloat(this.status.price)
         },
-        recipient_user_id: this.dataChat.recipient_user_id,
-        sender_user_id: this.dataChat.sender_user_id,
+        recipient_user_id: this.remetentId,
+        sender_user_id: this.$store.getters.getUsuario.id,
         chat_id: this.dataChat.id,
         diligence_id: this.status.id
       };
@@ -154,6 +156,7 @@ export default {
       }
     },
     reply() {
+      this.$store.commit("setVueLoad", true);
       if (this.message.message !== "") {
         axios
           .post(`${this.url}`, this.message, {
@@ -164,6 +167,7 @@ export default {
             this.chat_id = res.data.id;
             this.replyFirebase(res.data.id);
             this.getChatFirebase(res.data.id);
+            this.$store.commit("setVueLoad", false);
           })
           .catch(e => console.log(e));
       } else {

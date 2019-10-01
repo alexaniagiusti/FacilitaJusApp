@@ -250,7 +250,7 @@
             block
             color="green white--text"
             class="elevation-0"
-            @click="atualizaValorDoPagamento"
+            @click.prevent="atualizaValorDoPagamento"
           >Prosseguir</v-btn>
         </v-card>
       </v-flex>
@@ -275,7 +275,7 @@ export default {
         cvv: [v => !!v || "Código CVV obrigatório"]
       },
       masks: {
-        credit_card: "#### #### #### ####",
+        credit_card: "################",
         valid: "##/##",
         cvv: "###",
         newPrice: ["##,##", "###,##", "####,##"]
@@ -319,12 +319,12 @@ export default {
       }
     },
     preparaPagamento() {
-      if (this.$refs.credit.validate()) {
-        let data;
+      let data;
 
-        const mes_ano = this.fields.expiration.split("/");
+      const mes_ano = this.fields.expiration.split("/");
 
-        if (this.payment_type === "credit") {
+      if (this.payment_type === "credit") {
+        if (this.$refs.credit.validate()) {
           data = {
             payment_type: "credit",
             holder_name: this.fields.holder_name,
@@ -333,36 +333,38 @@ export default {
             expiration_year: `20${mes_ano[1]}`,
             security_code: this.fields.security_code,
             items: this.$store.getters.pagamento.items,
-            recipient_user_id: this.$store.getters.pagamento.recipient_user_id,
-            sender_user_id: this.$store.getters.pagamento.sender_user_id,
-            chat_id: this.$store.getters.pagamento.chat_id
-          };
-          this.efetuaPagamento(data);
-        } else if (this.payment_type === "boleto") {
-          data = {
-            payment_type: "boleto",
-            items: this.$store.getters.pagamento.items,
-            recipient_user_id: this.$store.getters.pagamento.recipient_user_id,
-            sender_user_id: this.$store.getters.pagamento.sender_user_id,
+            recipient_user_id: `${this.$store.getters.pagamento.recipient_user_id}`,
+            sender_user_id: `${this.$store.getters.pagamento.sender_user_id}`,
             chat_id: this.$store.getters.pagamento.chat_id
           };
           this.efetuaPagamento(data);
         } else {
-          this.$store.dispatch("snackbar_error", "Forma de pagamento inválida");
+          this.$store.dispatch("snackbar_info", "Preencha todos os campos");
         }
+      } else if (this.payment_type === "boleto") {
+        data = {
+          payment_type: "boleto",
+          items: this.$store.getters.pagamento.items,
+          recipient_user_id: this.$store.getters.pagamento.recipient_user_id,
+          sender_user_id: this.$store.getters.pagamento.sender_user_id,
+          chat_id: this.$store.getters.pagamento.chat_id
+        };
+        this.efetuaPagamento(data);
       } else {
-        this.$store.dispatch("snackbar_info", "Preencha todos os campos");
+        this.$store.dispatch("snackbar_error", "Forma de pagamento inválida");
       }
     },
     efetuaPagamento(data) {
       this.$store.commit("setVueLoad", true);
       console.log("data:", data);
+      console.log("ID:", this.pagamento.diligence_id);
+      console.log("token:", this.$store.getters.getToken);
       axios
         .post(
-          `${this.$store.getters.api}/api/v1/diligence/sent/payment/22906b19-d0bf-4a4d-bc1c-a4c2e8ce637e`,
+          `${this.$store.getters.api}/api/v1/diligence/sent/${this.pagamento.diligence_id}/payment`,
           data,
           {
-            header: { Authorization: `Bearer ${this.$store.getters.getToken}` }
+            headers: { Authorization: `Bearer ${this.$store.getters.getToken}` }
           }
         )
         .then(() => {
@@ -374,6 +376,7 @@ export default {
           this.$store.commit("fecha_pagamento");
         })
         .catch(e => {
+          console.log(e);
           this.$store.commit("setVueLoad", false);
           this.$store.dispatch("snackbar_error", e);
         });
