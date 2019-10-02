@@ -24,17 +24,30 @@
       <v-tab-item>
         <v-btn
           @click="abrePagamento"
-          v-if="showPaymentButton"
+          v-if="false"
           small
-          text
           class="white--text ma-2"
           color="green"
-        >Pagar para {{ remetent }}</v-btn>
+        >Pagar para {{ remetent | filterName }}</v-btn>
+        <v-btn
+          @click="concluiServicoDialog = true"
+          v-if="status.status_id === 3"
+          small
+          class="white--text ma-2"
+          color="green"
+        >Concluir Serviço</v-btn>
+        <v-btn
+          @click="aprovaServicoDialog = true"
+          v-if="status.status_id === 4"
+          small
+          class="white--text ma-2"
+          color="green"
+        >Aprova Serviço</v-btn>
         <div
           class="chat_content"
-          style="border: 1px solid #e0e0e0; background: #f2f2f2; display: flex; width: 100%; flex-direction: column; height: 35vh; overflow: auto"
+          style="border-top: 1px solid #e0e0e0; background: #fff; display: flex; width: 100%; flex-direction: column; height: 35vh; overflow: auto"
         >
-          <template v-for="(message, i) in chatFirebase">
+          <template v-for="(message, i) in chatData.messages">
             <div :key="i" class="mt-1 mb-1 pr-2 linhaSemQuebra">
               <v-spacer v-if="message.user_id === remetentId ? false : true "></v-spacer>
               <span
@@ -45,6 +58,21 @@
                 class="speech-bubble"
                 :class="message.user_id === remetentId ? 'remetent' : 'noRemetent' "
               >{{message.message}}</span>
+            </div>
+          </template>
+          <template v-for="(message, i) in chatFirebase">
+            <div :key="i" class="mt-1 mb-1 pl-1 pr-1 chatLine">
+              <v-spacer v-if="message.user_id === remetentId ? false : true "></v-spacer>
+              <span
+                class="timestamp pr-1"
+                v-if="message.user_id === remetentId ? false : true"
+              >{{message.time}}</span>
+              <v-card
+                class="elevation-1"
+                :class="message.user_id === remetentId ? 'remetent red' : 'noRemetent blue' "
+              >
+                <span class="white--text">{{message.message}}</span>
+              </v-card>
               <span
                 class="timestamp pl-1"
                 v-if="message.user_id === remetentId ? true : false"
@@ -79,22 +107,56 @@
           v-if="!!status.payments"
           style="border: 1px solid #e0e0e0; background: #f2f2f2; display: flex; width: 100%; flex-direction: column; height: 45vh; overflow: auto"
         >
-          <v-list two-line>
-            <template v-for="extrato in status.payments">
+          <v-list class="pa-0" two-line>
+            <template v-for="(extrato, index) in status.payments">
               <v-list-item :key="extrato.id">
-                <v-avatar>
-                  <v-icon>monetization_on</v-icon>
+                <v-avatar class="elevation-1 mr-1">
+                  <v-icon
+                    :color="extrato.invoice.status === 'Pagamento Confirmado' ? 'green' : 'yellow darken-3' "
+                  >monetization_on</v-icon>
                 </v-avatar>
                 <v-list-item-content>
-                  <v-list-item-title>{{ extrato.invoice.total }}</v-list-item-title>
-                  <v-list-item-subtitle>{{ extrato.invoice.payment_type }} - {{ extrato.invoice.status }}</v-list-item-subtitle>
+                  <v-list-item-title>R$ {{ extrato.invoice.total }} - {{ extrato.invoice.payment_type | filterType }}</v-list-item-title>
+                  <v-list-item-subtitle>
+                    <v-icon size="15">access_time</v-icon>
+                    {{ extrato.invoice.created_at | filterDate }} - {{ extrato.invoice.status }}
+                  </v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
+              <v-divider :key="index"></v-divider>
             </template>
           </v-list>
         </div>
       </v-tab-item>
     </v-tabs-items>
+    <v-dialog v-model="aprovaServicoDialog" width="300">
+      <v-card class="pa-3" style="overflow: hidden; border-radius: 10px;" light width="300">
+        <div class="meio">
+          <v-flex xs12>
+            <div style="display: flex; justify-content: center; width: 100%">
+              <v-avatar class="elevation-1 bounceInUp snack" color="green">
+                <v-icon class="fadeIn" size="25" color="white">thumb_up</v-icon>
+              </v-avatar>
+            </div>
+          </v-flex>
+          <v-flex class="mt-3 mb-3" xs12>
+            <div class="linhaSemQuebra">
+              <v-spacer></v-spacer>
+              <h3 class="text-center">Confirma a aprovação deste serviço?</h3>
+              <v-spacer></v-spacer>
+            </div>
+          </v-flex>
+          <div class="linhaSemQuebra">
+            <v-flex class="pr-1" xs6>
+              <v-btn block color="red" class="white--text" @click="aprovaServicoDialog=false">Não</v-btn>
+            </v-flex>
+            <v-flex class="pl-1" xs6>
+              <v-btn block color="green" class="white--text" @click="aprovaServico">Sim</v-btn>
+            </v-flex>
+          </div>
+        </div>
+      </v-card>
+    </v-dialog>
   </v-card>
 </template>
 
@@ -104,11 +166,13 @@ import * as easings from "vuetify/es5/services/goto/easing-patterns";
 import axios from "axios";
 import { db } from "../../services/Firebase";
 import moment from "moment-timezone";
+import m from "moment";
 
 export default {
   props: ["url", "chatId", "status", "dataChat", "origem"],
   data() {
     return {
+      aprovaServicoDialog: false,
       tabs: 0,
       remetent: "",
       remetentId: "",
@@ -128,7 +192,50 @@ export default {
       showPaymentButton: false
     };
   },
+  filters: {
+    filterDate(val) {
+      if (!!val) return m(val).format("HH:mm [do dia] DD/MM/YYYY");
+    },
+    filterType(val) {
+      if (val === "credit") {
+        return "Crédito";
+      } else if (val === "boleto") {
+        return "Boleto";
+      } else {
+        return "";
+      }
+    },
+    filterName(val) {
+      return val.split(" ")[0];
+    }
+  },
   methods: {
+    aprovaServico() {
+      this.$store.commit("setVueLoad", true);
+      this.aprovaServicoDialog = false;
+      const data = {
+        chat_id: this.chatId
+      };
+      axios
+        .post(
+          `${this.$store.getters.api}/api/v1/diligences/sent/${this.status.id}/complete`,
+          data,
+          {
+            headers: { Authorization: `Bearer ${this.$store.getters.getToken}` }
+          }
+        )
+        .then(() => {
+          this.$store.dispatch("snackbar_success", "Aprovado!");
+        })
+        .catch(e =>
+          this.$store.dispatch(
+            "snackbar_error",
+            "Erro ao aprovar, tente novamente!",
+            e
+          )
+        );
+      this.$store.commit("setVueLoad", false);
+    },
     abrePagamento() {
       // recipient_user é o remetente
       // sender_user é quem vai pagar
@@ -140,7 +247,7 @@ export default {
         },
         recipient_user_id: this.remetentId,
         sender_user_id: this.$store.getters.getUsuario.id,
-        chat_id: this.dataChat.id,
+        chat_id: this.chatId,
         diligence_id: this.status.id
       };
       this.$store.dispatch("abre_pagamento", payload);
@@ -292,6 +399,7 @@ export default {
       //this.$store.commit("setVueLoad", true);
       //this.getChat(this.chatId);
     } else {
+      this.getChat(this.chatId);
       this.getChatFirebase();
     }
     this.verificaRemetente();
@@ -315,16 +423,14 @@ export default {
 }
 
 .remetent {
-  color: #fff;
-  background-color: #1e88e5;
+  background-image: #b8b3b3;
   padding-right: 10px;
   padding-left: 10px;
   border-radius: 6px 6px 6px 0px;
   max-width: 250px;
 }
 .noRemetent {
-  color: #fff;
-  background-color: #e53935;
+  background-image: #e53935;
   padding-right: 10px;
   padding-left: 10px;
   border-radius: 6px 6px 0px 6px;
@@ -336,5 +442,10 @@ export default {
   outline-style: none;
   border-color: none;
   border-radius: 0px 0px 10px 10px;
+}
+.chatLine {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
 }
 </style> 
