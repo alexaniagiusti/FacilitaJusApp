@@ -37,6 +37,13 @@
           color="green"
         >Concluir Serviço</v-btn>
         <v-btn
+          v-if="origem === 'diligenciaRecebida' && chatId !== null || origem === 'duvidaRecebida' && chatId !== null ? true : false "
+          @click="abreDialog('delete', 'Confirma a Exclusão?', () => excluir())"
+          small
+          class="white--text ma-2"
+          color="red"
+        >Excluir Chat</v-btn>
+        <v-btn
           @click="aprovaServicoDialog = true"
           v-if="status.status_id === 4"
           small
@@ -47,17 +54,14 @@
           class="chat_content"
           style="border-top: 1px solid #e0e0e0; background: #fff; display: flex; width: 100%; flex-direction: column; height: 35vh; overflow: auto"
         >
-          <template v-for="(message, i) in chatData.messages">
+          <template v-for="(m, i) in chatData.messages">
             <div :key="i" class="mt-1 mb-1 pr-2 linhaSemQuebra">
-              <v-spacer v-if="message.user_id === remetentId ? false : true "></v-spacer>
-              <span
-                class="timestamp pr-1"
-                v-if="message.user_id === remetentId ? false : true"
-              >{{message.time}}</span>
+              <v-spacer v-if="m.user_id === remetentId ? false : true "></v-spacer>
+              <span class="timestamp pr-1" v-if="m.user_id === remetentId ? false : true">{{m.time}}</span>
               <span
                 class="speech-bubble"
-                :class="message.user_id === remetentId ? 'remetent' : 'noRemetent' "
-              >{{message.message}}</span>
+                :class="m.user_id === remetentId ? 'remetent' : 'noRemetent' "
+              >{{m.message}}</span>
             </div>
           </template>
           <template v-for="(message, i) in chatFirebase">
@@ -157,6 +161,13 @@
         </div>
       </v-card>
     </v-dialog>
+    <Dialog
+      :dialog="dialogAction.dialog"
+      :content="dialogAction.content"
+      :icon="dialogAction.icon"
+      :confirma="dialogAction.confirma"
+      :cancela="dialogAction.cancela"
+    />
   </v-card>
 </template>
 
@@ -167,11 +178,22 @@ import axios from "axios";
 import { db } from "../../services/Firebase";
 import moment from "moment-timezone";
 import m from "moment";
+import Dialog from "./DialogAction.vue";
 
 export default {
   props: ["url", "chatId", "status", "dataChat", "origem"],
+  components: {
+    Dialog
+  },
   data() {
     return {
+      dialogAction: {
+        content: "",
+        dialog: false,
+        icon: "",
+        confirma: () => alert("ok"),
+        cancela: () => (this.dialogAction.dialog = false)
+      },
       aprovaServicoDialog: false,
       tabs: 0,
       remetent: "",
@@ -210,6 +232,36 @@ export default {
     }
   },
   methods: {
+    abreDialog(icon, content, confirma) {
+      this.dialogAction.dialog = true;
+      this.dialogAction.icon = icon;
+      this.dialogAction.content = content;
+      this.dialogAction.confirma = confirma;
+    },
+    excluir() {
+      this.dialogAction.dialog = false;
+      this.$store.commit("setVueLoad", true);
+      let rota;
+      if (this.origem === "diligenciaRecebida") {
+        rota = "diligences";
+      } else if (this.origem === "duvidaRecebida") {
+        rota = "legal-cases";
+      }
+      axios
+        .delete(`${this.$store.getters.api}/api/v1/chats/${this.chatId}`, {
+          headers: { Authorization: `Bearer ${this.$store.getters.getToken}` }
+        })
+        .then(() => {
+          this.$store.commit("setVueLoad", false);
+          this.$store.dispatch("snackbar_success", "Excluído");
+          location.reload();
+        })
+        .catch(() => {
+          this.$store.commit("setVueLoad", false);
+          this.$store.dispatch("snackbar_error", "Erro, tente novamente");
+        });
+    },
+    arquivar() {},
     aprovaServico() {
       this.$store.commit("setVueLoad", true);
       this.aprovaServicoDialog = false;
@@ -243,7 +295,7 @@ export default {
         item: {
           description: "Pagamento de Diligência para " + this.remetent,
           amount: "1",
-          price: parseFloat(this.status.price)
+          price: parseFloat(this.status.price) || 0
         },
         recipient_user_id: this.remetentId,
         sender_user_id: this.$store.getters.getUsuario.id,

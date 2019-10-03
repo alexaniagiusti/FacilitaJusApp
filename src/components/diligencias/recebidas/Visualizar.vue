@@ -73,6 +73,7 @@
         :dataChat="this.dadosDiligencia.chat"
         :chatId="this.dadosDiligencia.chat.id"
         :url="this.urlChat"
+        origem="diligenciaRecebida"
       />
 
       <Chat
