@@ -2,7 +2,7 @@
  <v-layout v-if="mostrarCaso">
      <v-flex>
          <v-card>
-             <v-card-title>Caso Jurídico #{{dadosCaso.legalCase.id}}</v-card-title>
+             <v-card-title>Dúvida Jurídica #{{dadosCaso.legalCase.id}}</v-card-title>
 
              <template>
                 <v-simple-table>
