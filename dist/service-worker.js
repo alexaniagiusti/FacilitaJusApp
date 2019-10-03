@@ -14,10 +14,10 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.5a6d84e7066e37a124bfd0437e94afe2.js"
+  "/precache-manifest.4d60dde4cebc770572d2ae21ae671136.js"
 );
 
-workbox.core.setCacheNameDetails({prefix: "new-cru"});
+workbox.core.setCacheNameDetails({prefix: "FacilitaJus"});
 
 /**
  * The workboxSW.precacheAndRoute() method efficiently caches and responds to

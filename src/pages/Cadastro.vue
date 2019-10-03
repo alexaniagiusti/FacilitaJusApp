@@ -2,7 +2,7 @@
   <div class="principal">
     <v-flex xs12 md8 pa-2>
       <v-card width="600" class="mt-5">
-        <v-card-title style="background-color: #757575">
+        <v-card-title style="background-color: #f2f2f2">
           <img
             class="mt-2 animated delay-1s bounceIn"
             src="https://firebasestorage.googleapis.com/v0/b/centraldeoportunidades-de3a9.appspot.com/o/Untitled-W.png?alt=media&token=ded0cc4f-cbe8-4a18-bec9-192263d3dd2b"
