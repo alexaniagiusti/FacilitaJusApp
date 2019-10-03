@@ -254,9 +254,9 @@ export default {
     },
     redirecting(notification) {
       if (notification.type_notification === "Diligência") {
-        this.$router.push(`/diligencia/recebida/${notification.uuid}`);
+        this.$router.push(`/diligencia/recebida/${notification.id}`);
       } else {
-        this.$router.push(`/casos-juridicos/recebido/${notification.uuid}`);
+        this.$router.push(`/casos-juridicos/recebido/${notification.id}`);
       }
     },
     irPara(rota) {

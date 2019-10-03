@@ -4,7 +4,7 @@
 			<v-flex>
 				<v-toolbar flat color="white" dark>
 					<v-spacer></v-spacer>
-					<v-toolbar-title class="font-weight-light black--text">Serviços Recebidos</v-toolbar-title>
+					<span class="font-weight-light black--text">Serviços que você está habilitado(a) para responder:</span>
 					<v-spacer></v-spacer>
 				</v-toolbar>
 

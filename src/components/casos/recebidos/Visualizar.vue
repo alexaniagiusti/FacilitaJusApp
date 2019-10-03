@@ -1,37 +1,29 @@
 <template>
-  <v-layout v-if="mostrarCaso">
-    <v-flex>
-      <v-card>
-        <v-card-title>Caso Jurídico #{{dadosCaso.legalCase.id}}</v-card-title>
+ <v-layout v-if="mostrarCaso">
+     <v-flex>
+         <v-card>
+             <v-card-title>Dúvida Jurídica #{{dadosCaso.legalCase.id}}</v-card-title>
 
-        <template>
-          <v-simple-table>
-            <tbody>
-              <tr>
-                <td>
-                  <strong>Tipo:</strong>
-                </td>
-                <td>{{ dadosCaso.legalCase.actuation.actuation }}</td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Cidade:</strong>
-                </td>
-                <td>{{ dadosCaso.legalCase.city.city }} - {{ dadosCaso.legalCase.city.state }}</td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Nome:</strong>
-                </td>
-                <td>{{ dadosCaso.legalCase.name}}</td>
-              </tr>
-
-              <tr>
-                <td>
-                  <strong>Telefone:</strong>
-                </td>
-                <td>{{ dadosCaso.legalCase.phone}}</td>
-              </tr>
+             <template>
+                <v-simple-table>
+                    <tbody>
+                        <tr>
+                            <td><strong>Tipo:</strong></td>
+                            <td>{{ dadosCaso.legalCase.actuation.actuation }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cidade:</strong></td>
+                            <td>{{ dadosCaso.legalCase.city.city }} - {{ dadosCaso.legalCase.city.state }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nome:</strong></td>
+                            <td>{{ dadosCaso.legalCase.name}}</td>
+                        </tr>
+                        <!--
+                        <tr>
+                            <td><strong>Telefone:</strong></td>
+                            <td>{{ dadosCaso.legalCase.phone}}</td>
+                        </tr> -->
 
               <tr>
                 <td>
