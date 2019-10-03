@@ -1,5 +1,5 @@
 <template>
-	<v-container grid-list-md>
+	<v-container class="geral" fluid>
 		<v-layout column v-if="showLegalCase">
 			<v-flex xs12>
 				<v-card>
@@ -53,7 +53,7 @@
     </v-layout>
 
     <v-layout row>
-      <v-flex xs12 md3 class="pa-2">
+      <v-flex xs12 md3 class="pa-1">
         <v-card v-if="legalCase.chats.length > 0">
           <v-card-title>Respostas</v-card-title>
           <v-list subheader>
@@ -79,9 +79,9 @@
           </v-list>
         </v-card>
       </v-flex>
-      <v-flex xs12 md9 class="pa-2">
+      <v-flex xs12 md9 class="pa-1">
         <!-- <Chat v-if="this.dadosDiligencia.chat != null" :chatId="this.dadosDiligencia.chat.id" :url="this.urlChat"/> -->
-        <Chat
+        <Chat 
           v-if="this.showChat"
           :chatId="this.chatId"
           :url="this.chatUrl"
@@ -156,3 +156,10 @@ export default {
   }
 };
 </script>
+
+<style>
+.geral {
+  margin: 0px;
+  padding: 0px;
+};
+</style>
