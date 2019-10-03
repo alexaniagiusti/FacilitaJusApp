@@ -2,7 +2,7 @@
 	<div class="visualizar" v-if="mostrarDiligencia">
 		<v-flex xs12>
 			<v-card>
-				<v-card-title>Diligência #{{dadosDiligencia.id}}</v-card-title>
+				<v-card-title>Serviço #{{dadosDiligencia.id}}</v-card-title>
 
 				<template>
 					<v-simple-table>
@@ -22,11 +22,6 @@
 							<tr>
 								<td><strong>Nome:</strong></td>
 								<td>{{ dadosDiligencia.name}}</td>
-							</tr>
-
-							<tr>
-								<td><strong>Telefone:</strong></td>
-								<td>{{ dadosDiligencia.phone}}</td>
 							</tr>
 
 							<tr>

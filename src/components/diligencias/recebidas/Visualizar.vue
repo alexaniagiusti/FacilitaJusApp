@@ -2,7 +2,7 @@
 	<v-layout v-if="mostrarDiligencia">
 		<v-flex>
 			<v-card>
-				<v-card-title>Diligência #{{dadosDiligencia.diligence.id}}</v-card-title>
+				<v-card-title>Serviço #{{dadosDiligencia.diligence.id}}</v-card-title>
 
 				<template>
 					<v-simple-table>
@@ -21,10 +21,10 @@
 								<td>{{ dadosDiligencia.diligence.name}}</td>
 							</tr>
 
-							<tr>
+							<!--<tr>
 								<td><strong>Telefone:</strong></td>
 								<td>{{ dadosDiligencia.diligence.phone}}</td>
-							</tr>
+							</tr> -->
 
 							<tr>
 								<td><strong>Data:</strong></td>
