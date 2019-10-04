@@ -25,69 +25,91 @@
                             <td>{{ dadosCaso.legalCase.phone}}</td>
                         </tr> -->
 
-                        <tr>
-                            <td><strong>Mensagem:</strong></td>
-                            <td>{{ dadosCaso.legalCase.message}}</td>
-                        </tr>
-                    </tbody>
-                </v-simple-table>
-            </template>
-         </v-card>
-        <Chat v-if="this.dadosCaso.chat != null" :chatId="this.dadosCaso.chat.id" :url="this.urlChat"/>
-        <Chat v-if="this.dadosCaso.chat == null" :chatId="null" :url="this.urlChat"/>
-
-     </v-flex>
-
- </v-layout>
+              <tr>
+                <td>
+                  <strong>Mensagem:</strong>
+                </td>
+                <td>{{ dadosCaso.legalCase.message}}</td>
+              </tr>
+            </tbody>
+          </v-simple-table>
+        </template>
+      </v-card>
+      <Chat
+        v-if="this.dadosCaso.chat != null"
+        :chatId="this.dadosCaso.chat.id"
+        :url="this.urlChat"
+        :status="this.dadosCaso.legalCase"
+        :dataChat="this.dadosCaso.chat"
+        origem="duvidaRecebida"
+      />
+      <Chat
+        v-if="this.dadosCaso.chat == null"
+        :status="this.dadosCaso.legalCase"
+        :dataChat="this.dadosCaso.chat"
+        origem="duvidaRecebida"
+        :chatId="null"
+        :url="this.urlChat"
+      />
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
-  import { mapState } from 'vuex'
-  import moment from 'moment'
-  import 'moment/locale/pt-br'
-  import axios from 'axios'
-  import Chat from '../../chat/Chat'
+import { mapState } from "vuex";
+import moment from "moment";
+import "moment/locale/pt-br";
+import axios from "axios";
+import Chat from "../../chat/Chat";
 
-  export default {
-    props: ['id'],
-    components:{
-        Chat
-    },
-    data() {
-      return {
-        dadosCaso: '',
-        mostrarCaso: false,
-        urlChat: ''
-      }
-    },
-    watch: {
-      id() {
-        this.getDiligence()
-      }
-    },
-    methods:{
-      getDiligence(){
-        this.$store.commit('setVueLoad', true)
-         axios.get(`${this.$store.getters.api}/api/v1/legal-case/received/${this.$route.params.id}`, {headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
+export default {
+  props: ["id"],
+  components: {
+    Chat
+  },
+  data() {
+    return {
+      dadosCaso: "",
+      mostrarCaso: false,
+      urlChat: ""
+    };
+  },
+  watch: {
+    id() {
+      this.getDiligence();
+    }
+  },
+  methods: {
+    getDiligence() {
+      this.$store.commit("setVueLoad", true);
+      axios
+        .get(
+          `${this.$store.getters.api}/api/v1/legal-case/received/${this.$route.params.id}`,
+          {
+            headers: { Authorization: `Bearer ${this.$store.getters.getToken}` }
+          }
+        )
         .then(res => {
-          this.$store.commit('setVueLoad', false)
+          this.$store.commit("setVueLoad", false);
           this.dadosCaso = res.data;
-          this.urlChat = `${this.$store.getters.api}/api/v1/legal-case/received/${this.dadosCaso.legalCase.id}/reply`
+          this.urlChat = `${this.$store.getters.api}/api/v1/legal-case/received/${this.dadosCaso.legalCase.id}/reply`;
           this.mostrarCaso = true;
         })
-        .catch(e => console.log(e))
-      }
-    },
-    filters: {
-      horaDaMensagem(val) {
-        return moment(val).locale('pt-br').fromNow()
-      }
-    },
-    created() {
-      this.getDiligence();
-    },
-    // updated(){
-    //   this.getDiligence();
-    // }
+        .catch(e => console.log(e));
+    }
+  },
+  filters: {
+    horaDaMensagem(val) {
+      return moment(val)
+        .locale("pt-br")
+        .fromNow();
+    }
+  },
+  created() {
+    this.getDiligence();
   }
+  // updated(){
+  //   this.getDiligence();
+  // }
+};
 </script>
