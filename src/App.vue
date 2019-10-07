@@ -30,12 +30,16 @@ export default {
   },
   created() {
     const usuario = sessionStorage.usuario;
-    if (usuario === undefined && this.$route.name !== "login") {
-      sessionStorage.redirectTo = window.location.href;
-      this.$store.commit("setVueLoad", false);
-      this.$router.push({ name: "login" });
+    if (this.$route.name === "cadastro") {
+      console.log("Cadastre-se...");
     } else {
-      console.log("Login Page :)");
+      if (usuario === undefined && this.$route.name !== "login") {
+        sessionStorage.redirectTo = window.location.href;
+        this.$store.commit("setVueLoad", false);
+        this.$router.push({ name: "login" });
+      } else {
+        console.log("Login Page :)");
+      }
     }
   }
 };

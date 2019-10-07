@@ -182,6 +182,13 @@
             </v-list-item-content>
           </v-list-item>
         </v-list-group>
+        <v-divider class="mt-5"></v-divider>
+        <v-list-item class="mt-5" href="https://tawk.to/chat/5d7a8373c22bdd393bb58ff8/default" target="_blank">
+          <v-icon class="mr-5">message</v-icon>
+          <v-list-item-content>
+            <v-list-item-title class="ml-3">Fale com o Suporte</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
         <v-list-item @click="sair">
           <v-icon class="mr-5">power_settings_new</v-icon>
           <v-list-item-content>
@@ -254,9 +261,9 @@ export default {
     },
     redirecting(notification) {
       if (notification.type_notification === "Diligência") {
-        this.$router.push(`/diligencia/recebida/${notification.uuid}`);
+        this.$router.push(`/diligencia/recebida/${notification.id}`);
       } else {
-        this.$router.push(`/casos-juridicos/recebido/${notification.uuid}`);
+        this.$router.push(`/casos-juridicos/recebido/${notification.id}`);
       }
     },
     irPara(rota) {

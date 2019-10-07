@@ -84,7 +84,7 @@
                 <div class="linhaSemQuebra">
                   <v-spacer></v-spacer>
                   <div class="coluna pr-4 pt-4">
-                    <h3 class="text-right font-weight-light grey--text">Diligências</h3>
+                    <h3 class="text-right font-weight-light grey--text">Serviços</h3>
                     <h2 class="font-weight-light" align="right">{{diligences.length}}</h2>
                   </div>
                 </div>
@@ -117,7 +117,7 @@
                 <div class="linhaSemQuebra">
                   <v-spacer></v-spacer>
                   <div class="coluna pr-4 pt-4">
-                    <h3 class="text-right font-weight-light grey--text">Casos jurídicos</h3>
+                    <h3 class="text-right font-weight-light grey--text">Dúvidas</h3>
                     <h2 class="font-weight-light" align="right">{{legalCases.length}}</h2>
                   </div>
                 </div>
