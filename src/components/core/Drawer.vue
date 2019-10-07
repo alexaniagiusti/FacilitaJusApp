@@ -158,6 +158,11 @@
               <v-list-item-title>Recebidos</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+          <v-list-item class="ml-2" @click="$router.push({'name':'diligenciasArquivadas'})">
+            <v-list-item-content>
+              <v-list-item-title>Arquivados</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
         </v-list-group>
         <v-list-group prepend-icon="gavel" no-action>
           <template v-slot:activator>
@@ -181,9 +186,18 @@
               <v-list-item-title>Recebidos</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+          <v-list-item class="ml-2" @click="$router.push({'name': 'casosJuridicosArquivados'})">
+            <v-list-item-content>
+              <v-list-item-title>Arquivados</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
         </v-list-group>
         <v-divider class="mt-5"></v-divider>
-        <v-list-item class="mt-5" href="https://tawk.to/chat/5d7a8373c22bdd393bb58ff8/default" target="_blank">
+        <v-list-item
+          class="mt-5"
+          href="https://tawk.to/chat/5d7a8373c22bdd393bb58ff8/default"
+          target="_blank"
+        >
           <v-icon class="mr-5">message</v-icon>
           <v-list-item-content>
             <v-list-item-title class="ml-3">Fale com o Suporte</v-list-item-title>
@@ -270,9 +284,10 @@ export default {
       console.log("fui chamada");
     },
     sair() {
+      this.$router.push({ name: "login" });
       sessionStorage.clear();
       this.$store.commit("setUser", null);
-      this.$router.push({ name: "login" });
+      location.reload();
     }
   },
   created() {
