@@ -158,6 +158,11 @@
               <v-list-item-title>Recebidos</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+          <v-list-item class="ml-2" @click="$router.push({'name':'diligenciasArquivadas'})">
+            <v-list-item-content>
+              <v-list-item-title>Arquivados</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
         </v-list-group>
         <v-list-group prepend-icon="gavel" no-action>
           <template v-slot:activator>
@@ -179,6 +184,11 @@
           <v-list-item class="ml-2" @click="$router.push({'name': 'casosJuridicosRecebidos'})">
             <v-list-item-content>
               <v-list-item-title>Recebidos</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item class="ml-2" @click="$router.push({'name': 'casosJuridicosArquivados'})">
+            <v-list-item-content>
+              <v-list-item-title>Arquivados</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list-group>
