@@ -2,7 +2,46 @@
 	<div class="visualizar" v-if="mostrarDiligencia">
 		<v-flex xs12>
 			<v-card>
-				<v-card-title>Serviço #{{dadosDiligencia.id}}</v-card-title>
+				<v-dialog
+          v-model="dialog"
+          max-width="330"
+        >
+          <v-card>
+            <v-card-title class="headline">Deseja realmente arquivar essa diligência?</v-card-title>
+
+            <v-card-text>
+              Clique em "confirmar" para arquivar a diligência ou clique em "cancelar" para interromper esta ação.
+            </v-card-text>
+
+            <v-card-actions>
+              <div class="flex-grow-1"></div>
+
+              <v-btn
+                color="green darken-1"
+                text
+                @click="dialog = false"
+              >
+                Confirmar
+              </v-btn>
+
+              <v-btn
+                color="green darken-1"
+                text
+                @click="dialog = false"
+              >
+                Cancelar
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+				<v-card-title>Serviço #{{dadosDiligencia.id}}
+          <v-spacer></v-spacer>
+					<v-btn @click="dialog = true" class="ma-3" small color="#D32F2F"><span class="mr-2 white--text">Arquivar</span>
+            <v-icon color="white" size="18">
+              assignment_returned
+            </v-icon>
+					</v-btn>
+        </v-card-title>
         <template>
           <v-simple-table>
             <tbody>
@@ -36,6 +75,11 @@
                 </td>
                 <td>R$ {{ dadosDiligencia.price}}</td>
               </tr>
+
+							<!-- <tr>
+								<td><strong>Telefone:</strong></td>
+								<td>{{ dadosDiligencia.phone}}</td>
+							</tr> -->
 
 							<tr>
 								<td><strong>Mensagem:</strong></td>
@@ -105,6 +149,7 @@ export default {
   },
   data() {
     return {
+      dialog: false
       dadosDiligencia: "",
       mostrarDiligencia: false,
       urlChat: "",
