@@ -23,6 +23,10 @@
 						<v-icon>forum</v-icon>Em Negociação
 					</v-tab>
 
+					<v-tab @click="withWaitingApprovalStatus">
+						<v-icon>done</v-icon>Em Negociação
+					</v-tab>
+
 					<v-tab @click="withFinishedStatus">
 						<v-icon>done_all</v-icon>Finalizados
 					</v-tab>
@@ -31,6 +35,8 @@
 				<v-divider></v-divider>
 
 				<v-tabs-items v-model="tab">
+					<v-tab-item><Listar v-if="this.showListar" :diligences="this.diligences" /></v-tab-item>
+
 					<v-tab-item><Listar v-if="this.showListar" :diligences="this.diligences" /></v-tab-item>
 
 					<v-tab-item><Listar v-if="this.showListar" :diligences="this.diligences" /></v-tab-item>
@@ -65,6 +71,14 @@
 				</span>
 				<v-icon>
 					forum
+				</v-icon>
+			</v-btn>
+			<v-btn @click="withWaitingApprovalStatus">
+				<span>
+					Em aprovação
+				</span>
+				<v-icon>
+					done
 				</v-icon>
 			</v-btn>
 			<v-btn @click="withFinishedStatus">
@@ -130,6 +144,34 @@
 						this.$store.commit('setVueLoad', false)
 						this.diligences = res.data;
 						this.verifyDiligencesExists('Não há serviços em negociação.');
+						this.showListar = true
+					})
+					.catch(e => console.log(e))
+			},
+
+			withWaitingApprovalStatus(){
+				this.$store.commit('setVueLoad', true)
+				this.showListar = false
+				axios.get(`${this.$store.getters.api}/api/v1/diligences/sent/waitingapproval/${this.$store.getters.getUsuario.email}`, 
+					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
+					.then(res => {
+						this.$store.commit('setVueLoad', false)
+						this.diligences = res.data;
+						this.verifyDiligencesExists('Não há serviços aguardando aprovação.');
+						this.showListar = true
+					})
+					.catch(e => console.log(e))
+			},
+
+			withFinishedStatus(){
+				this.$store.commit('setVueLoad', true)
+				this.showListar = false
+				axios.get(`${this.$store.getters.api}/api/v1/diligences/sent/negotiation/${this.$store.getters.getUsuario.email}`, 
+					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
+					.then(res => {
+						this.$store.commit('setVueLoad', false)
+						this.diligences = res.data;
+						this.verifyDiligencesExists('Não há serviços aguardando aprovação.');
 						this.showListar = true
 					})
 					.catch(e => console.log(e))
