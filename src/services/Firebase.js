@@ -28,12 +28,10 @@ if (sUsrAg.indexOf("Chrome") > -1) {
   sBrowser = "Mozilla Firefox";
 } else if (sUsrAg.indexOf("MSIE") > -1) {
   sBrowser = "Microsoft Internet Explorer";
-} else if (/Edge/.test(navigator.userAgent)) {
-  sBrowser = "Edge";
 }
 
 let m = "";
-if (sBrowser !== "Apple Safari" || sBrowser !== "Edge") {
+if (sBrowser !== "Apple Safari") {
   m = f.messaging();
 }
 
