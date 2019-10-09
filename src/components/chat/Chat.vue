@@ -389,6 +389,7 @@ export default {
         let messages = [];
         snapshot.forEach(i => {
           let item = i.val();
+
           item.key = i.key;
           messages.push(item);
         });
@@ -434,7 +435,6 @@ export default {
         this.showPaymentButton = false;
         break;
       default:
-        console.log("sem");
     }
     if (this.chatId === null) {
       //this.$store.commit("setVueLoad", true);

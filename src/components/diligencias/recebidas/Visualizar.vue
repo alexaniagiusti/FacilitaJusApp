@@ -5,7 +5,6 @@
         <v-card-title class="headline">Deseja realmente arquivar esta diligência?</v-card-title>
 
         <v-card-text>Clique em "confirmar" para arquivar a diligência ou clique em "cancelar" para interromper esta ação.</v-card-text>
-
         <v-card-actions>
           <div class="flex-grow-1"></div>
 

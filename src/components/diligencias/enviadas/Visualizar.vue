@@ -58,7 +58,6 @@
                 </td>
                 <td>R$ {{ dadosDiligencia.price}}</td>
               </tr>
-
               <!-- <tr>
 								<td><strong>Telefone:</strong></td>
 								<td>{{ dadosDiligencia.phone}}</td>
