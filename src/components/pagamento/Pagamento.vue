@@ -86,6 +86,7 @@
                                   rounded
                                   outlined
                                   text
+                                  v-if="pagamento.pode_editar"
                                   @click="alteraValor=true, itemIndex=i"
                                   color="green lighten-1"
                                   class="white--text"
