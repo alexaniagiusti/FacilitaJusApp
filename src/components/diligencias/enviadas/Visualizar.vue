@@ -1,8 +1,30 @@
 <template>
-	<div class="visualizar" v-if="mostrarDiligencia">
-		<v-flex xs12>
-			<v-card>
-				<v-card-title>Serviço #{{dadosDiligencia.id}}</v-card-title>
+  <div class="visualizar" v-if="mostrarDiligencia">
+    <v-flex xs12>
+      <v-card>
+        <v-dialog v-model="dialog" max-width="330">
+          <v-card>
+            <v-card-title class="headline">Deseja realmente arquivar esta diligência?</v-card-title>
+
+            <v-card-text>Clique em "confirmar" para arquivar a diligência ou clique em "cancelar" para interromper esta ação.</v-card-text>
+
+            <v-card-actions>
+              <div class="flex-grow-1"></div>
+
+              <v-btn color="green darken-1" text @click="arquivar">Confirmar</v-btn>
+
+              <v-btn color="green darken-1" text @click="dialog = false">Cancelar</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        <v-card-title>
+          Serviço #{{dadosDiligencia.id}}
+          <v-spacer></v-spacer>
+          <v-btn @click="dialog = true" class="ma-3" small color="#D32F2F">
+            <span class="mr-2 white--text">Arquivar</span>
+            <v-icon color="white" size="18">assignment_returned</v-icon>
+          </v-btn>
+        </v-card-title>
         <template>
           <v-simple-table>
             <tbody>
@@ -36,16 +58,22 @@
                 </td>
                 <td>R$ {{ dadosDiligencia.price}}</td>
               </tr>
+              <!-- <tr>
+								<td><strong>Telefone:</strong></td>
+								<td>{{ dadosDiligencia.phone}}</td>
+              </tr>-->
 
-							<tr>
-								<td><strong>Mensagem:</strong></td>
-								<td>{{ dadosDiligencia.message}}</td>
-							</tr>
-						</tbody>
-					</v-simple-table>
-				</template>
-			</v-card>
-		</v-flex>
+              <tr>
+                <td>
+                  <strong>Mensagem:</strong>
+                </td>
+                <td>{{ dadosDiligencia.message}}</td>
+              </tr>
+            </tbody>
+          </v-simple-table>
+        </template>
+      </v-card>
+    </v-flex>
 
     <v-layout row>
       <v-flex xs12 md3 class="pa-2">
@@ -105,6 +133,7 @@ export default {
   },
   data() {
     return {
+      dialog: false,
       dadosDiligencia: "",
       mostrarDiligencia: false,
       urlChat: "",
@@ -125,6 +154,30 @@ export default {
   },
 
   methods: {
+    arquivar() {
+      this.$store.commit("setVueLoad", true);
+      axios
+        .post(
+          `${this.$store.getters.api}/api/v1/diligence/${this.id}/archive`,
+          {
+            headers: {
+              Authorization: `Bearer ${this.$store.getters.getToken}`
+            }
+          }
+        )
+        .then(
+          () =>
+            this.$store.dispatch("snackbar_success", "Arquivamento Concluído"),
+          this.$store.commit("setVueLoad", false),
+          (this.dialog = false)
+        )
+        .catch(() =>
+          this.$store.dispatch(
+            "snackbar_error",
+            "Erro ao arquivar, tente novamente"
+          )
+        );
+    },
     openChat(chat) {
       this.$store.commit("setVueLoad", true);
       this.showChat = false;

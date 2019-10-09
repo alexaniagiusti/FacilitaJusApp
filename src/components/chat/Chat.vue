@@ -306,10 +306,8 @@ export default {
     },
     beforeSendMessage() {
       if (this.chatId === null && this.chat_id === null) {
-        console.log("não existe chat");
         this.reply();
       } else {
-        console.log("já existe chat");
         this.getChatFirebase();
         this.replyFirebase(this.chat_id);
       }
@@ -329,13 +327,10 @@ export default {
             this.$store.commit("setVueLoad", false);
           })
           .catch(e => console.log(e));
-      } else {
-        console.log("msg em branco");
       }
     },
     scrollChat() {
       var chatContent = document.querySelector(".chat_content");
-      console.log(".", chatContent.scrollHeight);
       chatContent.scrollTop = chatContent.scrollHeight;
     },
     replyFirebase(id) {
@@ -366,11 +361,8 @@ export default {
           .then(() => {
             this.message.message = "";
             var chatContent = document.querySelector(".chat_content");
-            console.log(".", chatContent.scrollHeight);
             chatContent.scrollTop = chatContent.scrollHeight;
           });
-      } else {
-        console.log("msg em branco");
       }
     },
     getChat(id) {
@@ -393,13 +385,11 @@ export default {
           ? `chats/duvidas/${idOk}/messages`
           : `chats/diligencias/${idOk}/messages`;
       const query = db.ref(path);
-      console.log("path", path);
       query.on("value", snapshot => {
-        console.log("snap", snapshot.val());
         let messages = [];
         snapshot.forEach(i => {
           let item = i.val();
-          console.log("chamada", item);
+
           item.key = i.key;
           messages.push(item);
         });
@@ -445,7 +435,6 @@ export default {
         this.showPaymentButton = false;
         break;
       default:
-        console.log("origem inválida");
     }
     if (this.chatId === null) {
       //this.$store.commit("setVueLoad", true);

@@ -149,9 +149,9 @@ export default new Vuex.Store({
     },
     api() {
       // return 'http://facilitajus.api'
-      // return 'https://facilitajus-api.herokuapp.com';
+      return 'https://facilitajus-api.herokuapp.com';
       // return 'https://www.api.facilitajus.com'
-      return 'https://api.facilitajus.com.br';
+      //return 'https://api.facilitajus.com.br';
     },
   },
 });
