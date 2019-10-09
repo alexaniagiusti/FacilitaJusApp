@@ -4,8 +4,8 @@ import Login from './pages/Login.vue';
 import ResetPassword from './pages/ResetPassword.vue';
 import Home from './pages/Home.vue';
 import Cadastro from './pages/Cadastro.vue';
-
 import Usuario from './pages/Usuario.vue';
+import SejaPremium from './pages/SejaPremium.vue';
 
 
 // Diligências
@@ -51,6 +51,11 @@ export default new Router({
           path: '/perfil',
           name: 'Usuario',
           component: Usuario,
+        },
+        {
+          path: '/seja-premium',
+          name: 'sejapremium',
+          component: SejaPremium,
         },
         {
           path: '/diligencias',
