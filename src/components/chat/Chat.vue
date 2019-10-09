@@ -30,7 +30,7 @@
           color="green"
         >Pagar para {{ remetent | filterName }}</v-btn>
         <v-btn
-          @click="concluiServicoDialog = true"
+          @click="abreDialog('check', 'Confirma a conclusão deste serviço?', () => concluirServico())"
           v-if="status.status_id === 3 && $store.getters.getUsuario.email !== status.email"
           small
           class="white--text ma-2"
@@ -45,7 +45,7 @@
         >Excluir Chat</v-btn>
         <v-btn
           @click="aprovaServicoDialog = true"
-          v-if="status.status_id === 4"
+          v-if="status.status_id === 4 && $store.getters.getUsuario.email === status.email"
           small
           class="white--text ma-2"
           color="green"
@@ -232,6 +232,33 @@ export default {
     }
   },
   methods: {
+    concluirServico() {
+      this.$store.commit("setVueLoad", true);
+      const data = {
+        chat_id: this.chatId
+      };
+      axios
+        .post(
+          `${this.$store.getters.api}/api/v1/diligence/received/${this.status}/complete`,
+          data,
+          {
+            headers: {
+              Authorization: `Bearer ${this.$store.getters.getToken}`
+            }
+          }
+        )
+        .then(
+          () =>
+            this.$store.commit(
+              "snackbar_success",
+              "Sinalizado como concluído!"
+            ),
+          this.$store.commit("setVueLoad", false),
+          (this.dialogAction.dialog = false),
+          location.reload()
+        )
+        .catch(e => console.log("erro", e));
+    },
     abreDialog(icon, content, confirma) {
       this.dialogAction.dialog = true;
       this.dialogAction.icon = icon;
