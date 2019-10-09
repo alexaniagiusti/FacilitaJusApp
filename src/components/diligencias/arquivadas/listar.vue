@@ -1,6 +1,14 @@
 <template>
-  <v-container>
+  <v-container class="pa-0 ma-0">
     <v-row>
+      <v-toolbar flat color="white" dark>
+        <v-spacer></v-spacer>
+        <span class="font-weight-light black--text">Serviços que você arquivou</span>
+        <v-spacer></v-spacer>
+      </v-toolbar>
+      <v-flex xs12>
+        <v-divider></v-divider>
+      </v-flex>
       <v-col cols="12" xs="12" md="12">
         <v-simple-table class="hidden-sm-and-down">
           <thead>
@@ -12,18 +20,17 @@
               <th class="text-left blue--text">Data</th>
               <th class="text-left blue--text">Hora</th>
               <th class="text-left blue--text">Preço:</th>
-              <th class="text-left blue--text hidden-sm-and-down"></th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in diligenciasarquivadas" :key="item.name">
+            <tr v-for="item in diligenciasarquivadas" :key="item.id">
               <td>{{ item.id }}</td>
-              <td>{{ item.name }}</td>
-              <td>{{ item.city.city }}</td>
-              <td>{{ item.service.service }}</td>
+              <td>{{ item.diligence.name }}</td>
+              <td>{{ item.diligence.city.city }}</td>
+              <td>{{ item.diligence.service.service }}</td>
               <td>{{ item.date | filterDate }}</td>
-              <td>{{ item.time }}</td>
-              <td>{{ item.price }}</td>
+              <td>{{ item.diligence.time }}</td>
+              <td>{{ item.diligence.price }}</td>
             </tr>
           </tbody>
         </v-simple-table>
