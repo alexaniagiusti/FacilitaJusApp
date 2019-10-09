@@ -23,6 +23,10 @@
 						<v-icon>forum</v-icon>Em Negociação
 					</v-tab>
 
+					<v-tab @click="withWaitingApprovalStatus">
+						<v-icon>done</v-icon>Em Aprovação
+					</v-tab>
+
 					<v-tab @click="withFinishedStatus">
 						<v-icon>done_all</v-icon>Finalizadas
 					</v-tab>
@@ -35,6 +39,8 @@
 
 					<v-tab-item><Listar v-if="this.showListar" :legalCases="this.legalCases" /></v-tab-item>
 
+					<v-tab-item><Listar v-if="this.showListar" :legalCases="this.legalCases" /></v-tab-item>
+					
 					<v-tab-item><Listar v-if="this.showListar" :legalCases="this.legalCases" /></v-tab-item>
 
 					<v-tab-item><Listar v-if="this.showListar" :legalCases="this.legalCases" /></v-tab-item>
@@ -59,12 +65,12 @@
 					comment
 				</v-icon>
 			</v-btn>
-			<v-btn @click="withNegotiationStatus">
+			<v-btn @click="withWaitingApprovalStatus">
 				<span>
-					Em negociação
+					Em aprovação
 				</span>
 				<v-icon>
-					forum
+					done
 				</v-icon>
 			</v-btn>
 			<v-btn @click="withFinishedStatus">
@@ -135,6 +141,20 @@
 					.catch(e => console.log(e))
 			},
 
+			withWaitingApprovalStatus(){
+				this.showListar = false
+				this.$store.commit('setVueLoad', true)				
+				axios.get(`${this.$store.getters.api}/api/v1/legal-cases/received/waitingapproval/${this.$store.getters.getUsuario.id}`, 
+					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
+					.then(res => {
+						this.$store.commit('setVueLoad', false)
+						this.legalCases = res.data;
+						this.verifyLegalCaseExists('Não há dúvidas jurídicas finalizadas.')
+						this.showListar = true
+					})
+					.catch(e => console.log(e))
+			},
+
 			withFinishedStatus(){
 				this.showListar = false
 				this.$store.commit('setVueLoad', true)				
@@ -148,6 +168,7 @@
 					})
 					.catch(e => console.log(e))
 			},
+
 			verifyLegalCaseExists(message){
 				if(this.legalCases.length <= 0){
 					this.$store.dispatch("snackbar_warning", message);

@@ -16,6 +16,9 @@ import VisualizarDiligenciaRecebida from './components/diligencias/recebidas/Vis
 import VisualizarDiligenciaEnviada from './components/diligencias/enviadas/Visualizar.vue';
 import EnviarDiligencia from './components/diligencias/Enviar.vue';
 
+//Diligencia Arquivadas
+import DiligenciaArquivada from './components/diligencias/arquivadas/listar.vue'
+
 // Casos jurídicos
 import CasosJuridicos from './pages/CasosJuridicos.vue';
 import casosJuridicosRecibidos from './components/casos/CasosRecebidos.vue';
@@ -24,6 +27,9 @@ import EnviarCasoJuridico from './components/casos/Enviar.vue';
 import VisualizarCasoRecebido from './components/casos/recebidos/Visualizar.vue';
 import casosJuridicosEnviados from './components/casos/CasosEnviados.vue';
 import VisualizarCasoEnviado from './components/casos/enviados/Visualizar.vue';
+
+//Caso Jurídico Arquivado
+import CasosArquivados from './components/casos/arquivados/listar.vue';
 
 Vue.use(Router);
 
@@ -74,6 +80,11 @@ export default new Router({
               component: DiligenciasRecebidas,
             },
             {
+              path: '/diligencias/diligencias-arquivadas',
+              name: 'diligenciasArquivadas',
+              component: DiligenciaArquivada,
+            },
+            {
               path: '/diligencia/enviada/:id',
               name: 'visualizarDiligenciaEnviada',
               component: VisualizarDiligenciaEnviada,
@@ -110,6 +121,11 @@ export default new Router({
               path: '/casos-juridicos/enviados',
               name: 'casosJuridicosEnviados',
               component: casosJuridicosEnviados,
+            },
+            {
+              path: '/casos-juridicos/arquivados',
+              name: 'casosJuridicosArquivados',
+              component: CasosArquivados,
             },
             {
               path: '/casos-juridicos/enviado/:id',
