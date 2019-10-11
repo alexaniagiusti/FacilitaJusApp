@@ -36,6 +36,12 @@
               </tr>
               <tr>
                 <td>
+                  <strong>Status:</strong>
+                </td>
+                <td>{{ dadosCaso.legalCase.status.status }}</td>
+              </tr>
+              <tr>
+                <td>
                   <strong>Cidade:</strong>
                 </td>
                 <td>{{ dadosCaso.legalCase.city.city }} - {{ dadosCaso.legalCase.city.state }}</td>
