@@ -41,7 +41,6 @@
                 <v-list-item-content>
                   <v-list-item-title class="font-weight-bold">{{ item.type }}</v-list-item-title>
                   <v-list-item-subtitle>{{ item.city }}</v-list-item-subtitle>
-                  <v-list-item-subtitle>#{{ item.uuid }}</v-list-item-subtitle>
                 </v-list-item-content>
                 <v-list-item-actions>
                   <v-btn small color="blue darken-2" class="white--text">Ver</v-btn>

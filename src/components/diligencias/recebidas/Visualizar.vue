@@ -134,8 +134,7 @@ export default {
         .fromNow();
     },
     dateFilter(val) {
-      const dateFomatted = new Helper().dateFilter(val);
-      return dateFomatted;
+      return moment(val).format("DD/MM/YYYY");
     }
   },
   watch: {
@@ -146,9 +145,11 @@ export default {
   methods: {
     arquivar() {
       this.$store.commit("setVueLoad", true);
+      console.log("uid", this.id);
       axios
         .post(
           `${this.$store.getters.api}/api/v1/diligence/${this.id}/archive`,
+          null,
           {
             headers: {
               Authorization: `Bearer ${this.$store.getters.getToken}`
