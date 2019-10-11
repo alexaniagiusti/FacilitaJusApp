@@ -1,7 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
-import "firebase/messaging";
+//import "firebase/messaging";
 
 const config = {
   apiKey: "AIzaSyAHB61SbrxePljc9_KHeIkHpwdDMhH6Ie8",
@@ -31,9 +31,9 @@ if (sUsrAg.indexOf("Chrome") > -1) {
 }
 
 let m = "";
-if (sBrowser !== "Apple Safari") {
-  m = f.messaging();
-}
+//if (sBrowser !== "Apple Safari") {
+//  m = f.messaging();
+//}
 
 export const db = f.database();
 export const auth = f.auth();
