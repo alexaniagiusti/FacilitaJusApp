@@ -25,6 +25,8 @@ import VisualizarCasoRecebido from './components/casos/recebidos/Visualizar.vue'
 import casosJuridicosEnviados from './components/casos/CasosEnviados.vue';
 import VisualizarCasoEnviado from './components/casos/enviados/Visualizar.vue';
 
+import DadosBancarios from './components/usuario/DadosBancarios.vue';
+
 Vue.use(Router);
 
 export default new Router({
@@ -56,6 +58,11 @@ export default new Router({
           path: '/seja-premium',
           name: 'sejapremium',
           component: SejaPremium,
+        },
+        {
+          path: '/dados-bancarios',
+          name: 'dadosbancarios',
+          component: DadosBancarios,
         },
         {
           path: '/diligencias',
