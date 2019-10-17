@@ -24,7 +24,9 @@
 					</v-tab>
 
 					<v-tab @click="withWaitingApprovalStatus">
-						<v-icon>done</v-icon>Em Aprovação
+
+						<v-icon>done</v-icon>Em Negociação
+            
 					</v-tab>
 
 					<v-tab @click="withFinishedStatus">
