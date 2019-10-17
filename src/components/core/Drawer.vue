@@ -182,6 +182,14 @@
             </v-list-item-content>
           </v-list-item>
         </v-list-group>
+
+        <v-list-item  @click="$router.push({'name': 'dadosbancarios'})">
+          <v-icon class="mr-5">money</v-icon>
+          <v-list-item-content>
+            <v-list-item-title class="ml-3">Dados Bancários</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
         <v-divider class="mt-5"></v-divider>
         <v-list-item  id="BtnPremium" class="mt-5" @click="$router.push({'name': 'sejapremium'})">
           <v-icon class="mr-5" color="yellow darken-3">star</v-icon>
