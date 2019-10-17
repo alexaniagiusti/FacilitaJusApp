@@ -152,6 +152,7 @@ export default {
       axios
         .post(
           `${this.$store.getters.api}/api/v1/legal-case/${this.id}/archive`,
+          null,
           {
             headers: {
               Authorization: `Bearer ${this.$store.getters.getToken}`
