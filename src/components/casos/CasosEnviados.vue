@@ -23,6 +23,10 @@
 						<v-icon>forum</v-icon>Em Negociação
 					</v-tab>
 
+					<v-tab @click="withWaitingApprovalStatus">
+						<v-icon>done</v-icon>Em Aprovação
+					</v-tab>
+
 					<v-tab @click="withFinishedStatus">
 						<v-icon>done_all</v-icon>Finalizadas
 					</v-tab>
@@ -31,6 +35,8 @@
 				<v-divider></v-divider>
 
 				<v-tabs-items v-model="tab">
+					<v-tab-item><Listar v-if="this.showListar" :legalCases="this.legalCases" /></v-tab-item>
+
 					<v-tab-item><Listar v-if="this.showListar" :legalCases="this.legalCases" /></v-tab-item>
 
 					<v-tab-item><Listar v-if="this.showListar" :legalCases="this.legalCases" /></v-tab-item>
@@ -67,6 +73,14 @@
 					forum
 				</v-icon>
 			</v-btn>
+			<v-btn @click="withWaitingApprovalStatus">
+				<span>
+					Em aprovação
+				</span>
+				<v-icon>
+					done
+				</v-icon>
+			</v-btn>
 			<v-btn @click="withFinishedStatus">
 				<span>Finalizadas</span>
 				<v-icon>
@@ -99,6 +113,7 @@
 				axios.get(`${this.$store.getters.api}/api/v1/legal-cases/sent/open/${this.$store.getters.getUsuario.email}`, 
 					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
 					.then(res => {
+						console.log(res.data)
 						this.$store.commit('setVueLoad', false)
 						this.legalCases = res.data;
 						this.verifyLegalCaseExists('Não há dúvidas jurídicas em aberto.')
@@ -130,6 +145,21 @@
 						this.$store.commit('setVueLoad', false)
 						this.legalCases = res.data;
 						this.verifyLegalCaseExists('Não há dúvidas jurídicas em negociação.')
+						this.showListar = true
+					})
+					.catch(e => console.log(e))
+			},
+
+			withWaitingApprovalStatus(){
+				this.$store.commit('setVueLoad', true)
+				this.showListar = false
+				axios.get(`${this.$store.getters.api}/api/v1/legal-cases/sent/waitingapproval/${this.$store.getters.getUsuario.email}`, 
+					{headers: {'Authorization': `Bearer ${this.$store.getters.getToken}`}})
+					.then(res => {
+						console.log(res.data)
+						this.$store.commit('setVueLoad', false)
+						this.legalCases = res.data;
+						this.verifyLegalCaseExists('Não há dúvidas em negociação.');
 						this.showListar = true
 					})
 					.catch(e => console.log(e))

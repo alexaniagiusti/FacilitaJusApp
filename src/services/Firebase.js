@@ -31,9 +31,11 @@ if (sUsrAg.indexOf("Chrome") > -1) {
 }
 
 let m = "";
-//if (sBrowser !== "Apple Safari") {
-//  m = f.messaging();
-//}
+
+if (sBrowser !== "Apple Safari") {
+  m = f.messaging();
+}
+
 
 export const db = f.database();
 export const auth = f.auth();

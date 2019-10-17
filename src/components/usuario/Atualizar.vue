@@ -300,7 +300,7 @@ export default {
 
         axios
           .put(
-            `${this.$store.getters.api}/api/v1/users/${this.$store.getters.getUsuario.id}`,
+            `${this.$store.getters.api}/api/v1/users/${this.$store.getters.getUsuario.uuid}`,
             data,
             {
               headers: {
