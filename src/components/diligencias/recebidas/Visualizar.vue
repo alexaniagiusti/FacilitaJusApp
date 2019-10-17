@@ -34,6 +34,12 @@
               </tr>
               <tr>
                 <td>
+                  <strong>Status:</strong>
+                </td>
+                <td>{{ dadosDiligencia.diligence.status.status }}</td>
+              </tr>
+              <tr>
+                <td>
                   <strong>Cidade:</strong>
                 </td>
                 <td>
@@ -84,6 +90,7 @@
           </v-simple-table>
         </template>
       </v-card>
+      <br>
       <Chat
         v-if="this.dadosDiligencia.chat != null"
         :status="this.dadosDiligencia.diligence"
@@ -92,7 +99,6 @@
         :url="this.urlChat"
         origem="diligenciaRecebida"
       />
-
       <Chat
         v-if="this.dadosDiligencia.chat == null"
         :chatId="null"

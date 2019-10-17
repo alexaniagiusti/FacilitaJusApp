@@ -282,10 +282,10 @@ export default {
       },
       payment_type: "",
       fields: {
-        card_number: "",
-        holder_name: "",
-        expiration: "",
-        security_code: ""
+        card_number: "5116450166514833",
+        holder_name: "BRUNO SANTOS",
+        expiration: "06/21",
+        security_code: "692"
       },
       selecionado: 0,
       alteraValor: false,
@@ -337,6 +337,7 @@ export default {
             sender_user_id: `${this.$store.getters.pagamento.sender_user_id}`,
             chat_id: this.$store.getters.pagamento.chat_id
           };
+          console.log(data);
           this.efetuaPagamento(data);
         } else {
           this.$store.dispatch("snackbar_info", "Preencha todos os campos");
