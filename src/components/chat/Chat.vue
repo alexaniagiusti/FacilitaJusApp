@@ -402,18 +402,16 @@
         const idOk = this.chatId === null ? this.chat_id : this.chatId;
         let path =
         this.origem === "duvidaRecebida" || this.origem === "duvidaEnviada"
-        ? `chats/duvidas/${idOk}/messages`
-        : `chats/diligencias/${idOk}/messages`;
-        const query = db.ref(path);
-        query.on("value", snapshot => {
-          let messages = [];
-          snapshot.forEach(i => {
-            let item = i.val();
-            item.key = i.key;
-            messages.push(item);
-          });
-          this.chatFirebase = messages;
-          this.scrollChat();
+          ? `chats/duvidas/${idOk}/messages`
+          : `chats/diligencias/${idOk}/messages`;
+      const query = db.ref(path);
+      query.on("value", snapshot => {
+        let messages = [];
+        snapshot.forEach(i => {
+          let item = i.val();
+
+          item.key = i.key;
+          messages.push(item);
         });
       },
       verificaRemetente() {
@@ -453,17 +451,7 @@
         case "duvidaRecebida":
         this.showPaymentButton = false;
         break;
-        default:
-        console.log("sem");
-      }
-      if (this.chatId === null) {
-        //this.$store.commit("setVueLoad", true);
-        //this.getChat(this.chatId);
-      } else {
-        this.getChat(this.chatId);
-        this.getChatFirebase();
-      }
-      this.verificaRemetente();
+      default:
     }
   };
 </script>

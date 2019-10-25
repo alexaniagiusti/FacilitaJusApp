@@ -40,7 +40,7 @@
 						</v-badge>
 						Em Negociação
 					</v-tab>
-					
+          
 					<v-tab>
 						<v-badge class="mr-2" color="green" overlap>
 							<template v-slot:badge>

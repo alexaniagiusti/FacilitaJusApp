@@ -1,4 +1,5 @@
 <template>
+
   <v-layout v-if="mostrarCaso">
     <v-dialog v-model="dialog" max-width="330">
       <v-card>
@@ -56,7 +57,9 @@
                         <tr>
                             <td><strong>Telefone:</strong></td>
                             <td>{{ dadosCaso.legalCase.phone}}</td>
+
               </tr>-->
+
 
               <tr>
                 <td>
