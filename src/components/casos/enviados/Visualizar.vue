@@ -1,39 +1,4 @@
 <template>
-
-	<v-container class="geral" fluid>
-		<v-layout column v-if="showLegalCase">
-			<v-flex xs12>
-				<v-card>
-					<v-card-title>Dúvida Jurídica #{{legalCase.id}}</v-card-title>
-
-          <template>
-            <v-simple-table>
-              <tbody>
-                <tr>
-                  <td>
-                    <strong>Tipo:</strong>
-                  </td>
-                  <td>{{ legalCase.actuation.actuation }}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>Status:</strong>
-                  </td>
-                  <td>{{ legalCase.status.status }}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>Cidade:</strong>
-                  </td>
-                  <td>{{ legalCase.city.city }} - {{ legalCase.city.state }}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>Nome:</strong>
-                  </td>
-                  <td>{{ legalCase.name}}</td>
-                </tr>
-
   <v-container class="geral" fluid>
     <v-layout column v-if="showLegalCase">
       <v-dialog v-model="dialog" max-width="330">
