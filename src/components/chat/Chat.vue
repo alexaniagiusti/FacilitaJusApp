@@ -400,19 +400,21 @@
       },
       getChatFirebase(id) {
         const idOk = this.chatId === null ? this.chat_id : this.chatId;
-        let path =
-        this.origem === "duvidaRecebida" || this.origem === "duvidaEnviada"
+        let path = this.origem === "duvidaRecebida" || this.origem === "duvidaEnviada"
           ? `chats/duvidas/${idOk}/messages`
           : `chats/diligencias/${idOk}/messages`;
-      const query = db.ref(path);
-      query.on("value", snapshot => {
-        let messages = [];
-        snapshot.forEach(i => {
-          let item = i.val();
 
-          item.key = i.key;
-          messages.push(item);
-        });
+        const query = db.ref(path);
+
+        query.on("value", snapshot => {
+          let messages = [];
+            snapshot.forEach(i => {
+            let item = i.val();
+
+            item.key = i.key;
+            messages.push(item);
+          });
+        })
       },
       verificaRemetente() {
         if (
@@ -451,9 +453,10 @@
         case "duvidaRecebida":
         this.showPaymentButton = false;
         break;
-      default:
+        default:
+      }
     }
-  };
+  }
 </script>
 
 <style>
