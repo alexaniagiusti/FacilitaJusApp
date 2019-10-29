@@ -414,6 +414,7 @@
             item.key = i.key;
             messages.push(item);
           });
+          this.chatFirebase = messages
         })
       },
       verificaRemetente() {
@@ -455,6 +456,14 @@
         break;
         default:
       }
+      if (this.chatId === null) {
+        //this.$store.commit("setVueLoad", true);
+        //this.getChat(this.chatId);
+      } else {
+        this.getChat(this.chatId);
+        this.getChatFirebase();
+      }
+      this.verificaRemetente();
     }
   }
 </script>
