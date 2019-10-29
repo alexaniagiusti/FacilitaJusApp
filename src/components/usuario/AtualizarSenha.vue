@@ -2,7 +2,8 @@
   <v-container fluid>
     <v-layout align-center justify-center xs12>
       <v-flex x12 md4>
-        <v-card class="mt-3 mb-3 pa-3">
+        <v-card outlined>
+          <v-card-text>
           <v-text-field
             label="Atualizar Senha"
             v-model="password"
@@ -18,15 +19,19 @@
             :hint="passwordOk ? 'As senhas correspondem' : 'As senhas não correspondem'"
           >
           </v-text-field>
-          <v-btn
-            block
-            :disabled="!passwordOk"
-            @click="updatePassword"
-            color="green"
-          >
+          
+          </v-card-text>
+          <v-card-actions>
+            <v-btn
+              block
+              :disabled="!passwordOk"
+              @click="updatePassword"
+              color="green"
+            >
             <span class="white--text">Confirmar</span>
             <v-progress-circular indeterminate v-if="chargingSave" color="white" size="18" class="pl-1"></v-progress-circular>
-          </v-btn>
+            </v-btn>
+          </v-card-actions>
         </v-card>
       </v-flex>
     </v-layout>

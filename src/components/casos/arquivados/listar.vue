@@ -1,29 +1,35 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col cols="12" xs="12" md="12">
-        <v-simple-table>
+  <v-layout>
+			<v-flex>
+				<v-toolbar flat color="white" dark>
+					<v-spacer></v-spacer>
+					<span class="font-weight-light black--text">Dúvidas Arquivadas</span>
+					<v-spacer></v-spacer>
+				</v-toolbar>
+				<v-divider></v-divider>
+				<v-simple-table>
           <thead>
             <tr>
               <th class="text-left blue--text">#</th>
               <th class="text-left blue--text">Nome</th>
               <th class="text-left blue--text">Cidade</th>
               <th class="text-left blue--text">Tipo</th>
-              <th class="text-left blue--text hidden-sm-and-down"></th>
+              <!-- <th class="text-left blue--text"></th> -->
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in casosarquivados" :key="item.name">
+            <tr v-for="item in casosArquivados" :key="item.id">
               <td>{{ item.id }}</td>
-              <td>{{ item.name }}</td>
-              <td>{{ item.city.city }}</td>
-              <td>{{ item.actuation.actuation }}</td>
+              <td>{{ item.legal_case.name }}</td>
+              <td>{{ item.legal_case.city.city }}</td>
+              <td>{{ item.legal_case.actuation.actuation }}</td>
+              <!-- <td><v-btn class="primary" @click="$router.push({'name': ''})">Visualizar</v-btn></td> -->
             </tr>
           </tbody>
         </v-simple-table>
-      </v-col>
-    </v-row>
-  </v-container>
+				
+			</v-flex>
+		</v-layout>
 </template>
 
 <script>
@@ -33,7 +39,7 @@ import moment from "moment";
 export default {
   data() {
     return {
-      casosarquivados: []
+      casosArquivados: []
     };
   },
   methods: {
@@ -45,8 +51,11 @@ export default {
           }
         })
         .then(
-          res => (this.casosarquivados = res.data),
-          this.$store.commit("setVueLoad", false)
+          res => {
+            (this.casosArquivados = res.data),
+            this.$store.commit("setVueLoad", false)
+            console.log(this.casosArquivados)
+          }
         );
     }
   },

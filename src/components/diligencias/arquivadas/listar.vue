@@ -1,25 +1,22 @@
 <template>
-  <v-container class="pa-0 ma-0">
-    <v-row>
-      <v-toolbar flat color="white" dark>
-        <v-spacer></v-spacer>
-        <span class="font-weight-light black--text">Serviços que você arquivou</span>
-        <v-spacer></v-spacer>
-      </v-toolbar>
-      <v-flex xs12>
-        <v-divider></v-divider>
-      </v-flex>
-      <v-col cols="12" xs="12" md="12">
-        <v-simple-table class="hidden-sm-and-down">
+  <v-layout>
+			<v-flex>
+				<v-toolbar flat color="white" dark>
+					<v-spacer></v-spacer>
+					<span class="font-weight-light black--text">Serviços Arquivados</span>
+					<v-spacer></v-spacer>
+				</v-toolbar>
+				<v-divider></v-divider>
+				<v-simple-table>
           <thead>
             <tr>
               <th class="text-left blue--text">#</th>
               <th class="text-left blue--text">Nome</th>
               <th class="text-left blue--text">Cidade</th>
               <th class="text-left blue--text">Tipo</th>
-              <th class="text-left blue--text">Data</th>
-              <th class="text-left blue--text">Hora</th>
-              <th class="text-left blue--text">Preço:</th>
+              <!-- <th class="text-left blue--text">Data</th> -->
+              <!-- <th class="text-left blue--text">Preço:</th> -->
+              <!-- <th class="text-left blue--text"></th> -->
             </tr>
           </thead>
           <tbody>
@@ -28,36 +25,15 @@
               <td>{{ item.diligence.name }}</td>
               <td>{{ item.diligence.city.city }}</td>
               <td>{{ item.diligence.service.service }}</td>
-              <td>{{ item.date | filterDate }}</td>
-              <td>{{ item.diligence.time }}</td>
-              <td>{{ item.diligence.price }}</td>
+              <!-- <td>{{ item.date | filterDate }}</td> -->
+              <!-- <td>{{ item.diligence.price }}</td> -->
+              <!-- <td><v-btn class="primary" @click="$router.push({'name': ''})">Visualizar</v-btn></td> -->
             </tr>
           </tbody>
         </v-simple-table>
-        <v-list three-line class="hidden-sm-and-up">
-          <v-list-item>
-            <v-avatar class="pr-2">
-              <span>#</span>
-            </v-avatar>
-            <v-list-item-content>
-              <v-list-item-title>
-                <span class="font-weight-bold">Alexânia Giusti</span>
-              </v-list-item-title>
-              <span>Andamentos</span>
-              <v-list-item-title>
-                <span>03/10/2019</span> -
-                <span>18:20:00</span>
-              </v-list-item-title>
-              <v-list-item-subtitle>
-                <v-icon size="15">place</v-icon>
-                <span>Macapá - AP</span>
-              </v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-col>
-    </v-row>
-  </v-container>
+				
+			</v-flex>
+		</v-layout>
 </template>
 
 <script>
