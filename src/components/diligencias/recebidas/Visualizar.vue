@@ -154,7 +154,7 @@ export default {
       console.log("uid", this.id);
       axios
         .post(
-          `${this.$store.getters.api}/api/v1/diligence/${this.id}/archive`,
+          `${this.$store.getters.api}/api/v1/diligence/${this.dadosDiligencia.uuid}/archive`,
           null,
           {
             headers: {
@@ -164,9 +164,12 @@ export default {
         )
         .then(
           () =>
-            this.$store.dispatch("snackbar_success", "Arquivamento Concluído"),
-          this.$store.commit("setVueLoad", false),
-          (this.dialog = false)
+            {
+              this.$store.dispatch("snackbar_success", "Arquivamento Concluído"),
+              this.$store.commit("setVueLoad", false),
+              (this.dialog = false)
+              this.$router.push({'name': 'home'})
+          }
         )
         .catch(() =>
           this.$store.dispatch(

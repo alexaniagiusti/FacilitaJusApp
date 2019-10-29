@@ -4,7 +4,7 @@
 			<v-flex>
 				<v-toolbar flat color="white" dark>
 					<v-spacer></v-spacer>
-					<v-toolbar-title class="font-weight-light black--text">Dúvidas Jurídicas Enviadas</v-toolbar-title>
+					<span class="font-weight-light black--text">Dúvidas Jurídicas Enviadas</span>
 					<v-spacer></v-spacer>
 				</v-toolbar>
 				

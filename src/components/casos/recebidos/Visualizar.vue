@@ -121,7 +121,7 @@ export default {
       this.$store.commit("setVueLoad", true);
       axios
         .post(
-          `${this.$store.getters.api}/api/v1/legal-case/${this.id}/archive`,
+          `${this.$store.getters.api}/api/v1/legal-case/${this.dadosCaso.uuid}/archive`,
           null,
           {
             headers: {
@@ -131,9 +131,12 @@ export default {
         )
         .then(
           () =>
-            this.$store.dispatch("snackbar_success", "Arquivamento Concluído"),
-          this.$store.commit("setVueLoad", false),
-          (this.dialog = false)
+            {
+              this.$store.dispatch("snackbar_success", "Arquivamento Concluído"),
+              this.$store.commit("setVueLoad", false),
+              (this.dialog = false)
+              this.$router.push({'name': 'home'})
+            }
         )
         .catch(() =>
           this.$store.dispatch(

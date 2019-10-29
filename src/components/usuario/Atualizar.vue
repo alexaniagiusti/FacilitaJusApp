@@ -1,6 +1,7 @@
 <template>
   <v-container fluid>
-    <v-card class="pa-3">
+    <v-card outlined>
+      <v-card-text>
       <v-form ref="formUser">
         <v-layout row>
           <v-flex xs12 md4 pa-2>
@@ -171,19 +172,19 @@
                 ></v-textarea>
               </v-flex>
 
-              <v-flex xs12 md12 pa-2>
-                <v-btn
-                  :disabled="carregandoSalvarPerfil"
-                  @click="salvarPerfil"
-                  block
-                  color="green"
-                  class="white--text"
-                >Salvar</v-btn>
-              </v-flex>
+              
             </v-layout>
           </v-flex>
         </v-layout>
       </v-form>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn
+          :disabled="carregandoSalvarPerfil"
+          @click="salvarPerfil"
+          block
+          class="success">Salvar</v-btn>
+      </v-card-actions>
     </v-card>
   </v-container>
 </template>

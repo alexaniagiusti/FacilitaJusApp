@@ -1,39 +1,4 @@
 <template>
-
-	<v-container class="geral" fluid>
-		<v-layout column v-if="showLegalCase">
-			<v-flex xs12>
-				<v-card>
-					<v-card-title>Dúvida Jurídica #{{legalCase.id}}</v-card-title>
-
-          <template>
-            <v-simple-table>
-              <tbody>
-                <tr>
-                  <td>
-                    <strong>Tipo:</strong>
-                  </td>
-                  <td>{{ legalCase.actuation.actuation }}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>Status:</strong>
-                  </td>
-                  <td>{{ legalCase.status.status }}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>Cidade:</strong>
-                  </td>
-                  <td>{{ legalCase.city.city }} - {{ legalCase.city.state }}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>Nome:</strong>
-                  </td>
-                  <td>{{ legalCase.name}}</td>
-                </tr>
-
   <v-container class="geral" fluid>
     <v-layout column v-if="showLegalCase">
       <v-dialog v-model="dialog" max-width="330">
@@ -61,7 +26,6 @@
               <v-icon color="white" size="18">assignment_returned</v-icon>
             </v-btn>
           </v-card-title>
-
           <template>
             <v-simple-table>
               <tbody>
@@ -89,15 +53,6 @@
                   </td>
                   <td>{{ legalCase.name}}</td>
                 </tr>
-
-                <!--	<tr>
-									<td><strong>Telefone:</strong></td>
-									<td>{{ legalCase.phone}}</td>
-
-								</tr> -->
-
-
-
                 <tr>
                   <td>
                     <strong>Mensagem:</strong>
@@ -142,7 +97,6 @@
         <!-- <Chat v-if="this.dadosDiligencia.chat != null" :chatId="this.dadosDiligencia.chat.id" :url="this.urlChat"/> -->
 
         <Chat
-
           v-if="this.showChat"
           :chatId="this.chatId"
           :url="this.chatUrl"
@@ -192,7 +146,7 @@ export default {
       this.$store.commit("setVueLoad", true);
       axios
         .post(
-          `${this.$store.getters.api}/api/v1/legal-case/${this.id}/archive`,
+          `${this.$store.getters.api}/api/v1/legal-case/${this.legalCase.uuid}/archive`,
           null,
           {
             headers: {
@@ -202,9 +156,12 @@ export default {
         )
         .then(
           () =>
-            this.$store.dispatch("snackbar_success", "Arquivamento Concluído"),
-          this.$store.commit("setVueLoad", false),
-          (this.dialog = false)
+            {
+              this.$store.dispatch("snackbar_success", "Arquivamento Concluído"),
+              this.$store.commit("setVueLoad", false),
+              (this.dialog = false)
+              this.$router.push({'name': 'home'})
+            }
         )
         .catch(() =>
           this.$store.dispatch(
