@@ -26,7 +26,6 @@
               <v-icon color="white" size="18">assignment_returned</v-icon>
             </v-btn>
           </v-card-title>
-
           <template>
             <v-simple-table>
               <tbody>
@@ -54,15 +53,6 @@
                   </td>
                   <td>{{ legalCase.name}}</td>
                 </tr>
-
-                <!--	<tr>
-									<td><strong>Telefone:</strong></td>
-									<td>{{ legalCase.phone}}</td>
-
-								</tr> -->
-
-
-
                 <tr>
                   <td>
                     <strong>Mensagem:</strong>
@@ -107,7 +97,6 @@
         <!-- <Chat v-if="this.dadosDiligencia.chat != null" :chatId="this.dadosDiligencia.chat.id" :url="this.urlChat"/> -->
 
         <Chat
-
           v-if="this.showChat"
           :chatId="this.chatId"
           :url="this.chatUrl"
@@ -157,7 +146,7 @@ export default {
       this.$store.commit("setVueLoad", true);
       axios
         .post(
-          `${this.$store.getters.api}/api/v1/legal-case/${this.id}/archive`,
+          `${this.$store.getters.api}/api/v1/legal-case/${this.legalCase.uuid}/archive`,
           null,
           {
             headers: {
@@ -167,9 +156,12 @@ export default {
         )
         .then(
           () =>
-            this.$store.dispatch("snackbar_success", "Arquivamento Concluído"),
-          this.$store.commit("setVueLoad", false),
-          (this.dialog = false)
+            {
+              this.$store.dispatch("snackbar_success", "Arquivamento Concluído"),
+              this.$store.commit("setVueLoad", false),
+              (this.dialog = false)
+              this.$router.push({'name': 'home'})
+            }
         )
         .catch(() =>
           this.$store.dispatch(
