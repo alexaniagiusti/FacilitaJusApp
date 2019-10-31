@@ -1,12 +1,13 @@
 export const mutationsPagamento = {
   abre_pagamento(state, payload) {
-    state.pagamento.mostrar = true;
     const items = [...state.pagamento.items, payload.item];
     state.pagamento.items = items;
-    state.pagamento.recipient_user_id = payload.recipient_user_id;
-    state.pagamento.sender_user_id = payload.sender_user_id;
-    state.pagamento.chat_id = payload.chat_id;
-    state.pagamento.diligence_id = payload.diligence_id;
+    state.pagamento.recipient_user_id = payload.recipient_user_id || 'sem';
+    state.pagamento.sender_user_id = payload.sender_user_id || 'sem';
+    state.pagamento.chat_id = payload.chat_id || 'sem';
+    state.pagamento.diligence_id = payload.diligence_id || 'sem';
+    state.pagamento.pode_editar = payload.pode_editar;
+    state.pagamento.mostrar = true;
   },
   fecha_pagamento(state) {
     state.pagamento.mostrar = false;
