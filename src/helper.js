@@ -1,6 +1,12 @@
 import moment from 'moment'
 
 export default class Helper {
+
+  formatReal( n ) {
+      // parseFloat(n)
+      return "R$ " + n.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.");
+  }
+
   firstName(name) {
     let firstName = name.split(' ')
     return firstName[0]

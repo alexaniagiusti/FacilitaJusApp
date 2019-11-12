@@ -1,13 +1,19 @@
+import axios from 'axios'
+
 export const mutationsPagamento = {
   abre_pagamento(state, payload) {
-    state.pagamento.mostrar = true;
     const items = [...state.pagamento.items, payload.item];
+    state.pagamento.type = payload.type
+    state.pagamento.options = payload.options
     state.pagamento.items = items;
-    state.pagamento.recipient_user_id = payload.recipient_user_id;
-    state.pagamento.sender_user_id = payload.sender_user_id;
-    state.pagamento.chat_id = payload.chat_id;
-    state.pagamento.diligence_id = payload.diligence_id;
+    state.pagamento.recipient_user_id = payload.recipient_user_id || 'sem';
+    state.pagamento.sender_user_id = payload.sender_user_id || 'sem';
+    state.pagamento.chat_id = payload.chat_id || 'sem';
+    state.pagamento.diligence_id = payload.diligence_id || 'sem';
+    state.pagamento.pode_editar = payload.pode_editar;
+    state.pagamento.mostrar = true;
   },
+
   fecha_pagamento(state) {
     state.pagamento.mostrar = false;
     (state.pagamento.items = []),
@@ -15,10 +21,12 @@ export const mutationsPagamento = {
       (state.pagamento.sender_user_id = ""),
       (state.pagamento.chat_id = "");
   },
+
   add_item(state, item) {
     const items = [...state.pagamento.items, item];
     state.pagamento.items = items;
   },
+
   altera_valor(state, payload) {
     const itemsAntigos = state.pagamento.items;
     let itemsNovos = [];
@@ -29,7 +37,18 @@ export const mutationsPagamento = {
       itemsNovos.push(item);
     });
     state.pagamento.items = itemsNovos;
-  }
+  },
+
+  change_option(state, payload) {
+    let itensAntigos = state.pagamento.options
+    let novosItens = []
+
+    itensAntigos.map((item, i) => {
+      i === payload.itemIndex ? novosItens.push({ text: item.text, value: payload.newValue }) : novosItens.push(item)
+    })
+
+    state.pagamento.options = novosItens
+  },
 };
 
 export default {};

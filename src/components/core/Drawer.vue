@@ -41,7 +41,6 @@
                 <v-list-item-content>
                   <v-list-item-title class="font-weight-bold">{{ item.type }}</v-list-item-title>
                   <v-list-item-subtitle>{{ item.city }}</v-list-item-subtitle>
-                  <v-list-item-subtitle>#{{ item.uuid }}</v-list-item-subtitle>
                 </v-list-item-content>
                 <v-list-item-actions>
                   <v-btn small color="blue darken-2" class="white--text">Ver</v-btn>
@@ -129,7 +128,7 @@
           INÍCIO
         </v-subheader>-->
 
-        <v-list-item @click="$router.push({'name': 'Usuario'})">
+        <v-list-item class="mt-5" @click="$router.push({'name': 'Usuario'})">
           <v-icon class="mr-5">account_circle</v-icon>
           <v-list-item-content>
             <v-list-item-title class="ml-3">Dados Pessoais</v-list-item-title>
@@ -158,6 +157,11 @@
               <v-list-item-title>Recebidos</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+          <v-list-item class="ml-2" @click="$router.push({'name':'diligenciasArquivadas'})">
+            <v-list-item-content>
+              <v-list-item-title>Arquivados</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
         </v-list-group>
         <v-list-group prepend-icon="gavel" no-action>
           <template v-slot:activator>
@@ -181,9 +185,20 @@
               <v-list-item-title>Recebidos</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+          <v-list-item class="ml-2" @click="$router.push({'name': 'casosJuridicosArquivados'})">
+            <v-list-item-content>
+              <v-list-item-title>Arquivados</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
         </v-list-group>
         <v-divider class="mt-5"></v-divider>
-        <v-list-item class="mt-5" href="https://tawk.to/chat/5d7a8373c22bdd393bb58ff8/default" target="_blank">
+        <v-list-item  id="BtnPremium" class="mt-5" @click="$router.push({'name': 'sejapremium'})">
+          <v-icon class="mr-5" color="yellow darken-3">star</v-icon>
+          <v-list-item-content>
+            <v-list-item-title class="ml-3">Seja Premium</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item href="https://tawk.to/chat/5d7a8373c22bdd393bb58ff8/default" target="_blank">
           <v-icon class="mr-5">message</v-icon>
           <v-list-item-content>
             <v-list-item-title class="ml-3">Fale com o Suporte</v-list-item-title>
@@ -270,9 +285,10 @@ export default {
       console.log("fui chamada");
     },
     sair() {
+      this.$router.push({ name: "login" });
       sessionStorage.clear();
       this.$store.commit("setUser", null);
-      this.$router.push({ name: "login" });
+      location.reload();
     }
   },
   created() {
@@ -305,6 +321,7 @@ export default {
 </script>
 
 <style scoped>
+
 .image {
   opacity: 1;
   display: block;
@@ -363,5 +380,10 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+
+#BtnPremium:hover {
+  background-color: #E6EE9C;
 }
 </style>

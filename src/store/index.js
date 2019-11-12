@@ -1,14 +1,14 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import Vue from "vue";
+import Vuex from "vuex";
 
-import { stateDiligencias } from './modulos/diligencias/state';
-import { actionsDiligencias } from './modulos/diligencias/actions';
-import { mutationsDiligencias } from './modulos/diligencias/mutations';
+import { stateDiligencias } from "./modulos/diligencias/state";
+import { actionsDiligencias } from "./modulos/diligencias/actions";
+import { mutationsDiligencias } from "./modulos/diligencias/mutations";
 
-import { statePagamento } from './modulos/pagamento/state';
-import { actionsPagamento } from './modulos/pagamento/actions';
-import { mutationsPagamento } from './modulos/pagamento/mutations';
-import { gettersPagamento } from './modulos/pagamento/getters';
+import { statePagamento } from "./modulos/pagamento/state";
+import { actionsPagamento } from "./modulos/pagamento/actions";
+import { mutationsPagamento } from "./modulos/pagamento/mutations";
+import { gettersPagamento } from "./modulos/pagamento/getters";
 
 Vue.use(Vuex);
 
@@ -16,52 +16,52 @@ export default new Vuex.Store({
   modules: {
     diligencias: {
       state: {
-        ...stateDiligencias,
+        ...stateDiligencias
       },
       actions: {
-        ...actionsDiligencias,
+        ...actionsDiligencias
       },
       mutations: {
-        ...mutationsDiligencias,
-      },
+        ...mutationsDiligencias
+      }
     },
     // tudo do módulo de pagamento ação -> mutação -> altera state -> serve com getters
     pagamento: {
       state: {
-        ...statePagamento,
+        ...statePagamento
       },
       actions: {
-        ...actionsPagamento,
+        ...actionsPagamento
       },
       mutations: {
-        ...mutationsPagamento,
+        ...mutationsPagamento
       },
       getters: {
-        ...gettersPagamento,
-      },
-    },
+        ...gettersPagamento
+      }
+    }
   },
   state: {
     vueLoad: false,
-    usuario: sessionStorage.getItem('usuario')
-      ? JSON.parse(sessionStorage.getItem('usuario'))
+    usuario: sessionStorage.getItem("usuario")
+      ? JSON.parse(sessionStorage.getItem("usuario"))
       : null,
     snackbar_error: {
       mostrar: false,
-      mensagem: '',
+      mensagem: ""
     },
     snackbar_success: {
       mostrar: false,
-      mensagem: '',
+      mensagem: ""
     },
     snackbar_warning: {
       mostrar: false,
-      mensagem: '',
+      mensagem: ""
     },
     snackbar_info: {
       mostrar: false,
-      mensagem: '',
-    },
+      mensagem: ""
+    }
   },
   mutations: {
     setUser(state, n) {
@@ -73,64 +73,64 @@ export default new Vuex.Store({
     desativa_snackbar(state) {
       state.snackbar_success = {
         mostrar: false,
-        mensagem: '',
+        mensagem: ""
       };
       state.snackbar_error = {
         mostrar: false,
-        mensagem: '',
+        mensagem: ""
       };
       state.snackbar_warning = {
         mostrar: false,
-        mensagem: '',
+        mensagem: ""
       };
       state.snackbar_info = {
         mostrar: false,
-        mensagem: '',
+        mensagem: ""
       };
     },
     snackbar_error(state, mensagem) {
       state.snackbar_error = {
         mostrar: true,
-        mensagem,
+        mensagem
       };
     },
     snackbar_success(state, mensagem) {
       state.snackbar_success = {
         mostrar: true,
-        mensagem,
+        mensagem
       };
     },
     snackbar_warning(state, mensagem) {
       state.snackbar_warning = {
         mostrar: true,
-        mensagem,
+        mensagem
       };
     },
     snackbar_info(state, mensagem) {
       state.snackbar_info = {
         mostrar: true,
-        mensagem,
+        mensagem
       };
-    },
+    }
   },
   actions: {
     desativa_snackbar(state) {
-      state.commit('desativa_snackbar');
+      state.commit("desativa_snackbar");
     },
     // chama a mutation snackbar_error
     snackbar_error(state, mensagem) {
-      state.commit('snackbar_error', mensagem);
+      state.commit("snackbar_error", mensagem);
     },
     // chama a mutation snackbar_success
     snackbar_success(state, mensagem) {
-      state.commit('snackbar_success', mensagem);
+      state.commit("snackbar_success", mensagem);
     },
     snackbar_warning(state, mensagem) {
-      state.commit('snackbar_warning', mensagem);
+      state.commit("snackbar_warning", mensagem);
     },
     snackbar_info(state, mensagem) {
-      state.commit('snackbar_info', mensagem);
-    },
+      state.commit("snackbar_info", mensagem);
+    }
   },
   getters: {
     getUsuario: state => state.usuario,
@@ -149,9 +149,9 @@ export default new Vuex.Store({
     },
     api() {
       // return 'http://facilitajus.api'
-      // return 'https://facilitajus-api.herokuapp.com';
+      return "https://facilitajus-api.herokuapp.com";
       // return 'https://www.api.facilitajus.com'
-      return 'https://api.facilitajus.com.br';
-    },
-  },
+      //return 'https://api.facilitajus.com.br';
+    }
+  }
 });

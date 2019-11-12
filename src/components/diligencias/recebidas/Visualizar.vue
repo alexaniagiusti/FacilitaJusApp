@@ -1,8 +1,28 @@
 <template>
-	<v-layout v-if="mostrarDiligencia">
-		<v-flex>
-			<v-card>
-				<v-card-title>Serviço #{{dadosDiligencia.diligence.id}}</v-card-title>
+  <v-layout v-if="mostrarDiligencia">
+    <v-dialog v-model="dialog" max-width="330">
+      <v-card>
+        <v-card-title class="headline">Deseja realmente arquivar esta diligência?</v-card-title>
+
+        <v-card-text>Clique em "confirmar" para arquivar a diligência ou clique em "cancelar" para interromper esta ação.</v-card-text>
+        <v-card-actions>
+          <div class="flex-grow-1"></div>
+
+          <v-btn color="green darken-1" text @click="arquivar">Confirmar</v-btn>
+
+          <v-btn color="green darken-1" text @click="dialog = false">Cancelar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-flex>
+      <v-card>
+        <v-card-title>
+          Serviço #{{dadosDiligencia.diligence.id}}
+          <v-btn @click="dialog = true" class="ma-3" small color="#D32F2F">
+            <span class="mr-2 white--text">Arquivar</span>
+            <v-icon color="white" size="18">assignment_returned</v-icon>
+          </v-btn>
+        </v-card-title>
         <template>
           <v-simple-table>
             <tbody>
@@ -11,6 +31,12 @@
                   <strong>Tipo:</strong>
                 </td>
                 <td>{{ dadosDiligencia.diligence.service.service }}</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Status:</strong>
+                </td>
+                <td>{{ dadosDiligencia.diligence.status.status }}</td>
               </tr>
               <tr>
                 <td>
@@ -28,11 +54,10 @@
                 <td>{{ dadosDiligencia.diligence.name}}</td>
               </tr>
 
-							<!--<tr>
+              <!--<tr>
 								<td><strong>Telefone:</strong></td>
 								<td>{{ dadosDiligencia.diligence.phone}}</td>
-							</tr> -->
-
+              </tr>-->
 
               <tr>
                 <td>
@@ -65,6 +90,7 @@
           </v-simple-table>
         </template>
       </v-card>
+      <br>
       <Chat
         v-if="this.dadosDiligencia.chat != null"
         :status="this.dadosDiligencia.diligence"
@@ -73,7 +99,6 @@
         :url="this.urlChat"
         origem="diligenciaRecebida"
       />
-
       <Chat
         v-if="this.dadosDiligencia.chat == null"
         :chatId="null"
@@ -101,6 +126,7 @@ export default {
   },
   data() {
     return {
+      dialog: false,
       dadosDiligencia: null,
       mostrarDiligencia: false,
       urlChat: "",
@@ -114,8 +140,7 @@ export default {
         .fromNow();
     },
     dateFilter(val) {
-      const dateFomatted = new Helper().dateFilter(val);
-      return dateFomatted;
+      return moment(val).format("DD/MM/YYYY");
     }
   },
   watch: {
@@ -124,6 +149,35 @@ export default {
     }
   },
   methods: {
+    arquivar() {
+      this.$store.commit("setVueLoad", true);
+      console.log("uid", this.id);
+      axios
+        .post(
+          `${this.$store.getters.api}/api/v1/diligence/${this.dadosDiligencia.uuid}/archive`,
+          null,
+          {
+            headers: {
+              Authorization: `Bearer ${this.$store.getters.getToken}`
+            }
+          }
+        )
+        .then(
+          () =>
+            {
+              this.$store.dispatch("snackbar_success", "Arquivamento Concluído"),
+              this.$store.commit("setVueLoad", false),
+              (this.dialog = false)
+              this.$router.push({'name': 'home'})
+          }
+        )
+        .catch(() =>
+          this.$store.dispatch(
+            "snackbar_error",
+            "Erro ao arquivar, tente novamente"
+          )
+        );
+    },
     getDiligence() {
       this.$store.commit("setVueLoad", true);
       axios

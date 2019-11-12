@@ -1,5 +1,8 @@
 export const statePagamento = {
   pagamento: {
+    pode_editar: false,
+    type: '',
+    options: [],
     mostrar: false,
     items: [],
     recipient_user_id: '',

@@ -4,6 +4,7 @@ import vuetify from './plugins/vuetify';
 import App from './App.vue';
 import router from './router';
 import store from './store/index';
+import Helpers from './helper';
 import './registerServiceWorker';
 
 import '@babel/polyfill';
@@ -13,6 +14,7 @@ import '@mdi/font/css/materialdesignicons.css';
 Vue.use(rtdbPlugin);
 Vue.config.productionTip = false;
 
+Vue.prototype.$helper = new Helpers();
 
 new Vue({
   router,

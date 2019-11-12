@@ -1,7 +1,8 @@
 <template>
 	<v-container fluid>
 		<v-layout column="">
-			<v-card class="pa-3">
+			<v-card outlined>
+				<v-card-text>
 				<v-flex xs12>
 					<v-alert prominent type="warning">
 						<v-row align="center">
@@ -9,7 +10,7 @@
 								Selecione as cidades que você atenderá as suas demandas!
 							</v-col>
 						</v-row>
-            </v-alert>
+            		</v-alert>
 					<v-list pa-0 ma-0>
 						<template v-for="(cidadesAtendidas, index) in itemsSelecionados">
 							<v-list-item @click="" :key="cidadesAtendidas.city">
@@ -62,14 +63,16 @@
 								</v-list>
 							</v-flex>
 						</div>
-						<div class="linhaSemQuebra">
-							<v-btn :disabled="carregandoSalvar" @click="salvar" block color="green" class="white--text mr-2">Salvar
-								<v-icon color="white" size="18" class="ml-1">save</v-icon>
-								<v-progress-circular class="ml-1" indeterminate size="18" color="white"
-									v-if="carregandoSalvar"></v-progress-circular>
-							</v-btn>
-						</div>
+						
 				</v-flex>
+				</v-card-text>
+				<v-card-actions>
+						<v-btn :disabled="carregandoSalvar" @click="salvar" block color="green" class="white--text mr-2">Salvar
+							<v-icon color="white" size="18" class="ml-1">save</v-icon>
+							<v-progress-circular class="ml-1" indeterminate size="18" color="white"
+								v-if="carregandoSalvar"></v-progress-circular>
+						</v-btn>
+				</v-card-actions>
 			</v-card>
 		</v-layout>
 	</v-container>

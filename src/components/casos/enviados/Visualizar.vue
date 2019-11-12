@@ -1,10 +1,31 @@
 <template>
-	<v-container class="geral" fluid>
-		<v-layout column v-if="showLegalCase">
-			<v-flex xs12>
-				<v-card>
-					<v-card-title>Dúvida Jurídica #{{legalCase.id}}</v-card-title>
+  <v-container class="geral" fluid>
+    <v-layout column v-if="showLegalCase">
+      <v-dialog v-model="dialog" max-width="330">
+        <v-card>
+          <v-card-title class="headline">Deseja realmente arquivar esta Dúvida?</v-card-title>
 
+          <v-card-text>Clique em "confirmar" para arquivar a Dúvida ou clique em "cancelar" para interromper esta ação.</v-card-text>
+
+
+          <v-card-actions>
+            <div class="flex-grow-1"></div>
+
+            <v-btn color="green darken-1" text @click="arquivar">Confirmar</v-btn>
+
+            <v-btn color="green darken-1" text @click="dialog = false">Cancelar</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+      <v-flex xs12>
+        <v-card>
+          <v-card-title>
+            Dúvida Jurídica #{{legalCase.id}}
+            <v-btn @click="dialog = true" class="ma-3" small color="#D32F2F">
+              <span class="mr-2 white--text">Arquivar</span>
+              <v-icon color="white" size="18">assignment_returned</v-icon>
+            </v-btn>
+          </v-card-title>
           <template>
             <v-simple-table>
               <tbody>
@@ -32,13 +53,6 @@
                   </td>
                   <td>{{ legalCase.name}}</td>
                 </tr>
-
-							<!--	<tr>
-									<td><strong>Telefone:</strong></td>
-									<td>{{ legalCase.phone}}</td>
-								</tr> -->
-
-
                 <tr>
                   <td>
                     <strong>Mensagem:</strong>
@@ -81,7 +95,8 @@
       </v-flex>
       <v-flex xs12 md9 class="pa-1">
         <!-- <Chat v-if="this.dadosDiligencia.chat != null" :chatId="this.dadosDiligencia.chat.id" :url="this.urlChat"/> -->
-        <Chat 
+
+        <Chat
           v-if="this.showChat"
           :chatId="this.chatId"
           :url="this.chatUrl"
@@ -107,6 +122,7 @@ export default {
   },
   data() {
     return {
+      dialog: false,
       legalCase: "",
       dataChat: "",
       showLegalCase: false,
@@ -126,6 +142,34 @@ export default {
   },
 
   methods: {
+    arquivar() {
+      this.$store.commit("setVueLoad", true);
+      axios
+        .post(
+          `${this.$store.getters.api}/api/v1/legal-case/${this.legalCase.uuid}/archive`,
+          null,
+          {
+            headers: {
+              Authorization: `Bearer ${this.$store.getters.getToken}`
+            }
+          }
+        )
+        .then(
+          () =>
+            {
+              this.$store.dispatch("snackbar_success", "Arquivamento Concluído"),
+              this.$store.commit("setVueLoad", false),
+              (this.dialog = false)
+              this.$router.push({'name': 'home'})
+            }
+        )
+        .catch(() =>
+          this.$store.dispatch(
+            "snackbar_error",
+            "Erro ao arquivar, tente novamente"
+          )
+        );
+    },
     openChat(id) {
       this.showChat = false;
       axios
@@ -161,5 +205,6 @@ export default {
 .geral {
   margin: 0px;
   padding: 0px;
-};
+}
+
 </style>
